@@ -1,127 +1,1028 @@
-/* Reset básico */
+/* Estilos generales para Magia Cafetera */
+:root {
+  --color-primary: #5D4037; /* Marrón café */
+  --color-secondary: #8D6E63; /* Marrón más claro */
+  --color-accent: #A1887F; /* Tono terracota */
+  --color-highlight: #C8E6C9; /* Verde claro (plantas de café) */
+  --color-dark: #3E2723; /* Café oscuro */
+  --color-light: #EFEBE9; /* Beige claro */
+  --color-white: #FFFFFF;
+  --color-text: #212121;
+  --color-text-light: #757575;
+  --font-main: 'Montserrat', sans-serif;
+  --font-headings: 'Poppins', sans-serif;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+  --transition: all 0.3s ease;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.8rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-accent);
+  margin: 0.5rem auto;
+}
+
+h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+button, .btn-reserva, .btn-terminos {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-main);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+button:hover, .btn-reserva:hover, .btn-terminos:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  font-family: var(--font-main);
+  font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(161, 136, 127, 0.2);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+section {
+  padding: 4rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Header y Navegación */
+header {
+  background-color: var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+}
+
+.logo h1 {
+  color: var(--color-white);
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+nav ul {
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  color: var(--color-white);
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+}
+
+nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-highlight);
+}
+
+/* Sección de Inicio */
+#inicio {
+  background-color: var(--color-white);
+}
+
+.banner-principal {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('banner-eje-cafetero.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-white);
+  padding: 0 1rem;
+}
+
+.banner-principal h2 {
+  font-size: 3rem;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner-principal button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  background-color: var(--color-accent);
+}
+
+.buscador {
+  background-color: var(--color-white);
+  max-width: 900px;
+  margin: -3rem auto 3rem;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+}
+
+.buscador form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.campo-busqueda {
+  flex: 1 1 200px;
+}
+
+.buscador label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.buscador button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.video-promocional {
+  max-width: 800px;
+  margin: 3rem auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.video-promocional video {
+  width: 100%;
+  display: block;
+}
+
+.disena-viaje {
+  background-color: var(--color-light);
+  padding: 3rem;
+  border-radius: var(--radius);
+  max-width: 1000px;
+  margin: 0 auto 3rem;
+}
+
+.opciones-personalizacion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.opcion {
+  flex: 1 1 200px;
+}
+
+.botones-accion {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Sección de Destinos */
+#destinos {
+  background-color: var(--color-light);
+}
+
+.filtros-destinos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 1.5rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.filtro {
+  flex: 1 1 200px;
+}
+
+.lista-destinos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.destino {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.destino:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.1);
+}
+
+.destino h3 {
+  padding: 1.5rem 1.5rem 0;
+}
+
+.destino p {
+  padding: 0 1.5rem 1.5rem;
+  color: var(--color-text-light);
+}
+
+.destino-fotos {
+  height: 200px;
+  overflow: hidden;
+}
+
+.destino-fotos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.destino:hover .destino-fotos img {
+  transform: scale(1.05);
+}
+
+.destino button {
+  margin: 0 1.5rem 1.5rem;
+  width: calc(100% - 3rem);
+}
+
+.destino button:first-of-type {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.destino button:first-of-type:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.mapa-interactivo {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+}
+
+#mapa-google {
+  height: 400px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* Sección Planificador */
+#planificador {
+  background-color: var(--color-white);
+}
+
+.pasos-planificador {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.paso {
+  background-color: var(--color-light);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.paso h3 {
+  color: var(--color-dark);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-clima, .eventos-especiales {
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+}
+
+.botones-navegacion {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.resumen-viaje {
+  background-color: var(--color-white);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+}
+
+.resumen-viaje ul {
+  list-style: none;
+}
+
+.resumen-viaje li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #ddd;
+}
+
+.codigo-qr {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+#qr-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: #f0f0f0;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+}
+
+.opciones-envio, .compartir {
+  margin: 1.5rem 0;
+}
+
+/* Sección de Paquetes */
+#paquetes {
+  background-color: var(--color-light);
+}
+
+.como-funciona {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.lista-paquetes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.paquete {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.paquete:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.1);
+}
+
+.paquete h3 {
+  color: var(--color-dark);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.actividades {
+  margin-bottom: 1.5rem;
+}
+
+.actividades ul {
+  margin-top: 1rem;
+}
+
+.actividades li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.actividades label {
+  margin-left: 0.5rem;
+}
+
+.precio {
+  background-color: var(--color-light);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+}
+
+.precio .monto {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.precio .descuento {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.paquete button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.paquete button.modificar {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.paquete button.modificar:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.comparador-precios {
+  max-width: 800px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.comparador-precios table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.comparador-precios th, .comparador-precios td {
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.comparador-precios th {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.comparador-precios tr:nth-child(even) {
+  background-color: var(--color-light);
+}
+
+/* Sección de Blog */
+#blog {
+  background-color: var(--color-white);
+}
+
+.articulos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.articulo {
+  background-color: var(--color-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.articulo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.1);
+}
+
+.articulo h3 {
+  padding: 1.5rem 1.5rem 0;
+  font-size: 1.3rem;
+}
+
+.articulo p {
+  padding: 0.5rem 1.5rem 1.5rem;
+  color: var(--color-text-light);
+}
+
+.articulo button {
+  margin: 0 1.5rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.articulo button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.galeria {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.contenedor-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.contenedor-galeria img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.contenedor-galeria img:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow);
+}
+
+/* Sección de Opiniones */
+#opiniones {
+  background-color: var(--color-light);
+}
+
+.testimonios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.testimonio {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.testimonio::before {
+  content: """;
+  font-size: 5rem;
+  color: var(--color-accent);
+  opacity: 0.2;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-family: serif;
+}
+
+.testimonio p {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.autor {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.estrellas {
+  color: #FFD700;
+  margin-top: 0.5rem;
+}
+
+.calificacion {
+  max-width: 600px;
+  margin: 3rem auto 0;
+  padding: 2rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Sección de Reservas */
+#reservas {
+  background-color: var(--color-white);
+}
+
+.formulario-reserva {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--color-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.metodos-pago, .opciones-cuotas {
+  margin: 1.5rem 0;
+}
+
+.metodos-pago div {
+  margin-bottom: 0.5rem;
+}
+
+.btn-reserva {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background-color: #4CAF50;
+  margin-top: 1.5rem;
+}
+
+.btn-reserva:hover {
+  background-color: #45a049;
+}
+
+.soporte-reserva {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Sección de Contacto */
+#contacto {
+  background-color: var(--color-light);
+}
+
+.info-contacto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.info-contacto > div {
+  text-align: center;
+}
+
+.iconos-redes {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.iconos-redes a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--radius);
+}
+
+.iconos-redes a:hover {
+  background-color: var(--color-secondary);
+}
+
+.formulario-contacto {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.chat-vivo {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.chat-vivo button {
+  background-color: #4CAF50;
+  padding: 1rem 2rem;
+}
+
+.chat-vivo button:hover {
+  background-color: #45a049;
+}
+
+/* Sección de Políticas */
+#politicas {
+  background-color: var(--color-white);
+}
+
+.politica-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.politica {
+  background-color: var(--color-light);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.terminos-completos {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.btn-terminos {
+  display: inline-block;
+}
+
+/* Footer */
+footer {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 3rem 0 1rem;
+}
+
+.footer-contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.footer-logo h2 {
+  color: var(--color-white);
+}
+
+.footer-navegacion ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-navegacion ul li a {
+  color: var(--color-light);
+}
+
+.footer-navegacion ul li a:hover {
+  color: var(--color-white);
+}
+
+.footer-contacto p {
+  margin-bottom: 0.5rem;
+}
+
+.footer-newsletter form {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.footer-newsletter input {
+  flex: 1;
+  margin-bottom: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.footer-newsletter button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+.footer-derechos {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos Responsivos */
+@media (max-width: 992px) {
+  nav {
+      flex-direction: column;
+      padding: 1rem;
   }
   
-  body {
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    background-color: #f9f9f9;
+  nav ul {
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
   }
   
-  /* Banner Principal */
-  header.banner {
-    position: relative;
-    height: 80vh;
-    background: url('banner.jpg') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .banner-principal h2 {
+      font-size: 2.5rem;
   }
   
-  header.banner .overlay {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 40px;
-    text-align: center;
-    border-radius: 8px;
+  .buscador {
+      margin-top: -2rem;
   }
-  
-  header.banner h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: #fff;
-    margin-bottom: 20px;
-  }
-  
-  /* Botones */
-  .btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #c59d5f;  /* Tonalidad elegante */
-    color: #fff;
-    text-decoration: none;
-    border-radius: 30px;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #a67c47;
-  }
-  
-  /* Secciones generales */
+}
+
+@media (max-width: 768px) {
   section {
-    padding: 60px 20px;
-    text-align: center;
+      padding: 3rem 0;
   }
   
-  section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: #444;
+  h2 {
+      font-size: 1.8rem;
   }
   
-  /* Formularios */
-  form {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
+  .banner-principal {
+      height: 60vh;
   }
   
-  .form-group {
-    margin-bottom: 20px;
+  .banner-principal h2 {
+      font-size: 2rem;
   }
   
-  .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
+  .buscador {
+      margin-top: -1.5rem;
+      padding: 1.5rem;
   }
   
-  .form-group input[type="date"],
-  .form-group select,
-  .form-group input[type="range"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  .botones-accion {
+      flex-direction: column;
   }
   
-  /* Opciones y controles */
-  .options {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+  .botones-navegacion {
+      flex-direction: column;
+      gap: 1rem;
   }
   
-  .options label {
-    font-weight: normal;
+  .codigo-qr {
+      margin: 1.5rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  nav ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
   }
   
-  /* Video Promocional */
-  .video video {
-    width: 100%;
-    max-width: 800px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  .banner-principal h2 {
+      font-size: 1.5rem;
   }
   
-  /* Botón de grupo en Personalización */
-  .btn-group {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  .buscador {
+      margin-top: 0;
+      border-radius: 0;
   }
   
-  /* Footer */
-  footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+  .disena-viaje {
+      padding: 1.5rem;
   }
   
+  .paso {
+      padding: 1.5rem;
+  }
+  
+  .comparador-precios {
+      overflow-x: auto;
+  }
+  
+  .footer-newsletter form {
+      flex-direction: column;
+  }
+  
+  .footer-newsletter input {
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+  }
+  
+  .footer-newsletter button {
+      border-radius: var(--radius);
+  }
+}
+
+/* Animaciones y Efectos */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.destino, .paquete, .articulo, .testimonio {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Personalización de webkit scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Estilos para focus accesibilidad */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
