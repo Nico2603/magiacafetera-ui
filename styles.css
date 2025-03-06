@@ -164,7 +164,7 @@ nav ul li a {
   font-weight: 500;
   padding: 0.5rem;
   border-radius: var(--radius);
-  font-size: 0.8rem;
+  font-size: 1 rem;
 
 }
 
@@ -179,9 +179,17 @@ nav ul li a:hover {
 }
 
 .banner-principal {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('img/banner-eje-cafetero.jpg');
+  /* Degradado con un color café semitransparente */
+  background-image: linear-gradient(
+      to bottom,
+      rgba(93, 64, 55, 0.5),  /* Marrón café semitransparente */
+      rgba(93, 64, 55, 0.7)   /* Un poco más opaco hacia abajo */
+    ),
+    url('img/banner-eje-cafetero.jpg');
+    
   background-size: cover;
   background-position: center;
+  background-blend-mode: overlay; /* Mezcla el degradado con la imagen */
   height: 80vh;
   display: flex;
   flex-direction: column;
