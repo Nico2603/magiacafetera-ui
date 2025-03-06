@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eje Cafetero - Personaliza tu viaje</title>
+  <!-- Fuentes elegantes -->
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Roboto:300,400" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Banner Principal -->
+  <header class="banner">
+    <div class="overlay">
+      <h1>Eje Cafetero</h1>
+      <a href="#personaliza" class="btn">Personaliza tu viaje</a>
+    </div>
+  </header>
+
+  <!-- Buscador -->
+  <section class="buscador">
+    <h2>Buscador</h2>
+    <form>
+      <div class="form-group">
+        <label for="destino">¿A dónde quieres ir?</label>
+        <select id="destino" name="destino">
+          <option value="parque-del-cafe">Parque del Café</option>
+          <option value="salento">Salento</option>
+          <option value="panaca">Panaca</option>
+          <option value="consolta">Consotá</option>
+          <option value="ukumari">Ukumarí</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="fecha">¿Cuándo viajas?</label>
+        <input type="date" id="fecha" name="fecha">
+      </div>
+      <div class="form-group">
+        <label for="acompanamiento">¿Con quién viajas?</label>
+        <select id="acompanamiento" name="acompanamiento">
+          <option value="solo">Solo</option>
+          <option value="pareja">Pareja</option>
+          <option value="familia">Familia</option>
+          <option value="grupo">Grupo</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Buscar</button>
+    </form>
+  </section>
+
+  <!-- Video Promocional -->
+  <section class="video">
+    <h2>Video Promocional</h2>
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Tu navegador no soporta el elemento de video.
+    </video>
+  </section>
+
+  <!-- Diseña tu propio viaje -->
+  <section class="disena-viaje">
+    <h2>Diseña tu propio viaje</h2>
+    <form>
+      <div class="form-group">
+        <label>Transporte</label>
+        <div class="options">
+          <label><input type="radio" name="transporte" value="privado"> Privado</label>
+          <label><input type="radio" name="transporte" value="compartido"> Compartido</label>
+          <label><input type="radio" name="transporte" value="chiva"> Chiva</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Alimentación</label>
+        <div class="options">
+          <label><input type="radio" name="alimentacion" value="tipico"> Menú Típico</label>
+          <label><input type="radio" name="alimentacion" value="vegetariano"> Vegetariano</label>
+          <label><input type="radio" name="alimentacion" value="gourmet"> Gourmet</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Guía turístico</label>
+        <div class="options">
+          <label><input type="checkbox" name="guia" value="si"> Agregar guía</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Horarios flexibles</label>
+        <div class="options">
+          <label><input type="checkbox" name="horarios" value="flexible"> Sí, horarios flexibles</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Línea de tiempo</label>
+        <input type="range" name="linea-de-tiempo" min="0" max="100" value="50">
+      </div>
+      <div class="form-group">
+        <label>Servicios especiales</label>
+        <div class="options">
+          <label><input type="checkbox" name="servicios" value="fotografia"> Fotografía</label>
+          <label><input type="checkbox" name="servicios" value="exclusivas"> Experiencias exclusivas</label>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Personalización -->
+  <section class="personalizacion" id="personaliza">
+    <h2>Personalización</h2>
+    <div class="btn-group">
+      <a href="#" class="btn">Reserva Ahora</a>
+      <a href="#" class="btn">Cotiza tu viaje</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Eje Cafetero. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
