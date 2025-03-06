@@ -150,7 +150,7 @@ nav {
 
 .logo h1 {
   color: var(--color-white);
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   margin: 0;
 }
 
@@ -164,6 +164,8 @@ nav ul li a {
   font-weight: 500;
   padding: 0.5rem;
   border-radius: var(--radius);
+  font-size: 0.8rem; /* Ajusta este valor según prefieras */
+
 }
 
 nav ul li a:hover {
