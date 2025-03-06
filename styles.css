@@ -164,7 +164,7 @@ nav ul li a {
   font-weight: 500;
   padding: 0.5rem;
   border-radius: var(--radius);
-  font-size: 0.8rem; /* Ajusta este valor según prefieras */
+  font-size: 0.8rem;
 
 }
 
@@ -179,7 +179,7 @@ nav ul li a:hover {
 }
 
 .banner-principal {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('banner-eje-cafetero.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('img/banner-eje-cafetero.jpg');
   background-size: cover;
   background-position: center;
   height: 80vh;
