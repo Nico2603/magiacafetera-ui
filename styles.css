@@ -9,8 +9,8 @@
   --color-white: #FFFFFF;
   --color-text: #212121;
   --color-text-light: #757575;
-  --font-main: 'Montserrat', sans-serif;
-  --font-headings: 'Poppins', sans-serif;
+  --font-main: 'Lato', sans-serif;
+  --font-headings: 'Cinzel', serif;
   --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --radius: 8px;
   --transition: all 0.3s ease;
@@ -28,6 +28,7 @@ html {
 
 body {
   font-family: var(--font-main);
+  font-size: 1.1rem;
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-light);
