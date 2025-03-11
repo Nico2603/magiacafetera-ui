@@ -47,7 +47,7 @@
                     <select id="destino" name="destino">
                         <option value="">Selecciona un destino</option>
                         <option value="parque-cafe">Parque del Café</option>
-                        <option value="salento">Salento</option>
+                        <!--<option value="salento">Salento y Valle de Cocora</option> -->
                         <option value="panaca">Panaca</option>
                         <option value="consota">Consotá</option>
                         <option value="ukumari">Ukumarí</option>
@@ -158,7 +158,7 @@
     
         <!-- Lista de destinos con botones que abren modales -->
         <div class="lista-destinos">
-    
+
         <!-- PARQUE DEL CAFÉ -->
         <div class="destino">
             <h3>Parque del Café</h3>
@@ -170,8 +170,8 @@
             <button type="button" data-toggle="modal" data-target="#modalParqueCafe">Ver detalles</button>
             <button>Personalizar visita</button>
         </div>
-    
-        <!-- SALENTO Y VALLE DE COCORA -->
+
+        <!-- SALENTO Y VALLE DE COCORA 
         <div class="destino">
             <h3>Salento y Valle de Cocora</h3>
             <p>Paisajes y tradición.</p>
@@ -180,8 +180,8 @@
             </div>
             <button type="button" data-toggle="modal" data-target="#modalSalento">Ver detalles</button>
             <button>Personalizar visita</button>
-        </div>
-    
+        </div>-->
+
         <!-- PANACA -->
         <div class="destino">
             <h3>Panaca</h3>
@@ -223,7 +223,7 @@
         <iframe
             src="https://www.google.com/maps/d/u/6/embed?mid=1eEBOy7XQDJyDZAYCoBTc8GOiJ9xfXms&ehbc=2E312F"
             width="100%"
-            height="900"
+            height="600"
             style="border:0;"
             allowfullscreen=""
             loading="lazy">
@@ -691,232 +691,1285 @@
         </div>
     </div>
     
+    <!--
+            2. Modal SALENTO Y VALLE DE COCORA
+            <div class="modal fade" id="modalSalento" tabindex="-1" role="dialog" aria-labelledby="modalSalentoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSalentoLabel">Salento y Valle de Cocora</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Estructura similar: Descripción, Horarios, etc.
+                    <h6>Descripción</h6>
+                    <p>
+                    Salento es uno de los municipios más antiguos del Quindío, famoso por su arquitectura colorida y por ser la puerta de entrada al Valle de Cocora, hogar de la Palma de Cera (árbol nacional de Colombia).
+                    </p>
+                    <h6>Horarios / Mejor época</h6>
+                    <p>El Valle de Cocora se puede visitar todos los días desde temprano en la mañana hasta la tarde (no hay horario estricto, pero se recomienda llegar antes de las 3:00 PM para evitar niebla).</p>
+                    <h6>Ubicación</h6>
+                    <p>A 25 km de Armenia (aprox. 45 min en carro particular). El Valle de Cocora está a 11 km del casco urbano de Salento.</p>
+                    <h6>Actividades principales</h6>
+                    <ul>
+                    <li>Senderismo por el Valle de Cocora</li>
+                    <li>Visita a fincas cafetaleras cercanas</li>
+                    <li>Recorrido por el pueblo de Salento (mirador, artesanías)</li>
+                    </ul>
+                    <h6>Gastronomía</h6>
+                    <p>Destaca la “trucha al ajillo” y la comida típica andina. Numerosos restaurantes en el centro de Salento.</p>
+                    <h6>Transporte</h6>
+                    <p>Bus público desde Armenia (aprox. 1h). Jeep Willys desde Salento al Valle de Cocora (15-20 min).</p>
+                    <h6>Línea de tiempo sugerida</h6>
+                    <ul>
+                    <li>07:00 AM: Salida de Armenia</li>
+                    <li>08:00 AM: Llegada a Salento, desayuno y recorrido por el pueblo</li>
+                    <li>10:00 AM: Viaje en Jeep al Valle de Cocora, senderismo</li>
+                    <li>01:00 PM: Almuerzo (trucha típica)</li>
+                    <li>03:00 PM: Regreso a Salento / Café en la plaza principal</li>
+                    </ul>
+                    <p class="mt-3">Más info en <a href="https://www.quindio.gov.co/turismo/salento" target="_blank">Sitio oficial</a>.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+                </div>
+            </div>
+            </div>
+    -->
     
-        <!-- 2. Modal SALENTO Y VALLE DE COCORA -->
-        <div class="modal fade" id="modalSalento" tabindex="-1" role="dialog" aria-labelledby="modalSalentoLabel" aria-hidden="true">
+    <!-- 3. Modal PANACA -->
+    <div class="modal fade" id="modalPanaca" tabindex="-1" role="dialog" aria-labelledby="modalPanacaLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalSalentoLabel">Salento y Valle de Cocora</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <h5 class="modal-title" id="modalPanacaLabel">Panaca</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
-                </button>
+            </button>
             </div>
             <div class="modal-body">
-                <!-- Estructura similar: Descripción, Horarios, etc. -->
-                <h6>Descripción</h6>
-                <p>
-                Salento es uno de los municipios más antiguos del Quindío, famoso por su arquitectura colorida y por ser la puerta de entrada al Valle de Cocora, hogar de la Palma de Cera (árbol nacional de Colombia).
-                </p>
-                <h6>Horarios / Mejor época</h6>
-                <p>El Valle de Cocora se puede visitar todos los días desde temprano en la mañana hasta la tarde (no hay horario estricto, pero se recomienda llegar antes de las 3:00 PM para evitar niebla).</p>
-                <h6>Ubicación</h6>
-                <p>A 25 km de Armenia (aprox. 45 min en carro particular). El Valle de Cocora está a 11 km del casco urbano de Salento.</p>
-                <h6>Actividades principales</h6>
-                <ul>
-                <li>Senderismo por el Valle de Cocora</li>
-                <li>Visita a fincas cafetaleras cercanas</li>
-                <li>Recorrido por el pueblo de Salento (mirador, artesanías)</li>
-                </ul>
-                <h6>Gastronomía</h6>
-                <p>Destaca la “trucha al ajillo” y la comida típica andina. Numerosos restaurantes en el centro de Salento.</p>
-                <h6>Transporte</h6>
-                <p>Bus público desde Armenia (aprox. 1h). Jeep Willys desde Salento al Valle de Cocora (15-20 min).</p>
-                <h6>Línea de tiempo sugerida</h6>
-                <ul>
-                <li>07:00 AM: Salida de Armenia</li>
-                <li>08:00 AM: Llegada a Salento, desayuno y recorrido por el pueblo</li>
-                <li>10:00 AM: Viaje en Jeep al Valle de Cocora, senderismo</li>
-                <li>01:00 PM: Almuerzo (trucha típica)</li>
-                <li>03:00 PM: Regreso a Salento / Café en la plaza principal</li>
-                </ul>
-                <p class="mt-3">Más info en <a href="https://www.quindio.gov.co/turismo/salento" target="_blank">Sitio oficial</a>.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-            </div>
-        </div>
-        </div>
+            
+            <!-- DESCRIPCIÓN -->
+            <h6>Descripción</h6>
+            <p>
+                Desde 1999 Panaca es el primer parque temático agropecuario del mundo, 
+                queriendo expresar nuevas maneras de vivir en base a sus filosofías fundacionales. 
+                Su icónica cultura agropecuaria y su misión de “diversión con propósito” 
+                están pensadas para ofrecer educación y entretenimiento a visitantes de todas las edades. 
+                Buscan transformar el campo a través de la educación campesina.
+            </p>
+            
+            <!-- HORARIOS -->
+            <h6>Horarios</h6>
+            <p>
+                De martes a domingo de 9:00 a.m. a 4:30 p.m. (servicio de ingreso en general). 
+                Cuando el lunes es festivo, abren ese día en el mismo horario y descansan el martes. 
+                En temporadas altas se abre todos los días. 
+                <br>Consulta en su calendario los días de apertura y cierre.
+            </p>
+            
+            <!-- UBICACIÓN -->
+            <h6>Ubicación</h6>
+            <p>
+                Km 7, Vía A Panaca, Quimbaya, Quindío 
+                <br><em>Mapa interactivo - (archivo pdf)</em>
+            </p>
+            
+            <!-- PRECIOS -->
+            <h6>Precios</h6>
+            <p>
+                <strong>Adultos</strong><br>
+                &bull; Pasaporte Campo - $170.000 <br>
+                &bull; Pasaporte Terra - $110.000 <br>
+                &bull; Travesía Noche - $60.000
+            </p>
+            <p>
+                <strong>Niños</strong><br>
+                &bull; Pasaporte Campo Niño - $119.000 <br>
+                &bull; Pasaporte Terra Niño - $77.000 <br>
+                &bull; Travesía Noche - $60.000
+            </p>
+            <p>
+                Más info en 
+                <a href="https://panaca.co/pages/compra-ahora" target="_blank">
+                https://panaca.co/pages/compra-ahora
+                </a>
+            </p>
+            
+            <!-- GASTRONOMÍA -->
+            <h6>Gastronomía</h6>
+            <p>
+                Panaca ofrece múltiples restaurantes y puntos de comida. A continuación, 
+                se muestra un resumen de cada uno con sus menús y precios destacados.
+            </p>
     
-        <!-- 3. Modal PANACA -->
-        <div class="modal fade" id="modalPanaca" tabindex="-1" role="dialog" aria-labelledby="modalPanacaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalPanacaLabel">Panaca</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Info Panaca -->
-                <h6>Descripción</h6>
-                <p>
-                Panaca, inaugurado en 1999, es el primer parque temático agropecuario del mundo, con énfasis en la interacción con animales de granja y la educación sobre la vida en el campo.
-                </p>
-                <h6>Horarios</h6>
-                <p>Martes a domingo, 09:00 a 16:30. Temporada alta: todos los días. Lunes festivos abre; cierra el martes siguiente.</p>
-                <h6>Ubicación</h6>
-                <p>Km 7, Vía A Panaca, Quimbaya, Quindío. Aproximadamente a 1h15 de Pereira.</p>
-                <h6>Actividades principales</h6>
-                <ul>
-                <li>Exhibiciones agropecuarias (caballos, cerdos, vacas)</li>
-                <li>Shows de perros y aves</li>
-                <li>Talleres de ordeño, granja interactiva</li>
-                </ul>
-                <h6>Precios</h6>
-                <p>
-                Pasaporte Campo: $170.000 (adultos), $119.000 (niños)<br>
-                Pasaporte Terra: $110.000 (adultos), $77.000 (niños)<br>
-                Más info en <a href="https://panaca.co/pages/compra-ahora" target="_blank">compra oficial</a>.
-                </p>
-                <h6>Gastronomía</h6>
-                <p>
-                Diversos restaurantes dentro del parque: El Establo, El pollo que da vueltas, Mercado Panaca, etc. Ofrecen comida típica, pollo a la brasa, arepas, etc.
-                </p>
-                <h6>Transporte</h6>
-                <p>Carro particular desde Pereira/Armenia o bus a Quimbaya + jeep/taxi a Panaca.</p>
-                <h6>Línea de tiempo sugerida</h6>
-                <ul>
-                <li>09:00 AM: Ingreso y visita a la zona de animales de granja</li>
-                <li>11:00 AM: Show de caballos</li>
-                <li>12:30 PM: Almuerzo en El Establo</li>
-                <li>02:00 PM: Show de perros y aves</li>
-                <li>03:30 PM: Actividades interactivas / Talleres</li>
-                </ul>
-                <p class="mt-3">Más info en <a href="https://panaca.co/" target="_blank">Sitio oficial de Panaca</a>.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-            </div>
-        </div>
-        </div>
-    
-        <!-- 4. Modal PARQUE CONSOTÁ -->
-        <div class="modal fade" id="modalConsota" tabindex="-1" role="dialog" aria-labelledby="modalConsotaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalConsotaLabel">Parque Consotá</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Info Consotá -->
-                <h6>Descripción</h6>
-                <p>
-                El Parque Consotá, administrado por Comfamiliar Risaralda, ofrece múltiples atracciones recreativas, educativas y culturales. Ideal para familias, cuenta con piscinas, granja de Noé, senderos temáticos y alojamiento.
-                </p>
-                <h6>Horarios</h6>
-                <p>Abierto todos los días (varía según temporada). Revisar <a href="https://consota.comfamiliar.com/" target="_blank">web oficial</a> para eventos especiales.</p>
-                <h6>Ubicación</h6>
-                <p>Km 11 vía Pereira – Cerritos, sector Galicia. Aproximadamente 20-30 min desde Pereira en carro.</p>
-                <h6>Actividades principales</h6>
-                <ul>
-                <li>Piscina de olas y piscinas infantiles</li>
-                <li>Granja de Noé (interacción con animales)</li>
-                <li>Sendero de la Memoria Indígena, Mitos y Leyendas</li>
-                <li>Lagos de pesca, bolera, canchas deportivas</li>
-                </ul>
-                <h6>Alojamiento (opcional)</h6>
-                <table class="table table-bordered">
+            <!-- 1. Mercado Panaca -->
+            <h6 class="mt-4">Mercado Panaca</h6>
+            <table class="table table-bordered">
                 <thead>
-                    <tr>
-                    <th>Tipo</th>
-                    <th>Capacidad</th>
-                    <th>Tarifa (aprox.)</th>
-                    </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Comidas rápidas</th>
+                    <th>Dulces típicos</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>Cabaña Familiar</td>
-                    <td>5 personas</td>
-                    <td>$470.000 - $839.800 (según categoría)</td>
-                    </tr>
-                    <tr>
-                    <td>Hotel Chapola (hab. 2p)</td>
-                    <td>2 personas</td>
-                    <td>$155.100 - $267.700</td>
-                    </tr>
-                    <!-- Agrega más según tu documento -->
+                <tr>
+                    <td>
+                    Ofrece una variedad de bebidas, comidas rápidas y gran variedad de arequipe.
+                    </td>
+                    <td>
+                    - Granizado de café ($8.000)<br>
+                    - Café americano 7 onz ($5.000) / 9 onz ($6.000)<br>
+                    - Café latte 7 onz ($5.000) / 9 onz ($6.000)<br>
+                    - Café filtrado 7 onz ($4.000) / 9 onz ($5.000)<br>
+                    - Café expreso ($6.000), Capuchino 7 onz ($6.000) / 9 onz ($7.000)<br>
+                    - Chocolate ($6.000), Vaso de milo ($10.000)<br>
+                    - Jugo natural en agua ($8.000) / en leche ($9.000)<br>
+                    - Botella de agua / con gas ($5.000)<br>
+                    - Cerveza en lata ($6.000)<br>
+                    - Yogurt x 225 ($8.000), Kumis x 225 ($8.000)
+                    </td>
+                    <td>
+                    - Pastel de carne / pollo ($8.000)<br>
+                    - Pastel gloria ($5.000), Pandequeso ($5.000)<br>
+                    - Empanadas ($4.000), Almojabana ($5.000)<br>
+                    - Palito de queso ($5.000), Torta ($8.000)<br>
+                    - Porción torta de chocolate ($8.000)
+                    </td>
+                    <td>
+                    - Cortado x 125g ($9.000) / 250g ($14.100)<br>
+                    - Arequipe x 125g ($9.000) / 250g ($12.000) / 500g ($16.000)
+                    </td>
+                </tr>
                 </tbody>
-                </table>
-                <h6>Transporte</h6>
-                <p>
-                Carro particular: Av. 30 de Agosto → Cerritos (20-30 min).<br>
-                Bus: Expreso Trejos / Villa Verde desde Terminal de Pereira a Galicia.
-                </p>
-                <h6>Línea de tiempo sugerida</h6>
-                <ul>
-                <li>10:00 AM: Llegada y recorrido inicial</li>
-                <li>11:00 AM: Piscina de olas / Zona acuática</li>
-                <li>01:00 PM: Almuerzo en restaurante Zasonao o Montañerito</li>
-                <li>02:30 PM: Visita Granja de Noé / Senderos culturales</li>
-                <li>04:30 PM: Bolera o canchas deportivas</li>
-                </ul>
-                <p class="mt-3">Más info en <a href="https://consota.comfamiliar.com/" target="_blank">Sitio oficial de Consotá</a>.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-            </div>
-        </div>
-        </div>
+            </table>
     
-        <!-- 5. Modal BIOPARQUE UKUMARÍ -->
-        <div class="modal fade" id="modalUkumari" tabindex="-1" role="dialog" aria-labelledby="modalUkumariLabel" aria-hidden="true">
+            <!-- 2. El Establo -->
+            <h6 class="mt-4">El Establo</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Proteínas</th>
+                    <th>Bebidas</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un almuerzo en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerdo a la plancha ($35.000)<br>
+                    - Filete de pollo ($30.000)<br>
+                    - Trucha ($30.000)<br>
+                    - Trío de carnes ($35.000)
+                    </td>
+                    <td>
+                    - Mazamorra ($8.000)<br>
+                    - Botella de agua / con gas ($5.000)<br>
+                    - Jugo de dispensador ($5.000)
+                    </td>
+                    <td>
+                    - Menú vegetariano ($27.000)<br>
+                    - Porción de sopa ($8.000)<br>
+                    - Porción de ensalada ($8.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 3. El pollo que da vueltas -->
+            <h6 class="mt-4">El pollo que da vueltas</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Pollo</th>
+                    <th>Bebidas</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un almuerzo en familia o con amigos.
+                    </td>
+                    <td>
+                    - Pollo entero ($55.000)<br>
+                    - Medio pollo ($30.000)<br>
+                    - Un cuarto de pollo ($17.000)
+                    </td>
+                    <td>
+                    - Jugo de dispensador ($5.000)<br>
+                    - Botella de agua / con gas ($5.000)<br>
+                    - Mazamorra ($8.000)
+                    </td>
+                    <td>
+                    - Menú del día ($30.000)<br>
+                    - Porción de ensalada / sopa / papa vapor / papa francesa ($8.000 c/u)<br>
+                    - Porción de arepa frita ($7.000)<br>
+                    - Porción de arroz ($6.000)<br>
+                    - Porción de plátano ($8.000)<br>
+                    - Menú ¼ ($35.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 4. Lácteos ganadería -->
+            <h6 class="mt-4">Lácteos ganadería</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Comidas rápidas</th>
+                    <th>Snacks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un refrigerio en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Granizados ($7.000), Yogurt x 225 ($8.000), Café filtrado 7 onz ($4.000)
+                    </td>
+                    <td>
+                    - Marranitas ($3.000), Empanadas ($4.000)<br>
+                    - Pastel de carne / pollo ($8.000), Pastel gloria ($5.000)<br>
+                    - Palito de queso / Almojabana ($5.000)
+                    </td>
+                    <td>
+                    - Crispetas cono ($6.000)<br>
+                    - Oblea sencilla ($6.000)<br>
+                    - Chicharrones de dulce ($5.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 5. Heladería especies -->
+            <h6 class="mt-4">Heladería especies</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Helados</th>
+                    <th>Snacks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un refrigerio en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Café filtrado 7 onz ($4.000)<br>
+                    - Jugo natural en agua ($8.000) / en leche ($9.000)<br>
+                    - Jugo 12 onz ($5.000)
+                    </td>
+                    <td>
+                    - Helados Panaca ($7.000)
+                    </td>
+                    <td>
+                    - Empanadas ($4.000)<br>
+                    - Torta mini paquete ($7.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 6. Rosario -->
+            <h6 class="mt-4">Rosario</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Comidas</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un almuerzo en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Jugo de dispensador ($5.000)
+                    </td>
+                    <td>
+                    - Trío de carnes ($35.000)<br>
+                    - Sancocho espinazo ($35.000)<br>
+                    - Menú de pollo pierna pernil ($35.000)
+                    </td>
+                    <td>
+                    - Porción de arroz ($6.000)<br>
+                    - Porción de sopa ($8.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 7. Porcy -->
+            <h6 class="mt-4">Porcy</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Proteínas</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un almuerzo en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Jugo de dispensador ($5.000)
+                    </td>
+                    <td>
+                    - Costillas BBQ ($55.000), Chuletón de cerdo ($40.000)<br>
+                    - Solomito de res ($55.000), Cerdo a la parrilla ($33.000)<br>
+                    - Pechuga de pollo ($33.000), Chuzo de cerdo / pollo ($22.000)<br>
+                    - Picada para dos ($60.000)
+                    </td>
+                    <td>
+                    - Porción de chorizo ($15.000)<br>
+                    - Caldo de costilla ($10.000)<br>
+                    - Porción de ensalada ($8.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 8. Sabor tropical -->
+            <h6 class="mt-4">Sabor tropical</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Snacks</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un refrigerio en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Limonada natural ($8.000), Jugo natural en agua / leche ($8.000 - $9.000)<br>
+                    - Malteadas ($10.000), Vaso de milo ($10.000), Vaso de leche ($8.000)
+                    </td>
+                    <td>
+                    - Salpicón sencillo ($11.000) / con helado ($12.000)<br>
+                    - Ensalada de frutas sencilla ($15.000) / con helado ($17.000)<br>
+                    - Porción de fruta ($9.000), Vaso de helado ($9.000)<br>
+                    - Lulada / Patillazo ($11.000)
+                    </td>
+                    <td>
+                    - Lecherita ($6.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 9. Heladería caninos -->
+            <h6 class="mt-4">Heladería caninos</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Snacks</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un refrigerio en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Granizados ($7.000), Jugo de dispensador ($5.000)
+                    </td>
+                    <td>
+                    - Oblea sencilla ($6.000), Perros calientes ($12.000)<br>
+                    - Helados panaca ($7.000)
+                    </td>
+                    <td>
+                    - Carpas plásticas ($9.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 10. El atajo -->
+            <h6 class="mt-4">El atajo</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Proteínas</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un almuerzo en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Jugo 12 onz ($5.000.9) 
+                    </td>
+                    <td>
+                    - Cerdo a la plancha ($33.000), Costillas BBQ ($55.000)<br>
+                    - Chorizo, filete de pollo y carne ($35.000)<br>
+                    - Mojarra frita ($38.000), Chuzo de pollo ($22.000)<br>
+                    - Chicharrón ($17.000), Chorizo 2 und ($15.000)
+                    </td>
+                    <td>
+                    - Falafel ($30.000), Porción de papas fritas ($8.000)<br>
+                    - Pataconcitos con hogao (4 und) ($8.000)<br>
+                    - Frijoles o sancocho ($8.000)<br>
+                    - Casadito / Casadito completo ($7.000)<br>
+                    - Cortado ($7.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 11. El trapiche -->
+            <h6 class="mt-4">El trapiche</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Snacks</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un refrigerio en familia o con amigos.
+                    </td>
+                    <td>
+                    - Granizado de guarapo ($6.000), Guarapo ($6.000)<br>
+                    - Kumis x 225 ($8.000), Yogurt x 225 ($8.000) / Lt ($15.000)<br>
+                    - Mazamorra ($8.000), Vaso de leche ($8.000)<br>
+                    - Botella de agua / con gas ($5.000), Cerveza en lata ($8.000)<br>
+                    - Jugo 16 onz ($6.000), Granizados ($7.000)
+                    </td>
+                    <td>
+                    - Empanaditas ($12.000), Oblea con queso ($8.000)<br>
+                    - Arroz con leche ($6.000)
+                    </td>
+                    <td>
+                    - Maní x 299 ($10.000), Turrón de maní x 500 ($15.000)<br>
+                    - Cocadas de arequipe x 229 ($10.000), Dianitas ($3.000)<br>
+                    - Bombón de panela x 500 ($15.000), Rollitos de arequipe x 229 ($10.000)<br>
+                    - Combo canasta ($25.000), Cocadas / Melcocha ($6.000)<br>
+                    - Queso melado / Plátano melado / Brevas meladas ($11.000 c/u)<br>
+                    - Panela atado ($11.000), granulada / pulverizada ($10.000)<br>
+                    - Panelón / Panela dosificada ($11.000), Quemado de panela ($16.000)<br>
+                    - Botella de miel x 750 ($13.000), Cocada bolas x 15 ($13.000)<br>
+                    - Arequipe x 125g ($9.000) / 250g ($12.000)<br>
+                    - Cortado x 125g ($9.000) / 250g ($14.100)<br>
+                    - Queso cuajada ($17.300), Panelita de arequipe x 229 ($10.000)<br>
+                    - Donas de arequipe x 229 ($10.000), Maní x 500 / Coquitos x 500 ($15.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 12. Barra equina -->
+            <h6 class="mt-4">Barra equina</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Snacks</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un refrigerio en familia o con amigos.
+                    </td>
+                    <td>
+                    - Cerveza en lata ($8.000), Botella de agua / con gas ($5.000)<br>
+                    - Granizados ($7.000), Café filtrado 7 onz ($4.000)
+                    </td>
+                    <td>
+                    - Crispetas cono ($6.000), Empanadas ($4.000), Marranitas ($3.000)<br>
+                    - Palito de queso / Almojabana ($5.000), Chicharrones de dulce ($5.000)<br>
+                    - Oblea sencilla ($6.000), Perros calientes ($12.000)
+                    </td>
+                    <td>
+                    - Carpas plásticas ($9.000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- 13. Chocolatería -->
+            <h6 class="mt-4">Chocolatería</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Bebidas</th>
+                    <th>Snacks</th>
+                    <th>Otras opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    Espacio ideal para compartir un almuerzo en familia o con amigos.
+                    </td>
+                    <td>
+                    - Vaso chocolate 9 onz ($8.000)
+                    </td>
+                    <td>
+                    - Arepa con queso ($5.000) / mantequilla ($7.000)<br>
+                    - Pastel de carne / pollo ($8.000), Pastel gloria ($5.000)<br>
+                    - Chicharrones de dulce ($5.000), Almojabana ($5.000)<br>
+                    - Pan calentano ($3.000), Pandequeso / Palito de queso ($5.000)
+                    </td>
+                    <td>
+                    - No aplica
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <!-- TRANSPORTE -->
+            <h6 class="mt-4">Transporte</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Medio de Transporte</th>
+                    <th>Descripción</th>
+                    <th>Tiempo Estimado de Viaje</th>
+                    <th>Costo Aproximado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Carro Particular</td>
+                    <td>
+                    Conduce desde el centro de Pereira por la ruta 29, saliendo por la avenida 30 de agosto o la variante Condina. 
+                    Sigue la vía Pereira - Alcalá y continúa en dirección a Quimbaya. 
+                    Desde Quimbaya toma la carretera que conduce directamente al parque Panaca.
+                    </td>
+                    <td>1 hora y 15 minutos</td>
+                    <td>Costos de combustible variables según el consumo del vehículo</td>
+                </tr>
+                <tr>
+                    <td>Servicio Público (Bus)</td>
+                    <td>
+                    Desde la terminal de Pereira abordar un bus a Quimbaya (Flota Occidental o Expreso Alcalá). 
+                    Desde Quimbaya hasta Panaca hay dos opciones: Jeep (entre $5.000 y $8.000) o taxi/mototaxi (entre $15.000 y $25.000).
+                    </td>
+                    <td>1 hora y 30 minutos + 15-20 min</td>
+                    <td>
+                    Entre $12.000 y $18.000 (bus), 
+                    más el costo adicional del Jeep/taxi/mototaxi
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <!-- LÍNEA DE TIEMPO -->
+            <h6 class="mt-4">Línea de tiempo</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Zona</th>
+                    <th>Descripción</th>
+                    <th>Tiempo Estimado de Recorrido</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Llegada y entrada al parque</td>
+                    <td>Recibimiento y orientación inicial sobre las actividades y el mapa del parque</td>
+                    <td>30 minutos</td>
+                </tr>
+                <tr>
+                    <td>Inicio del recorrido</td>
+                    <td>Visita a las zonas temáticas dedicadas a animales, actividades agropecuarias y culturales</td>
+                    <td>30 minutos</td>
+                </tr>
+                <tr>
+                    <td>Exhibición de animales</td>
+                    <td>Encuentro con caballos, vacas, cabras, cerdos, etc. Posibilidad de alimentar a los animales</td>
+                    <td>30 minutos</td>
+                </tr>
+                <tr>
+                    <td>Espectáculo de caballos</td>
+                    <td>Presentación en vivo de la destreza de caballos y jinetes</td>
+                    <td>30 minutos</td>
+                </tr>
+                <tr>
+                    <td>Recorrido animales exóticos</td>
+                    <td>Guacamayas, cóndores, entre otros. Guías ofrecen información educativa</td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Actividades interactivas</td>
+                    <td>Ordeño de vacas, juegos con animales, prácticas agrícolas</td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Almuerzo</td>
+                    <td>Disfruta de la gastronomía típica en los restaurantes del parque</td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Show de perros y aves</td>
+                    <td>Demostración de habilidades caninas y aves adiestradas</td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Senderismo o paseo en tren</td>
+                    <td>Recorrer las zonas más alejadas en trenecito o caminar por senderos naturales</td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Talleres agropecuarios</td>
+                    <td>Aprende sobre agricultura, siembra y cosecha; elaboración de productos típicos</td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Interacción con caballos y otros animales</td>
+                    <td>Montar caballos o interactuar de cerca con otros animales guiado por profesionales</td>
+                    <td>30 minutos</td>
+                </tr>
+                <tr>
+                    <td>Tienda de recuerdos</td>
+                    <td>Compra de artesanías, souvenirs y productos típicos de la región</td>
+                    <td>30 minutos</td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <p class="mt-3">
+                Más info en 
+                <a href="https://panaca.co/" target="_blank">
+                Sitio oficial de Panaca
+                </a>.
+            </p>
+    
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 4. Modal PARQUE CONSOTÁ -->
+    <div class="modal fade" id="modalConsota" tabindex="-1" role="dialog" aria-labelledby="modalConsotaLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalUkumariLabel">Bioparque Ukumarí</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <h5 class="modal-title" id="modalConsotaLabel">Parque Consotá</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
-                </button>
+            </button>
             </div>
             <div class="modal-body">
-                <!-- Info Ukumarí -->
-                <h6>Descripción</h6>
-                <p>
-                El Bioparque Ukumarí promueve educación, recreación e investigación para la conservación de hábitats y especies. Integra fauna, flora y cultura en entornos que simulan la sabana africana, bosques andinos y más.
-                </p>
-                <h6>Horarios</h6>
-                <p>Ingreso de 09:00 a 15:00, permanencia hasta las 17:00. Niños menores de 2 años entran gratis.</p>
-                <h6>Ubicación</h6>
-                <p>Km 14 vía Pereira – Cerritos (entrada por Estación de Servicio Santa Bárbara).</p>
-                <h6>Precios</h6>
-                <p>
-                Pasaporte niños (2-12 años): $36.000<br>
-                Pasaporte adulto (13-59): $49.000<br>
-                Pasaporte mayor (60+): $36.000<br>
-                <a href="https://ukumari.org/pasaportes/" target="_blank">Ver detalles</a>.
-                </p>
-                <h6>Gastronomía</h6>
-                <p>Restaurante Principal (platos típicos y gourmet), Cafetería Ukumarí (comida rápida, empanadas, sándwiches), Zona de Snacks (chorizo, frutas, jugos).</p>
-                <h6>Transporte</h6>
-                <p>
-                Carro particular: 15-20 min desde el centro de Pereira.<br>
-                Bus urbano (rutas 17, 18, 24, 28) → EDS Santa Bárbara + 14 min caminando.
-                </p>
-                <h6>Línea de tiempo sugerida</h6>
+            
+            <!-- DESCRIPCIÓN -->
+            <h6>Descripción</h6>
+            <p>
+                El Parque Consotá, administrado por Comfamiliar Risaralda, es un destacado centro recreativo y turístico en el Eje Cafetero colombiano, 
+                ideal para familias, amigos y empresas que buscan una experiencia integral de entretenimiento y descanso.
+            </p>
+    
+            <!-- UBICACIÓN -->
+            <h6>Ubicación</h6>
+            <p>
+                Se encuentra en el Kilómetro 11 de la vía Pereira – Cerritos, en el sector Galicia (entrada 15). 
+                Esta ubicación estratégica permite un fácil acceso desde Pereira y otras ciudades cercanas.
+            </p>
+            <p>
+                <strong>Mapa Interactivo:</strong> 
+                <a href="https://consota.comfamiliar.com/?utm" target="_blank">
+                Sitio web oficial
+                </a>
+            </p>
+    
+            <!-- HORARIOS -->
+            <h6>Horarios</h6>
+            <p>
+                El parque opera de lunes a domingo (incluyendo festivos), con horarios que pueden variar 
+                según la temporada y las actividades programadas.
+            </p>
+            <ul>
+                <li><strong>Temporada Alta:</strong> Coincide con vacaciones escolares, Semana Santa, fines de semana festivos y fin de año. Mayor afluencia y eventos especiales.</li>
+                <li><strong>Temporada Baja:</strong> Resto del año, con afluencia moderada y mayor tranquilidad en las atracciones.</li>
+            </ul>
+    
+            <!-- PRECIOS DE ENTRADA -->
+            <h6>Precios</h6>
+            <p>Las siguientes tarifas aplican para el ingreso al parque:</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Tipo de Visitante</th>
+                    <th>Categoría / Tarifa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Adultos</td>
+                    <td>
+                    <strong>Categoría A:</strong> $7.000<br>
+                    <strong>Categoría B:</strong> $7.600<br>
+                    <strong>Categoría C:</strong> $29.200<br>
+                    <strong>Particular:</strong> $36.800
+                    </td>
+                </tr>
+                <tr>
+                    <td>Niños (3 a 12 años)</td>
+                    <td>
+                    <strong>Categoría A:</strong> $2.300<br>
+                    <strong>Categoría B:</strong> $4.400<br>
+                    <strong>Categoría C:</strong> $16.300<br>
+                    <strong>Particular:</strong> $23.200
+                    </td>
+                </tr>
+                <tr>
+                    <td>Estudiantes</td>
+                    <td>
+                    <strong>Categorías A y B:</strong> $5.100<br>
+                    <strong>Categorías C y D:</strong> $16.300
+                    <br><em>*Válido solo para estudiantes que llegan con la Institución Educativa.</em>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Convenios</td>
+                    <td>
+                    <strong>Convenios:</strong> $29.200<br>
+                    <strong>Tarifa empresa afiliada:</strong> $9.200
+                    </td>
+                </tr>
+                <tr>
+                    <td>Parqueaderos</td>
+                    <td>
+                    <strong>Parqueo Carro (día):</strong> $6.700<br>
+                    <strong>Parqueo Moto (día):</strong> $3.100
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+                *Precios referenciados en 
+                <a href="https://consota.comfamiliar.com/" target="_blank">tripadvisor.com</a>
+            </p>
+    
+            <!-- ACTIVIDADES PRINCIPALES Y ATRACCIONES -->
+            <h6>Actividades Principales y Atracciones</h6>
+            <ul>
+                <li>
+                <strong>Atracciones Acuáticas:</strong> Piscina Semiolímpica, Piscina de Olas (1,120 m²), Piscinas Infantiles, Toboganes y Río Lento.
+                </li>
+                <li>
+                <strong>Granja de Noé:</strong> Espacio educativo para interactuar con diversas especies animales y aprender sobre cuidado ambiental.
+                </li>
+                <li>
+                <strong>Senderos Temáticos:</strong> 
                 <ul>
-                <li>09:00 AM: Ingreso y recorrido por Zona África (leones, elefantes, jirafas)</li>
-                <li>11:00 AM: Visita Arca de Noé (diversas especies)</li>
-                <li>01:00 PM: Almuerzo en Restaurante Principal</li>
-                <li>02:00 PM: Recorrido Bosques Andinos</li>
-                <li>04:00 PM: Zona de snacks / Tienda de recuerdos</li>
+                    <li>Sendero de la Memoria Indígena</li>
+                    <li>Sendero de Mitos y Leyendas</li>
                 </ul>
-                <p class="mt-3">Más info en <a href="https://ukumari.org/" target="_blank">Sitio oficial de Ukumarí</a>.</p>
+                </li>
+                <li>
+                <strong>Réplicas Históricas:</strong> 
+                <ul>
+                    <li>Réplica de Pereira Antigua</li>
+                </ul>
+                </li>
+                <li>
+                <strong>Escenarios Deportivos:</strong> Bolera, Canchas Múltiples, Cancha de Tenis, Pista de Patinaje.
+                </li>
+                <li>
+                <strong>Lagos de Pesca y Paseo en Bote</strong> para disfrutar del entorno natural.
+                </li>
+            </ul>
+    
+            <h6>Bolera</h6>
+            <p>
+                <strong>Martes a jueves:</strong> 1:00 p.m. - 10:00 p.m.  
+                <br><strong>Viernes:</strong> 1:00 p.m. - 11:00 p.m.  
+                <br><strong>Sábado:</strong> 8:00 a.m. - 11:00 p.m.  
+                <br><strong>Domingos:</strong> 8:00 a.m. - 10:00 p.m.  
+                <br><strong>Festivos:</strong> 10:00 a.m. - 9:00 p.m.
+            </p>
+            <ul>
+                <li>Aforo máximo del escenario: 50 personas.</li>
+                <li>10 pistas habilitadas, máx. 5 personas por pista.</li>
+                <li>El tiempo de juego inicia en la hora reservada.</li>
+            </ul>
+    
+            <h6>Sala de Tenis de Mesa</h6>
+            <p>
+                <strong>Semana (Martes a viernes):</strong> 9:00 a.m. - 4:00 p.m. 
+                (Facturación desde la 1 p.m.)
+                <br><strong>Fines de semana (Sábados, Domingos y Festivos):</strong> 9:00 a.m. - 4:00 p.m.
+            </p>
+            <ul>
+                <li>Aforo máximo 40 personas.</li>
+                <li>No requiere reserva previa, el pago se realiza en la Bolera.</li>
+            </ul>
+    
+            <p>
+                <strong>Duración Aproximada y Tiempos de Espera:</strong> 
+                Varía según la atracción y la temporada. Granja de Noé (1-2 horas), piscinas (varias horas). 
+                En temporada alta, las atracciones más populares pueden tener espera prolongada.
+            </p>
+    
+            <!-- RESTAURANTES -->
+            <h6>Restaurantes en el Parque</h6>
+            <p>
+                El Parque Consotá cuenta con diversas opciones gastronómicas:
+            </p>
+            <ul>
+                <li><strong>Restaurante Principal:</strong> Platos típicos de la región y opciones internacionales.</li>
+                <li><strong>Cafeterías y Kioscos:</strong> Refrigerios, bebidas y comidas ligeras.</li>
+                <li><strong>Café al Paso:</strong> Ideal para una taza de café colombiano y postres.</li>
+            </ul>
+    
+            <p>
+                Además, existen restaurantes específicos:
+            </p>
+            <ul>
+                <li>
+                <strong>Zasonao</strong>  
+                <br>Menú del día (bandeja con jugo, bandeja con sopa y jugo).  
+                <br>Horarios: Lunes a Viernes (12:00m a 3:00p.m.), Sábados y Domingos (9:00 a.m. a 4:00 p.m.)
+                </li>
+                <li>
+                <strong>El Montañerito</strong>  
+                <br>Platos típicos como frijoles y asados.  
+                <br>Horarios: Domingos y Festivos (12:00 m. a 3:00p.m.)  
+                <br>Menú: Bandeja paisa, Montañerito.
+                </li>
+                <li>
+                <strong>Consotá (Restaurante)</strong>  
+                <br>Variedad de platos a la carta (Churrasco, Costillas BBQ, Trucha al ajillo, etc.).  
+                <br>Horarios: Lunes a Viernes (1:00pm a 8:30pm), Sábados (1:00pm a 8:30pm), Domingos (10:00am a 8:30pm)  
+                <br><em>No se permite ingresar en traje de baño.</em>
+                </li>
+                <li>
+                <strong>Lagos</strong>  
+                <br>Platos de pescado junto a los lagos de pesca deportiva.  
+                <br>Horarios: Domingos y Festivos (12:00m a 3:00 p.m.)  
+                <br>Menú: Mojarra frita, Filete de pescado, Viudo cocido, Mojarra cocida.
+                </li>
+                <li>
+                <strong>Don Noé</strong>  
+                <br>Platos tradicionales (sudado de pollo, sancocho de pollo, ajiaco).  
+                <br>Ubicado al ingreso de la Granja de Noé.  
+                <br>Horarios: Martes a Domingos y Festivos (11:30a.m. a 3:30p.m.)
+                </li>
+                <li>
+                <strong>Pio</strong>  
+                <br>Combos de pollo frito con papas y arepas.  
+                <br>Horarios: Martes a Viernes (12:00m a 6:00p.m.), Sábados (8:00a.m. a 9:00p.m.), Domingos (8:00a.m. a 5:00p.m.)
+                </li>
+            </ul>
+    
+            <!-- INFORMACIÓN IMPORTANTE -->
+            <h6>Información importante</h6>
+            <ul>
+                <li>Tarifas aplican del 1 de enero de 2025 hasta el 31 de diciembre de 2025.</li>
+                <li>Para 2025, las tarifas de alojamiento incluyen 19% de IVA y seguro hotelero por persona/noche.</li>
+                <li>Hotel Chapola y Cabañas Consotá incluyen desayuno diario por persona.</li>
+                <li>Cabañas Caracolillo: deben reservarse de viernes a domingo (mín. 2 noches) o viernes a lunes festivo (mín. 3 noches).</li>
+            </ul>
+    
+            <!-- ALOJAMIENTOS -->
+            <h6>Alojamientos</h6>
+            <p>
+                El parque ofrece diversas opciones: Cabaña Consotá, Hotel Chapola y Cabañas Caracolillo. 
+                A continuación, un resumen de las tarifas (aprox.) según categoría:
+            </p>
+    
+            <!-- CABAÑA CONSOTA -->
+            <h6 class="mt-3">Cabaña Consotá</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Tarifas (aprox.)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Cabaña Estándar (2 personas)</td>
+                    <td>
+                    Categoría A: $200.800<br>
+                    Categoría B: $235.600<br>
+                    Categoría C: $389.000<br>
+                    Particular: $419.900<br>
+                    Convenio: $404.600
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cabaña Suite (2 personas)</td>
+                    <td>
+                    Categoría A: $259.000<br>
+                    Categoría B: $303.300<br>
+                    Categoría C: $471.400<br>
+                    Particular: $544.200<br>
+                    Convenio: $525.000
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cabaña Familiar (5 personas)</td>
+                    <td>
+                    Categoría A: $401.800<br>
+                    Categoría B: $470.000<br>
+                    Categoría C: $777.800<br>
+                    Particular: $839.800<br>
+                    Convenio: $811.400
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- HOTEL CHAPOLA -->
+            <h6 class="mt-3">Hotel Chapola</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Habitación</th>
+                    <th>Tarifas (aprox.)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>2 personas</td>
+                    <td>
+                    Categoría A: $142.100<br>
+                    Categoría B: $155.100<br>
+                    Categoría C: $236.800<br>
+                    Particular: $267.700<br>
+                    Empresarial: $244.100<br>
+                    Convenios: $234.400
+                    </td>
+                </tr>
+                <tr>
+                    <td>3 personas</td>
+                    <td>
+                    Categoría A: $210.800<br>
+                    Categoría B: $224.700<br>
+                    Categoría C: $337.100<br>
+                    Particular: $371.600<br>
+                    Empresarial: $350.500<br>
+                    Convenios: $337.100
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- CABAÑAS CARACOLILLO -->
+            <h6 class="mt-3">Cabañas Caracolillo</h6>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Tarifas (aprox.)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Cabaña para 8 personas</td>
+                    <td>
+                    Categoría A: $232.800<br>
+                    Categoría B: $268.600<br>
+                    Categoría C: $613.100<br>
+                    Particular: $633.200<br>
+                    Convenios: $625.600
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cabaña para 4 personas</td>
+                    <td>
+                    Categoría A: $127.700<br>
+                    Categoría B: $154.000<br>
+                    Categoría C: $278.500<br>
+                    Particular: $348.700<br>
+                    Convenios: $320.700
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- TRANSPORTE -->
+            <h6 class="mt-4">Transporte</h6>
+            <p>
+                <strong>Carro Particular:</strong> 
+                Desde el centro de Pereira toma la Av. 30 de Agosto hacia Cerritos hasta el km 11 (Sector Galicia). 
+                <br><em>Tiempo estimado:</em> 20 - 30 minutos, costo variable (combustible y peajes).
+            </p>
+            <p>
+                <strong>Servicio Público (Bus):</strong> 
+                Desde la Terminal de Pereira en dirección a Cerritos (Expreso Trejos o Villa Verde). 
+                Bajar en Sector Galicia y caminar unos minutos o tomar taxi.
+                <br><em>Tiempo estimado:</em> 30 - 40 minutos. 
+                <br><em>Costo aproximado:</em> $3.250 por persona.
+            </p>
+            <p>
+                <strong>Taxi o Aplicaciones de Transporte:</strong> 
+                20 - 30 minutos desde el centro de Pereira, costo entre $20.000 y $30.000.
+            </p>
+    
+            <p class="mt-3">
+                Más info en 
+                <a href="https://consota.comfamiliar.com/" target="_blank">
+                Sitio oficial de Consotá
+                </a>.
+            </p>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 5. Modal BIOPARQUE UKUMARÍ -->
+    <div class="modal fade" id="modalUkumari" tabindex="-1" role="dialog" aria-labelledby="modalUkumariLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document"><!-- modal-lg para ancho grande -->
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalUkumariLabel">Bioparque Ukumarí</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+    
+            <!-- DESCRIPCIÓN -->
+            <h6>Descripción</h6>
+            <p>
+                Es un bioparque que promueve la educación, recreación e investigación, 
+                centrados en la conservación de áreas silvestres, hábitats y especies 
+                tanto vegetales como animales. Integra fauna, flora y culturas humanas, 
+                buscando motivar, entretener y, sobre todo, educar a los visitantes, 
+                brindándoles una experiencia inolvidable.
+            </p>
+    
+            <!-- HORARIOS -->
+            <h6>Horarios</h6>
+            <p>
+                Abierto de <strong>9:00 a.m. a 3:00 p.m.</strong> para el ingreso.  
+                Los visitantes pueden permanecer en las instalaciones hasta las <strong>5:00 p.m.</strong>  
+                <span class="badge badge-info">Niños menores de 2 años entran gratis</span>
+            </p>
+    
+            <!-- UBICACIÓN -->
+            <h6>Ubicación</h6>
+            <p>
+                Kilómetro 14 vía Pereira – Cerritos, entrada por la Estación de Servicio Santa Bárbara.  
+                (Consulta el mapa interactivo en PDF si lo requieres).
+            </p>
+    
+            <!-- PRECIOS -->
+            <h6>Precios</h6>
+            <p>
+                <strong>Menores de 2 años:</strong> Gratis<br>
+                <strong>Pasaporte Niños (2-12 años):</strong> $36.000<br>
+                <strong>Pasaporte adulto (13-59 años):</strong> $49.000<br>
+                <strong>Pasaporte mayor (60+ años):</strong> $36.000<br>
+                Más detalles en <a href="https://ukumari.org/pasaportes/" target="_blank">página oficial</a>.
+            </p>
+    
+            <!-- GASTRONOMÍA -->
+            <h6>Gastronomía</h6>
+            <p>El bioparque ofrece diversas opciones para comer:</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Restaurante</th>
+                    <th>Descripción</th>
+                    <th>Platos Típicos</th>
+                    <th>Platos Gourmet</th>
+                    <th>Opciones Vegetarianas</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Restaurante Principal</td>
+                    <td>Ofrece una variedad de platos de la cocina colombiana, 
+                        destacando sabores locales y nacionales.</td>
+                    <td>
+                    - Bandeja Paisa (aprox. $25,000)<br>
+                    - Sancocho de Gallina (aprox. $22,000)
+                    </td>
+                    <td>
+                    - Salmón a la Parrilla (aprox. $35,000)<br>
+                    - Pasta Alfredo con Pollo (aprox. $28,000)
+                    </td>
+                    <td>
+                    - Ensalada Mediterránea (aprox. $18,000)<br>
+                    - Wrap de Vegetales Asados (aprox. $20,000)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cafetería Ukumarí</td>
+                    <td>Espacio ideal para comidas rápidas y refrigerios.</td>
+                    <td>
+                    - Empanadas Colombianas (desde $3,000)<br>
+                    - Arepas Rellenas (desde $5,000)
+                    </td>
+                    <td>
+                    - Sándwich Gourmet de Pollo (aprox. $15,000)
+                    </td>
+                    <td>
+                    - Sándwich Vegetariano (aprox. $12,000)<br>
+                    - Jugos Naturales (aprox. $6,000)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Zona de Snacks</td>
+                    <td>Puestos distribuidos por el parque para opciones rápidas.</td>
+                    <td>
+                    - Chorizo Santarrosano (aprox. $7,000)
+                    </td>
+                    <td>No disponible</td>
+                    <td>
+                    - Frutas Frescas (aprox. $5,000)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- TRANSPORTE -->
+            <h6>Transporte</h6>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Medio de Transporte</th>
+                    <th>Descripción</th>
+                    <th>Tiempo Estimado</th>
+                    <th>Costo Aproximado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Carro Particular</td>
+                    <td>
+                    Conduce desde el centro de Pereira por la vía a Cerritos 
+                    hasta el kilómetro 14, donde se encuentra el Bioparque.
+                    </td>
+                    <td>15-20 minutos</td>
+                    <td>Combustible (varía según vehículo)</td>
+                </tr>
+                <tr>
+                    <td>Servicio Público (Bus)</td>
+                    <td>
+                    Desde el centro de Pereira, tomar rutas 17 (Galicia), 18 (Cerritos), 
+                    24 (Puerto Caldas) o 28 (La Virginia) que pasan cerca del Bioparque. 
+                    La parada más cercana es E.D.S. Santa Bárbara, a 14 min a pie.
+                    </td>
+                    <td>45-60 minutos</td>
+                    <td>Tarifa de autobús urbano (económica)</td>
+                </tr>
+                <tr>
+                    <td>Chiva (Bus Típico)</td>
+                    <td>
+                    Las chivas ofrecen recorridos turísticos, 
+                    aunque no hay rutas regulares desde Pereira al Bioparque. 
+                    Algunas agencias organizan tours con transporte en chiva.
+                    </td>
+                    <td>Variable según el tour</td>
+                    <td>Consultar agencias (precios variables)</td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <!-- LÍNEA DE TIEMPO -->
+            <h6>Línea de tiempo (itinerario)</h6>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Zona</th>
+                    <th>Descripción</th>
+                    <th>Tiempo Estimado de Recorrido</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>África</td>
+                    <td>
+                    Recrea la sabana africana, con especies como leones, elefantes y jirafas 
+                    en entornos que simulan su hábitat natural.
+                    </td>
+                    <td>1 hora</td>
+                </tr>
+                <tr>
+                    <td>Arca de Noé</td>
+                    <td>
+                    Dedicado a la conservación y exhibición de diversas especies, 
+                    brindando una experiencia educativa sobre biodiversidad.
+                    </td>
+                    <td>30 minutos</td>
+                </tr>
+                <tr>
+                    <td>Bosques Andinos</td>
+                    <td>
+                    Representa los ecosistemas de montaña de la región andina, 
+                    con especies nativas en ambientes que reflejan su entorno natural.
+                    </td>
+                    <td>1 hora</td>
+                </tr>
+                </tbody>
+            </table>
+    
+            <p class="mt-3">
+                Más información en 
+                <a href="https://ukumari.org/" target="_blank">Sitio oficial de Ukumarí</a>.
+            </p>
+    
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
         </div>
-    
+    </div>
+
     </section>
 
     <!-- Sección de Planificador de Viaje -->

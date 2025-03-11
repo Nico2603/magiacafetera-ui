@@ -907,6 +907,62 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ====== Tablas estilo Bootstrap-like ====== */
+.table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: separate; /* Usa 'separate' para que border-radius se note mejor */
+  border-spacing: 0;
+  background-color: var(--color-white);
+  border-radius: var(--radius);   /* Esquinas redondeadas */
+  overflow: hidden;              /* Oculta lo que sobresalga de las esquinas */
+}
+
+/* Celdas de tabla */
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+/* Encabezado de tabla */
+.table thead th {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  text-align: center;  /* Centra el texto de los th */
+}
+
+/* Para alternar colores en filas */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9; /* o var(--color-light) */
+}
+
+/* Borde para toda la tabla */
+.table-bordered {
+  border: 1px solid #ddd;
+  border-radius: var(--radius); /* Redondea también con .table-bordered */
+  overflow: hidden;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #ddd;
+}
+
+/* ====== Clase para resaltar badges (ejemplo) ====== */
+.badge-info {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border-radius: var(--radius);
+  margin-left: 0.3rem;
+}
+
 /* Estilos Responsivos */
 @media (max-width: 992px) {
   nav {
