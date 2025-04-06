@@ -1,10 +1,10 @@
-/* Estilos generales para Magia Cafetera */
+﻿/* Estilos generales para Magia Cafetera */
 :root {
-  --color-primary: #5D4037; /* Marrón café */
-  --color-secondary: #8D6E63; /* Marrón más claro */
+  --color-primary: #5D4037; /* MarrÃ³n cafÃ© */
+  --color-secondary: #8D6E63; /* MarrÃ³n mÃ¡s claro */
   --color-accent: #A1887F; /* Tono terracota */
-  --color-highlight: #C8E6C9; /* Verde claro (plantas de café) */
-  --color-dark: #3E2723; /* Café oscuro */
+  --color-highlight: #C8E6C9; /* Verde claro (plantas de cafÃ©) */
+  --color-dark: #3E2723; /* CafÃ© oscuro */
   --color-light: #EFEBE9; /* Beige claro */
   --color-white: #FFFFFF;
   --color-text: #212121;
@@ -133,7 +133,7 @@ section {
   padding: 0 1.5rem;
 }
 
-/* Header y Navegación */
+/* Header y NavegaciÃ³n */
 header {
   background-color: var(--color-primary);
   position: sticky;
@@ -155,6 +155,11 @@ nav {
   margin: 0;
 }
 
+.nav-links {
+  margin-left: auto;
+  margin-right: 1.5rem;
+}
+
 nav ul {
   display: flex;
   gap: 1.5rem;
@@ -165,8 +170,7 @@ nav ul li a {
   font-weight: 500;
   padding: 0.5rem;
   border-radius: var(--radius);
-  font-size: 1 rem;
-
+  font-size: 1rem;
 }
 
 nav ul li a:hover {
@@ -174,17 +178,43 @@ nav ul li a:hover {
   color: var(--color-highlight);
 }
 
-/* Sección de Inicio */
+/* Estilos para redes sociales en header */
+.redes-header {
+    display: flex;
+    gap: 1rem;
+    margin-left: 1.5rem;
+}
+
+.redes-header .red-social {
+    color: var(--color-white);
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.redes-header .red-social:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-3px);
+    color: var(--color-white);
+}
+
+/* SecciÃ³n de Inicio */
 #inicio {
   background-color: var(--color-white);
 }
 
 .banner-principal {
-  /* Degradado con un color café semitransparente */
+  /* Degradado con un color cafÃ© semitransparente */
   background-image: linear-gradient(
       to bottom,
-      rgba(93, 64, 55, 0.5),  /* Marrón café semitransparente */
-      rgba(93, 64, 55, 0.7)   /* Un poco más opaco hacia abajo */
+      rgba(93, 64, 55, 0.5),  /* MarrÃ³n cafÃ© semitransparente */
+      rgba(93, 64, 55, 0.7)   /* Un poco mÃ¡s opaco hacia abajo */
     ),
     url('img/banner-eje-cafetero.jpg');
     
@@ -214,39 +244,6 @@ nav ul li a:hover {
   background-color: var(--color-accent);
 }
 
-.buscador {
-  background-color: var(--color-white);
-  max-width: 900px;
-  margin: -3rem auto 3rem;
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  position: relative;
-  z-index: 10;
-}
-
-.buscador form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.campo-busqueda {
-  flex: 1 1 200px;
-}
-
-.buscador label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.buscador button {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 1rem;
-}
-
 .video-promocional {
   max-width: 800px;
   margin: 3rem auto;
@@ -260,51 +257,213 @@ nav ul li a:hover {
   display: block;
 }
 
-.disena-viaje {
-  background-color: var(--color-light);
-  padding: 3rem;
-  border-radius: var(--radius);
-  max-width: 1000px;
-  margin: 0 auto 3rem;
-}
-
-.opciones-personalizacion {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.opcion {
-  flex: 1 1 200px;
-}
-
-.botones-accion {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-/* Sección de Destinos */
+/* SecciÃ³n de Destinos */
 #destinos {
   background-color: var(--color-light);
 }
 
+/* Estilos para el sidebar de filtros */
+.sidebar {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--color-primary);
+}
+
+.sidebar h4 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--color-accent);
+  font-size: 1.3rem;
+}
+
+.filtro {
+  margin-bottom: 1.5rem;
+}
+
+.filtro label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+.filtro select,
+.filtro input[type="range"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  background-color: var(--color-light);
+  transition: var(--transition);
+}
+
+.filtro select:focus,
+.filtro input[type="range"]:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(161, 136, 127, 0.2);
+}
+
+.form-check {
+  margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+  margin-right: 0.5rem;
+}
+
+.form-check-label {
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.form-switch {
+  padding-left: 2.5rem;
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.alert-info {
+  background-color: rgba(200, 230, 201, 0.5);
+  border: 1px solid var(--color-highlight);
+  color: var(--color-dark);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 767px) {
+  /* Mejoras para el header y navegaciÃ³n */
+  nav {
+    padding: 0.8rem;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+  
+  nav ul li a {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Mejoras para el manejo de la estructura sidebar + contenido */
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .row {
+    flex-direction: column;
+  }
+  
+  /* Hacer que el sidebar sea desplegable */
+  .col-md-3 {
+    order: 1;
+    width: 100%;
+  }
+  
+  .col-md-9 {
+    order: 2;
+    width: 100%;
+  }
+  
+  /* Estilos para hacer el sidebar colapsable */
+  .sidebar-toggle {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .sidebar-toggle:before {
+    content: 'âš™ï¸ Filtros';
+    display: inline-block;
+  }
+  
+  .sidebar-toggle:after {
+    content: 'â–¼';
+    display: inline-block;
+    margin-left: 0.5rem;
+    transition: transform 0.3s;
+  }
+  
+  .sidebar-toggle.active:after {
+    transform: rotate(180deg);
+  }
+  
+  /* Por defecto, ocultar el sidebar en mÃ³vil */
+  .sidebar {
+    display: none;
+  }
+  
+  /* Mostrar cuando estÃ¡ activo */
+  .sidebar.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mejoras para listas de destinos */
+  .lista-destinos {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .destino {
+    max-width: 100%;
+  }
+  
+  .destino-fotos {
+    height: 150px;
+  }
+  
+  /* Ajustes para el mapa interactivo */
+  .mapa-interactivo {
+    padding: 0;
+  }
+  
+  #mapa-google {
+    height: 250px;
+  }
+}
+
+/* Estilos originales de filtros-destinos (mantener para compatibilidad) */
 .filtros-destinos {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  max-width: 900px;
-  margin: 0 auto 3rem;
-  padding: 1.5rem;
-  background-color: var(--color-white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.filtro {
-  flex: 1 1 200px;
+  margin-bottom: 1.5rem;
 }
 
 .lista-destinos {
@@ -386,7 +545,7 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* Sección Planificador */
+/* SecciÃ³n Planificador */
 #planificador {
   background-color: var(--color-white);
 }
@@ -461,7 +620,7 @@ nav ul li a:hover {
   margin: 1.5rem 0;
 }
 
-/* Sección de Paquetes */
+/* SecciÃ³n de Paquetes */
 #paquetes {
   background-color: var(--color-light);
 }
@@ -584,7 +743,7 @@ nav ul li a:hover {
   background-color: var(--color-light);
 }
 
-/* Sección de Blog */
+/* SecciÃ³n de Blog */
 #blog {
   background-color: var(--color-white);
 }
@@ -660,7 +819,7 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* Sección de Opiniones */
+/* SecciÃ³n de Opiniones */
 #opiniones {
   background-color: var(--color-light);
 }
@@ -717,38 +876,9 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* Sección de Reservas */
+/* SecciÃ³n de Reservas */
 #reservas {
   background-color: var(--color-white);
-}
-
-.formulario-reserva {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: var(--color-light);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.metodos-pago, .opciones-cuotas {
-  margin: 1.5rem 0;
-}
-
-.metodos-pago div {
-  margin-bottom: 0.5rem;
-}
-
-.btn-reserva {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  background-color: #4CAF50;
-  margin-top: 1.5rem;
-}
-
-.btn-reserva:hover {
-  background-color: #45a049;
 }
 
 .soporte-reserva {
@@ -756,7 +886,7 @@ nav ul li a:hover {
   margin-top: 2rem;
 }
 
-/* Sección de Contacto */
+/* SecciÃ³n de Contacto */
 #contacto {
   background-color: var(--color-light);
 }
@@ -816,7 +946,7 @@ nav ul li a:hover {
   background-color: #45a049;
 }
 
-/* Sección de Políticas */
+/* SecciÃ³n de PolÃ­ticas */
 #politicas {
   background-color: var(--color-white);
 }
@@ -907,192 +1037,156 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ====== Tablas estilo Bootstrap-like ====== */
-.table {
-  width: 100%;
-  margin: 1rem 0;
-  border-collapse: separate; /* Usa 'separate' para que border-radius se note mejor */
-  border-spacing: 0;
-  background-color: var(--color-white);
-  border-radius: var(--radius);   /* Esquinas redondeadas */
-  overflow: hidden;              /* Oculta lo que sobresalga de las esquinas */
+/* Estilos para redes sociales en footer */
+.footer-redes {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
 }
 
-/* Celdas de tabla */
-.table th,
-.table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border: 1px solid #ddd;
+.footer-redes .red-social {
+    color: var(--color-light);
+    font-size: 1.1rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
 }
 
-/* Encabezado de tabla */
-.table thead th {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-color: var(--color-primary);
-  text-align: center;  /* Centra el texto de los th */
+.footer-redes .red-social:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-3px);
 }
 
-/* Para alternar colores en filas */
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f9f9f9; /* o var(--color-light) */
+/* Estilos para botones sociales en la secciÃ³n de contacto */
+.btn-social {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius);
+    margin: 0.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
 }
 
-/* Borde para toda la tabla */
-.table-bordered {
-  border: 1px solid #ddd;
-  border-radius: var(--radius); /* Redondea también con .table-bordered */
-  overflow: hidden;
+.btn-social i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
 }
 
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #ddd;
+.btn-social:hover {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* ====== Clase para resaltar badges (ejemplo) ====== */
-.badge-info {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-white);
-  background-color: var(--color-accent);
-  border-radius: var(--radius);
-  margin-left: 0.3rem;
+/* Iconos de contacto en el footer */
+.footer-contacto p i {
+    width: 20px;
+    margin-right: 0.5rem;
+    color: var(--color-accent);
 }
 
-/* Estilos Responsivos */
+/* Estilos responsivos para redes sociales */
 @media (max-width: 992px) {
-  nav {
-      flex-direction: column;
-      padding: 1rem;
-  }
-  
-  nav ul {
-      margin-top: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-  }
-  
-  .banner-principal h2 {
-      font-size: 2.5rem;
-  }
-  
-  .buscador {
-      margin-top: -2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  section {
-      padding: 3rem 0;
-  }
-  
-  h2 {
-      font-size: 1.8rem;
-  }
-  
-  .banner-principal {
-      height: 60vh;
-  }
-  
-  .banner-principal h2 {
-      font-size: 2rem;
-  }
-  
-  .buscador {
-      margin-top: -1.5rem;
-      padding: 1.5rem;
-  }
-  
-  .botones-accion {
-      flex-direction: column;
-  }
-  
-  .botones-navegacion {
-      flex-direction: column;
-      gap: 1rem;
-  }
-  
-  .codigo-qr {
-      margin: 1.5rem 0;
-  }
+    .redes-header {
+        margin-top: 1rem;
+        margin-left: 0;
+        justify-content: center;
+    }
+    
+    .iconos-redes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-social {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        margin: 0.5rem;
+    }
 }
 
 @media (max-width: 576px) {
-  nav ul {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-  }
-  
-  .banner-principal h2 {
-      font-size: 1.5rem;
-  }
-  
-  .buscador {
-      margin-top: 0;
-      border-radius: 0;
-  }
-  
-  .disena-viaje {
-      padding: 1.5rem;
-  }
-  
-  .paso {
-      padding: 1.5rem;
-  }
-  
-  .comparador-precios {
-      overflow-x: auto;
-  }
-  
-  .footer-newsletter form {
-      flex-direction: column;
-  }
-  
-  .footer-newsletter input {
-      border-radius: var(--radius);
-      margin-bottom: 1rem;
-  }
-  
-  .footer-newsletter button {
-      border-radius: var(--radius);
-  }
+    .redes-header .red-social {
+        font-size: 1rem;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .footer-redes {
+        justify-content: center;
+    }
+    
+    .btn-social {
+        width: 100%;
+        justify-content: center;
+        margin: 0.3rem 0;
+    }
+    
+    .banner-principal h2 {
+        font-size: 1.4rem;
+        padding: 0 1rem;
+    }
+    
+    /* Ajustes para el footer */
+    .footer-contenido {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .footer-navegacion, .footer-contacto, .footer-newsletter {
+        width: 100%;
+    }
 }
 
-/* Animaciones y Efectos */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Estilos para el modal de pago */
+.modal-pago {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* para que quede sobre el footer */
 }
 
-.destino, .paquete, .articulo, .testimonio {
-  animation: fadeIn 0.8s ease-in-out;
+.modal-pago .modal-contenido {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
 }
 
-/* Personalización de webkit scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+.modal-pago .btn-cerrar {
+    margin-top: 1rem;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-light);
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #5D4037;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: 1rem auto;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-secondary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}
-
-/* Estilos para focus accesibilidad */
-a:focus, button:focus, input:focus, select:focus, textarea:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

@@ -1,0 +1,170 @@
+/* Estilos para el sidebar de filtros */
+.sidebar {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #5D4037;
+}
+
+.sidebar h4 {
+  color: #5D4037;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #A1887F;
+  font-size: 1.3rem;
+}
+
+.filtro {
+  margin-bottom: 1.8rem;
+}
+
+.filtro label {
+  display: block;
+  margin-bottom: 0.7rem;
+  font-weight: 500;
+  color: #3E2723;
+}
+
+.filtro select,
+.filtro input[type="range"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #EFEBE9;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.filtro select:focus,
+.filtro input[type="range"]:focus {
+  border-color: #A1887F;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(161, 136, 127, 0.2);
+}
+
+.form-check {
+  margin-bottom: 0.8rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-check-input {
+  margin-right: 0.8rem;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.form-check-input:checked {
+  border-color: #5D4037;
+  background-color: #5D4037;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(93, 64, 55, 0.25);
+}
+
+.form-check-label {
+  font-size: 0.95rem;
+  color: #212121;
+  padding-left: 0.3rem;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
+.form-check:hover .form-check-label {
+  color: #5D4037;
+}
+
+.form-switch {
+  padding-left: 2.5rem;
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.alert-info {
+  background-color: rgba(200, 230, 201, 0.5);
+  border: 1px solid #C8E6C9;
+  color: #3E2723;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 767px) {
+  /* En pantallas pequeñas, convertir sidebar en acordeón desplegable */
+  .sidebar {
+    border-left: none;
+    border-top: 4px solid #5D4037;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sidebar h4 {
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 0;
+  }
+  
+  .sidebar h4::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .sidebar.active h4::after {
+    content: '-';
+  }
+  
+  .filtros-destinos {
+    display: none;
+    padding-top: 1rem;
+  }
+  
+  .sidebar.active .filtros-destinos {
+    display: block;
+    margin-top: 1.5rem;
+  }
+  
+  .col-md-3, .col-md-9 {
+    width: 100%;
+  }
+  
+  /* Ajustes específicos para los form-check en móvil */
+  .form-check {
+    padding: 0.5rem 0;
+  }
+  
+  .form-check-input {
+    min-width: 20px;
+  }
+  
+  /* Reajustar la cuadrícula de destinos */
+  .lista-destinos {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* En pantallas medianas, ajustar el tamaño de columnas */
+  .col-md-3 {
+    width: 35%;
+  }
+  
+  .col-md-9 {
+    width: 65%;
+  }
+} 
