@@ -1,10 +1,10 @@
 ﻿/* Estilos generales para Magia Cafetera */
 :root {
-  --color-primary: #5D4037; /* MarrÃ³n cafÃ© */
-  --color-secondary: #8D6E63; /* MarrÃ³n mÃ¡s claro */
+  --color-primary: #5D4037; /* Marrón café */
+  --color-secondary: #8D6E63; /* Marrón más claro */
   --color-accent: #A1887F; /* Tono terracota */
-  --color-highlight: #C8E6C9; /* Verde claro (plantas de cafÃ©) */
-  --color-dark: #3E2723; /* CafÃ© oscuro */
+  --color-highlight: #C8E6C9; /* Verde claro (plantas de café) */
+  --color-dark: #3E2723; /* Café oscuro */
   --color-light: #EFEBE9; /* Beige claro */
   --color-white: #FFFFFF;
   --color-text: #212121;
@@ -133,7 +133,7 @@ section {
   padding: 0 1.5rem;
 }
 
-/* Header y NavegaciÃ³n */
+/* Header y Navegación */
 header {
   background-color: var(--color-primary);
   position: sticky;
@@ -204,17 +204,17 @@ nav ul li a:hover {
     color: var(--color-white);
 }
 
-/* SecciÃ³n de Inicio */
+/* Sección de Inicio */
 #inicio {
   background-color: var(--color-white);
 }
 
 .banner-principal {
-  /* Degradado con un color cafÃ© semitransparente */
+  /* Degradado con un color café semitransparente */
   background-image: linear-gradient(
       to bottom,
-      rgba(93, 64, 55, 0.5),  /* MarrÃ³n cafÃ© semitransparente */
-      rgba(93, 64, 55, 0.7)   /* Un poco mÃ¡s opaco hacia abajo */
+      rgba(93, 64, 55, 0.5),  /* Marrón café semitransparente */
+      rgba(93, 64, 55, 0.7)   /* Un poco más opaco hacia abajo */
     ),
     url('img/banner-eje-cafetero.jpg');
     
@@ -257,7 +257,7 @@ nav ul li a:hover {
   display: block;
 }
 
-/* SecciÃ³n de Destinos */
+/* Sección de Destinos */
 #destinos {
   background-color: var(--color-light);
 }
@@ -345,7 +345,7 @@ nav ul li a:hover {
 
 /* Media queries para responsividad */
 @media (max-width: 767px) {
-  /* Mejoras para el header y navegaciÃ³n */
+  /* Mejoras para el header y navegación */
   nav {
     padding: 0.8rem;
   }
@@ -411,12 +411,12 @@ nav ul li a:hover {
     transform: rotate(180deg);
   }
   
-  /* Por defecto, ocultar el sidebar en mÃ³vil */
+  /* Por defecto, ocultar el sidebar en móvil */
   .sidebar {
     display: none;
   }
   
-  /* Mostrar cuando estÃ¡ activo */
+  /* Mostrar cuando está activo */
   .sidebar.active {
     display: block;
     animation: slideDown 0.3s ease;
@@ -545,7 +545,7 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* SecciÃ³n Planificador */
+/* Sección Planificador */
 #planificador {
   background-color: var(--color-white);
 }
@@ -620,7 +620,7 @@ nav ul li a:hover {
   margin: 1.5rem 0;
 }
 
-/* SecciÃ³n de Paquetes */
+/* Sección de Paquetes */
 #paquetes {
   background-color: var(--color-light);
 }
@@ -743,7 +743,7 @@ nav ul li a:hover {
   background-color: var(--color-light);
 }
 
-/* SecciÃ³n de Blog */
+/* Sección de Blog */
 #blog {
   background-color: var(--color-white);
 }
@@ -819,7 +819,7 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* SecciÃ³n de Opiniones */
+/* Sección de Opiniones */
 #opiniones {
   background-color: var(--color-light);
 }
@@ -876,7 +876,7 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* SecciÃ³n de Reservas */
+/* Sección de Reservas */
 #reservas {
   background-color: var(--color-white);
 }
@@ -886,7 +886,7 @@ nav ul li a:hover {
   margin-top: 2rem;
 }
 
-/* SecciÃ³n de Contacto */
+/* Sección de Contacto */
 #contacto {
   background-color: var(--color-light);
 }
@@ -946,7 +946,7 @@ nav ul li a:hover {
   background-color: #45a049;
 }
 
-/* SecciÃ³n de PolÃ­ticas */
+/* Sección de Políticas */
 #politicas {
   background-color: var(--color-white);
 }
@@ -1062,7 +1062,7 @@ footer {
     transform: translateY(-3px);
 }
 
-/* Estilos para botones sociales en la secciÃ³n de contacto */
+/* Estilos para botones sociales en la sección de contacto */
 .btn-social {
     display: inline-flex;
     align-items: center;
