@@ -173,7 +173,6 @@
                             </div>
                             
                             <!-- Botón para aplicar filtros -->
-                            <button id="aplicar-filtros" class="btn btn-primary btn-block">Aplicar filtros</button>
                             <button id="reset-filtros" class="btn btn-outline-secondary btn-block mt-2">Limpiar filtros</button>
                         </div>
                     </div>
@@ -2383,7 +2382,7 @@
                 <p>contacto@magiacafetera.com</p>
             </div>
 
-            <div class="redes-sociales">
+            <div class="redes-sociales text-center">
                 <h3>Síguenos en redes sociales</h3>
                 <div class="iconos-redes">
                     <a href="https://facebook.com/" target="_blank" class="btn-social"><i class="fab fa-facebook-f"></i> Facebook</a>
@@ -2740,11 +2739,6 @@
             });
             
             // Vincular eventos para los botones de filtro
-            const botonAplicarFiltros = document.getElementById('aplicar-filtros');
-            if (botonAplicarFiltros) {
-                botonAplicarFiltros.addEventListener('click', aplicarFiltros);
-            }
-            
             const botonResetFiltros = document.getElementById('reset-filtros');
             if (botonResetFiltros) {
                 botonResetFiltros.addEventListener('click', reiniciarFiltros);
@@ -3052,7 +3046,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             inicializarSidebarResponsive();
             actualizarCostosBase();
-            document.getElementById('aplicar-filtros').addEventListener('click', aplicarFiltros);
             document.getElementById('reset-filtros').addEventListener('click', reiniciarFiltros);
             actualizarInfoClima();
         });
