@@ -2582,6 +2582,16 @@
                     document.getElementById('guia-plan').selectedIndex
                 ].text;
             
+            // Obtener servicios extra seleccionados
+            const serviciosExtra = document.getElementById('servicios-extra');
+            const serviciosSeleccionados = Array.from(serviciosExtra.selectedOptions).map(option => option.text);
+            
+            if (serviciosSeleccionados.length > 0) {
+                document.getElementById('resumen-servicios').textContent = serviciosSeleccionados.join(', ');
+            } else {
+                document.getElementById('resumen-servicios').textContent = 'Ninguno';
+            }
+            
             document.getElementById('resumen-costo').textContent = 
                 document.getElementById('costo-total').textContent;
         }
