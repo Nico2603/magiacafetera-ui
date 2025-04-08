@@ -2430,10 +2430,6 @@
                 <button type="submit">Enviar mensaje</button>
             </form>
         </div>
-
-        <div class="chat-vivo">
-            <button>Iniciar chat en vivo 24/7</button>
-        </div>
     </section>
 
     <!-- Sección de Políticas y Términos -->
@@ -2869,18 +2865,109 @@
             modalPago.className = 'modal-pago';
             modalPago.innerHTML = `
                 <div class="modal-contenido">
-                    <h3>Simulación de Pago</h3>
+                    <h3>Pasarela de pagos</h3>
                     <p>Monto a pagar: $${costoTotal}</p>
-                    <div class="opciones-pago">
-                        <button onclick="procesarPago('tarjeta')">Pagar con Tarjeta</button>
-                        <button onclick="procesarPago('transferencia')">Transferencia Bancaria</button>
-                        <button onclick="procesarPago('pse')">PSE</button>
+                    <div class="opciones-pago" style="display: flex; justify-content: space-between; margin: 20px 0;">
+                        <button onclick="procesarPago('tarjeta')" class="btn-pago">Pagar con Tarjeta</button>
+                        <button onclick="procesarPago('transferencia')" class="btn-pago">Transferencia Bancaria</button>
+                        <button onclick="procesarPago('pse')" class="btn-pago">PSE</button>
                     </div>
                     <button onclick="cerrarModalPago()" class="btn-cerrar">Cancelar</button>
                 </div>
             `;
             
             document.body.appendChild(modalPago);
+            
+            // Asegurar que el modal tenga un estilo coherente
+            const estiloModal = document.createElement('style');
+            estiloModal.textContent = `
+                .modal-pago {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+                
+                .modal-contenido {
+                    background-color: #fff;
+                    padding: 30px;
+                    border-radius: 8px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                }
+                
+                .modal-contenido h3 {
+                    color: #4a7c59;
+                    margin-bottom: 20px;
+                    font-weight: 600;
+                }
+                
+                .btn-pago {
+                    background-color: #4a7c59;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+                
+                .btn-pago:hover {
+                    background-color: #3a6349;
+                }
+                
+                .btn-cerrar {
+                    background-color: #f8f9fa;
+                    color: #333;
+                    border: 1px solid #ddd;
+                    padding: 10px 20px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    margin-top: 15px;
+                    transition: background-color 0.3s;
+                }
+                
+                .btn-cerrar:hover {
+                    background-color: #e2e6ea;
+                }
+                
+                .loader {
+                    border: 5px solid #f3f3f3;
+                    border-top: 5px solid #4a7c59;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    animation: spin 2s linear infinite;
+                    margin: 20px auto;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                
+                @media (max-width: 768px) {
+                    .opciones-pago {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+                    
+                    .btn-pago {
+                        width: 100%;
+                        margin: 5px 0;
+                    }
+                }
+            `;
+            
+            document.head.appendChild(estiloModal);
         }
     </script>
 
@@ -2902,7 +2989,7 @@
                         <h3>¡Pago Exitoso!</h3>
                         <p>Su reserva ha sido confirmada</p>
                         <p>Se ha enviado el itinerario a su correo electrónico</p>
-                        <button onclick="cerrarModalPago()">Cerrar</button>
+                        <button onclick="cerrarModalPago()" class="btn-pago">Cerrar</button>
                     </div>
                 `;
             }, 2000);
