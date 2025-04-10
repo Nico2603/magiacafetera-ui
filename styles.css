@@ -842,7 +842,7 @@ nav ul li a:hover {
 }
 
 .testimonio::before {
-  content: """;
+  content: "\201C";
   font-size: 5rem;
   color: var(--color-accent);
   opacity: 0.2;
