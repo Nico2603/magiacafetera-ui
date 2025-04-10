@@ -876,16 +876,6 @@ nav ul li a:hover {
   box-shadow: var(--shadow);
 }
 
-/* Sección de Reservas */
-#reservas {
-  background-color: var(--color-white);
-}
-
-.soporte-reserva {
-  text-align: center;
-  margin-top: 2rem;
-}
-
 /* Sección de Contacto */
 #contacto {
   background-color: var(--color-light);
@@ -930,20 +920,6 @@ nav ul li a:hover {
   background-color: var(--color-white);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-}
-
-.chat-vivo {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.chat-vivo button {
-  background-color: #4CAF50;
-  padding: 1rem 2rem;
-}
-
-.chat-vivo button:hover {
-  background-color: #45a049;
 }
 
 /* Sección de Políticas */
@@ -1189,4 +1165,113 @@ footer {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Estilos para el itinerario */
+.itinerario-container {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dia-itinerario {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.dia-itinerario:last-child {
+    border-bottom: none;
+}
+
+.dia-itinerario h5 {
+    color: #4a7c59;
+    margin-bottom: 15px;
+    font-weight: 600;
+    border-bottom: 2px solid #4a7c59;
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+.franja-horaria {
+    margin-bottom: 15px;
+}
+
+.franja-horaria h6 {
+    background-color: #f0f0f0;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: #333;
+    font-weight: 600;
+}
+
+.franja-horaria ul {
+    padding-left: 20px;
+}
+
+.franja-horaria li {
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.notas-itinerario {
+    background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #4a7c59;
+}
+
+.btn-descargar {
+    background-color: #4a7c59;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.btn-descargar:hover {
+    background-color: #3a6349;
+}
+
+/* Estilos para los checkbox de destinos */
+.destinos-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox-item {
+    flex-basis: calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.checkbox-item:hover {
+    background-color: #f0f0f0;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .checkbox-item {
+        flex-basis: 100%;
+    }
+    
+    .destinos-checkbox {
+        flex-direction: column;
+    }
 }
