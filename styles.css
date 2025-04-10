@@ -216,7 +216,7 @@ nav ul li a:hover {
       rgba(93, 64, 55, 0.5),  /* Marrón café semitransparente */
       rgba(93, 64, 55, 0.7)   /* Un poco más opaco hacia abajo */
     ),
-    url('img/banner-eje-cafetero.jpg');
+    url('img/banner-eje-cafetero222.jpg');
     
   background-size: cover;
   background-position: center;
@@ -396,12 +396,12 @@ nav ul li a:hover {
   }
   
   .sidebar-toggle:before {
-    content: 'âš™ï¸ Filtros';
+    content: '⚙️ Filtros';
     display: inline-block;
   }
   
   .sidebar-toggle:after {
-    content: 'â–¼';
+    content: '▼';
     display: inline-block;
     margin-left: 0.5rem;
     transition: transform 0.3s;
@@ -1274,4 +1274,48 @@ footer {
     .destinos-checkbox {
         flex-direction: column;
     }
+}
+
+.videos-destinos {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.video-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  height: 100%;
+  transition: var(--transition);
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.1);
+}
+
+.video-card h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+  font-size: 1.4rem;
+}
+
+.video-card .embed-responsive {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+/* Ajustes responsivos para videos */
+@media (max-width: 767px) {
+  .videos-destinos h3 {
+    font-size: 1.6rem;
+  }
+  
+  .video-card h4 {
+    font-size: 1.2rem;
+  }
 }

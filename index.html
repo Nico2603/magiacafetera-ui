@@ -36,12 +36,88 @@
         <!-- Meta tags para SEO y compartir en redes sociales -->
         <meta name="description" content="Crea tu viaje personalizado por el Eje Cafetero de Colombia. Descubre Parque del Café, Panaca, Ukumarí y más atracciones turísticas.">
         <meta name="keywords" content="eje cafetero, turismo, Parque del Café, Panaca, Colombia, viajes">
+        
+        <style>
+            /* Estilos para la reorganización del Paso 2 del planificador */
+            .servicios-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .grupo-servicios {
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                flex: 1;
+                min-width: 280px;
+            }
+            
+            .grupo-servicios h4 {
+                text-align: center;
+                margin-bottom: 15px;
+                color: #5D4037;
+                border-bottom: 2px solid #A1887F;
+                padding-bottom: 8px;
+            }
+            
+            .servicios-extra-container {
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            .opcion {
+                margin-bottom: 15px;
+            }
+            
+            .opcion label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+            
+            .opcion select {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+            }
+            
+            .opcion-extra select {
+                height: 120px;
+            }
+            
+            .simulacion-costos {
+                background-color: #5D4037;
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                text-align: center;
+                margin: 20px auto;
+                max-width: 300px;
+            }
+            
+            .simulacion-costos h4 {
+                color: white;
+                margin-bottom: 5px;
+            }
+            
+            .simulacion-costos p {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0;
+            }
+        </style>
     </head>
 <body>
     <!-- Barra de navegación -->
     <header>
         <nav>
             <div class="logo">
+                <img src="img/logo.png" alt="Logo Magia Cafetera">
                 <h1 style="font-size: 1.8rem;">Magia Cafetera</h1>
             </div>
             <div class="nav-links">
@@ -56,9 +132,9 @@
                 </ul>
             </div>
             <div class="redes-header">
-                <a href="https://instagram.com/" target="_blank" aria-label="Instagram" class="red-social"><i class="fab fa-instagram"></i></a>
+                <a href="https://instagram.com/magia_cafetera" target="_blank" aria-label="Instagram" class="red-social"><i class="fab fa-instagram"></i></a>
                 <a href="https://facebook.com/" target="_blank" aria-label="Facebook" class="red-social"><i class="fab fa-facebook"></i></a>
-                <a href="https://wa.me/573XXXXXXXXX" target="_blank" aria-label="WhatsApp" class="red-social"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://wa.me/573106947318" target="_blank" aria-label="WhatsApp" class="red-social"><i class="fab fa-whatsapp"></i></a>
                 <a href="https://tiktok.com/" target="_blank" aria-label="TikTok" class="red-social"><i class="fab fa-tiktok"></i></a>
             </div>
         </nav>
@@ -186,7 +262,7 @@
                         <!-- PARQUE DEL CAFÉ -->
                         <div class="destino" 
                              data-type="parque-tematico" 
-                             data-location="quindio montenegro" 
+                             data-location="quindio-montenegro" 
                              data-price="medio" 
                              data-duration="1-dia" 
                              data-activities="montanas,cultural,acuatico" 
@@ -198,7 +274,7 @@
                             </div>
                             <!-- data-toggle y data-target para abrir modal -->
                             <button type="button" data-toggle="modal" data-target="#modalParqueCafe">Ver detalles</button>
-                            <button>Personalizar visita</button>
+                            <button onclick="location.href='#planificador'">Personalizar visita</button>
                         </div>
 
                         <!-- PANACA -->
@@ -215,7 +291,7 @@
                                 <img src="img/PANA.png" alt="Panaca" loading="lazy">
                             </div>
                             <button type="button" data-toggle="modal" data-target="#modalPanaca">Ver detalles</button>
-                            <button>Personalizar visita</button>
+                            <button onclick="location.href='#planificador'">Personalizar visita</button>
                         </div>
                     
                         <!-- PARQUE CONSOTÁ -->
@@ -2076,46 +2152,59 @@
                 <h3>Paso 2: Personalización del paquete</h3>
                 <form>
                     <div class="opciones-personalizacion">
-                        <div class="opcion">
-                            <label for="transporte-plan">Transporte:</label>
-                            <select id="transporte-plan" onchange="calcularCostos()">
-                                <option value="privado" data-precio="50000">Privado</option>
-                                <option value="compartido" data-precio="25000">Compartido</option>
-                                <option value="chiva" data-precio="15000">Chiva tradicional</option>
-                            </select>
+                        <div class="servicios-grid">
+                            <div class="grupo-servicios">
+                                <h4>Transporte y Alojamiento</h4>
+                                <div class="opcion">
+                                    <label for="transporte-plan">Transporte:</label>
+                                    <select id="transporte-plan" onchange="calcularCostos()">
+                                        <option value="privado" data-precio="50000">Privado</option>
+                                        <option value="compartido" data-precio="25000">Compartido</option>
+                                        <option value="chiva" data-precio="15000">Chiva tradicional</option>
+                                    </select>
+                                </div>
+
+                                <div class="opcion">
+                                    <label for="hospedaje-plan">¿Deseas hospedaje?</label>
+                                    <select id="hospedaje-plan" onchange="calcularCostos()">
+                                        <option value="no" data-precio="0">No</option>
+                                        <option value="si" data-precio="120000">Sí</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grupo-servicios">
+                                <h4>Alimentación y Guía</h4>
+                                <div class="opcion">
+                                    <label for="alimentacion-plan">Alimentación incluida:</label>
+                                    <select id="alimentacion-plan" onchange="calcularCostos()">
+                                        <option value="tipico" data-precio="0">Menú típico</option>
+                                        <option value="vegetariano" data-precio="10000">Vegetariano</option>
+                                        <option value="gourmet" data-precio="30000">Gourmet</option>
+                                    </select>
+                                </div>
+
+                                <div class="opcion">
+                                    <label for="guia-plan">Guía turístico:</label>
+                                    <select id="guia-plan" onchange="calcularCostos()">
+                                        <option value="si" data-precio="80000">Sí, incluir guía</option>
+                                        <option value="no" data-precio="0">No, gracias</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="opcion">
-                            <label for="hospedaje-plan">¿Deseas hospedaje?</label>
-                            <select id="hospedaje-plan" onchange="calcularCostos()">
-                                <option value="no" data-precio="0">No</option>
-                                <option value="si" data-precio="120000">Sí</option>
-                            </select>
-                        </div>
-
-                        <div class="opcion">
-                            <label for="alimentacion-plan">Alimentación incluida:</label>
-                            <select id="alimentacion-plan" onchange="calcularCostos()">
-                                <option value="tipico" data-precio="0">Menú típico</option>
-                                <option value="vegetariano" data-precio="10000">Vegetariano</option>
-                                <option value="gourmet" data-precio="30000">Gourmet</option>
-                            </select>
-                        </div>
-
-                        <div class="opcion">
-                            <label for="guia-plan">Guía turístico:</label>
-                            <select id="guia-plan" onchange="calcularCostos()">
-                                <option value="si" data-precio="80000">Sí, incluir guía</option>
-                                <option value="no" data-precio="0">No, gracias</option>
-                            </select>
-                        </div>
-
-                        <div class="opcion">
-                            <label for="servicios-extra">Servicios extra:</label>
-                            <select id="servicios-extra" multiple onchange="calcularCostos()">
-                                <option value="fotografia" data-precio="40000">Fotografía profesional</option>
-                                <option value="exclusivas" data-precio="60000">Experiencias exclusivas</option>
-                            </select>
+                        <div class="grupo-servicios servicios-extra-container">
+                            <h4>Servicios adicionales</h4>
+                            <div class="opcion opcion-extra">
+                                <label for="servicios-extra">Servicios extra (mantén presionada la tecla Ctrl para seleccionar varios):</label>
+                                <select id="servicios-extra" multiple onchange="calcularCostos()">
+                                    <option value="fotografia" data-precio="40000">Fotografía profesional</option>
+                                    <option value="exclusivas" data-precio="60000">Experiencias exclusivas</option>
+                                    <option value="transporte-aeropuerto" data-precio="30000">Transporte desde/hacia aeropuerto</option>
+                                    <option value="taller-barismo" data-precio="45000">Taller de barismo</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -2974,6 +3063,65 @@
             }
         }
         
+        // Función para aplicar filtros a los destinos
+        function aplicarFiltros() {
+            // Obtener valores de los filtros
+            const tipoFiltro = document.getElementById('filter-type').value;
+            const ubicacionFiltro = document.getElementById('filter-location').value;
+            const precioFiltro = document.getElementById('filter-price').value;
+            const duracionFiltro = document.getElementById('filter-duration').value;
+            
+            // Obtener valores de los checkboxes
+            const accesibilidadFiltro = document.getElementById('filter-accessibility').checked;
+            const senderismoFiltro = document.getElementById('filter-activity-senderismo').checked;
+            const montanasFiltro = document.getElementById('filter-activity-montanas').checked;
+            const culturalFiltro = document.getElementById('filter-activity-cultural').checked;
+            const acuaticoFiltro = document.getElementById('filter-activity-acuatico').checked;
+            const gastronomiaFiltro = document.getElementById('filter-activity-gastronomia').checked;
+            
+            // Filtrar los destinos
+            const destinos = document.querySelectorAll('.destino');
+            let destinosVisibles = 0;
+            
+            destinos.forEach(destino => {
+                // Obtener atributos de datos del destino
+                const tipo = destino.getAttribute('data-type');
+                const ubicacion = destino.getAttribute('data-location');
+                const precio = destino.getAttribute('data-price');
+                const duracion = destino.getAttribute('data-duration');
+                const actividades = destino.getAttribute('data-activities') || '';
+                const esAccesible = destino.getAttribute('data-accessible') === 'true';
+                
+                // Realizar filtrado
+                let mostrar = true;
+                
+                if (tipoFiltro && tipo !== tipoFiltro) mostrar = false;
+                if (ubicacionFiltro && ubicacion !== ubicacionFiltro) mostrar = false;
+                if (precioFiltro && precio !== precioFiltro) mostrar = false;
+                if (duracionFiltro && duracion !== duracionFiltro) mostrar = false;
+                
+                // Filtros de checkbox
+                if (accesibilidadFiltro && !esAccesible) mostrar = false;
+                if (senderismoFiltro && !actividades.includes('senderismo')) mostrar = false;
+                if (montanasFiltro && !actividades.includes('montanas')) mostrar = false;
+                if (culturalFiltro && !actividades.includes('cultural')) mostrar = false;
+                if (acuaticoFiltro && !actividades.includes('acuatico')) mostrar = false;
+                if (gastronomiaFiltro && !actividades.includes('gastronomia')) mostrar = false;
+                
+                // Mostrar u ocultar según resultados
+                destino.style.display = mostrar ? 'block' : 'none';
+                
+                // Contar destinos visibles
+                if (mostrar) destinosVisibles++;
+            });
+            
+            // Mostrar mensaje si no hay resultados
+            const mensajeNoResultados = document.getElementById('mensaje-no-resultados');
+            if (mensajeNoResultados) {
+                mensajeNoResultados.style.display = destinosVisibles === 0 ? 'block' : 'none';
+            }
+        }
+        
         // Función para inicializar la página
         function inicializar() {
             // Vincular eventos para el planificador
@@ -3072,16 +3220,29 @@
     <script>
         function actualizarCostosBase() {
             const destinoSelect = document.getElementById('destino-planificador');
-            const precioBase = destinoSelect.options[destinoSelect.selectedIndex].getAttribute('data-precio-base');
-            calcularCostos();
+            if (!destinoSelect) return; // Evitar error si el elemento no existe
+            
+            // Verificar si tiene opciones antes de acceder a selectedIndex
+            if (destinoSelect.options && destinoSelect.options.length > 0) {
+                const precioBase = destinoSelect.options[destinoSelect.selectedIndex].getAttribute('data-precio-base');
+                calcularCostos();
+            }
         }
     </script>
 
     <!-- Función para actualizar información del clima -->
     <script>
         function actualizarInfoClima() {
-            const fecha = document.getElementById('fecha-viaje').value;
-            const destino = document.getElementById('destino-planificador').value;
+            const fechaElement = document.getElementById('fecha-viaje');
+            const destinoElement = document.getElementById('destino-planificador');
+            const infoClimaTexto = document.getElementById('info-clima-texto');
+            const infoEventosTexto = document.getElementById('info-eventos-texto');
+            
+            // Verificar que los elementos existan para evitar errores
+            if (!fechaElement || !destinoElement || !infoClimaTexto || !infoEventosTexto) return;
+            
+            const fecha = fechaElement.value;
+            const destino = destinoElement.value;
             
             // Simulación de datos de clima
             const climas = {
@@ -3091,7 +3252,7 @@
                 'ukumari': 'Temperatura: 23°C, Soleado'
             };
             
-            document.getElementById('info-clima-texto').textContent = climas[destino] || 'Información no disponible';
+            infoClimaTexto.textContent = climas[destino] || 'Información no disponible';
             
             // Simulación de eventos
             const eventos = {
@@ -3101,7 +3262,7 @@
                 'ukumari': 'Día de la Fauna'
             };
             
-            document.getElementById('info-eventos-texto').textContent = eventos[destino] || 'No hay eventos programados';
+            infoEventosTexto.textContent = eventos[destino] || 'No hay eventos programados';
         }
     </script>
 
@@ -3310,7 +3471,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             inicializarSidebarResponsive();
             actualizarCostosBase();
-            document.getElementById('reset-filtros').addEventListener('click', reiniciarFiltros);
+            
+            // Verificar que el elemento exista antes de añadir el evento
+            const resetFiltros = document.getElementById('reset-filtros');
+            if (resetFiltros) {
+                resetFiltros.addEventListener('click', reiniciarFiltros);
+            }
+            
             actualizarInfoClima();
         });
     </script>
