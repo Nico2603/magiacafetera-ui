@@ -76,11 +76,9 @@ a:hover {
   color: var(--color-accent);
 }
 
-button, .btn-reserva, .btn-terminos {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+/* Sistema unificado de botones */
+.btn {
   padding: 0.8rem 1.5rem;
-  border: none;
   border-radius: var(--radius);
   font-family: var(--font-main);
   font-weight: 600;
@@ -89,12 +87,58 @@ button, .btn-reserva, .btn-terminos {
   text-transform: uppercase;
   font-size: 0.9rem;
   letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
 }
 
-button:hover, .btn-reserva:hover, .btn-terminos:hover {
+.btn-primario, .btn-pago, .btn-reservar, .btn-descargar {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+}
+
+.btn-primario:hover, .btn-pago:hover, .btn-reservar:hover, .btn-descargar:hover {
   background-color: var(--color-secondary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secundario, .btn-modificar {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-secundario:hover, .btn-modificar:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Eliminar estilos duplicados para garantizar consistencia */
+.btn-pago {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.destino button {
+  margin: 0 1.5rem 1.5rem;
+  width: calc(100% - 3rem);
+}
+
+.destino button:first-of-type {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.destino button:first-of-type:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 input, select, textarea {
@@ -610,714 +654,20 @@ nav ul li a:hover {
 .botones-navegacion {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
+  margin-top: 30px;
+  gap: 15px;
 }
 
-.resumen-viaje {
-  background-color: var(--color-white);
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  margin: 1.5rem 0;
+.botones-navegacion button {
+  padding: 12px 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
-.resumen-viaje ul {
-  list-style: none;
-}
-
-.resumen-viaje li {
-  padding: 0.5rem 0;
-  border-bottom: 1px dashed #ddd;
-}
-
-.codigo-qr {
-  text-align: center;
-  margin: 2rem 0;
-}
-
-#qr-placeholder {
-  width: 150px;
-  height: 150px;
-  background-color: #f0f0f0;
-  margin: 1rem auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius);
-}
-
-.opciones-envio, .compartir {
-  margin: 1.5rem 0;
-}
-
-/* Sección de Paquetes */
-#paquetes {
-  background-color: var(--color-light);
-}
-
-.como-funciona {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 3rem;
-  padding: 0 1.5rem;
-}
-
-.lista-paquetes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.paquete {
-  background-color: var(--color-white);
-  border-radius: var(--radius);
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-}
-
-.paquete:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.1);
-}
-
-.paquete h3 {
-  color: var(--color-dark);
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.actividades {
-  margin-bottom: 1.5rem;
-}
-
-.actividades ul {
-  margin-top: 1rem;
-}
-
-.actividades li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.actividades label {
-  margin-left: 0.5rem;
-}
-
-.precio {
-  background-color: var(--color-light);
-  padding: 1rem;
-  border-radius: var(--radius);
-  margin: 1.5rem 0;
-}
-
-.precio .monto {
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-.precio .descuento {
-  color: #4CAF50;
-  font-weight: bold;
-}
-
-.paquete button {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.paquete button.modificar {
-  background-color: transparent;
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
-}
-
-.paquete button.modificar:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-}
-
-.comparador-precios {
-  max-width: 800px;
-  margin: 3rem auto 0;
-  padding: 0 1.5rem;
-}
-
-.comparador-precios table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1.5rem;
-  background-color: var(--color-white);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-.comparador-precios th, .comparador-precios td {
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid #ddd;
-}
-
-.comparador-precios th {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-}
-
-.comparador-precios tr:nth-child(even) {
-  background-color: var(--color-light);
-}
-
-/* Sección de Blog */
-#blog {
-  background-color: var(--color-white);
-}
-
-.articulos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.articulo {
-  background-color: var(--color-light);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-}
-
-.articulo:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.1);
-}
-
-.articulo h3 {
-  padding: 1.5rem 1.5rem 0;
-  font-size: 1.3rem;
-}
-
-.articulo p {
-  padding: 0.5rem 1.5rem 1.5rem;
-  color: var(--color-text-light);
-}
-
-.articulo button {
-  margin: 0 1.5rem 1.5rem;
-  background-color: transparent;
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
-}
-
-.articulo button:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-}
-
-.galeria {
-  max-width: 1200px;
-  margin: 3rem auto 0;
-  padding: 0 1.5rem;
-}
-
-.contenedor-galeria {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.contenedor-galeria img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: var(--radius);
-  transition: var(--transition);
-  cursor: pointer;
-}
-
-.contenedor-galeria img:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow);
-}
-
-/* Sección de Opiniones */
-#opiniones {
-  background-color: var(--color-light);
-}
-
-.testimonios {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.testimonio {
-  background-color: var(--color-white);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  position: relative;
-}
-
-.testimonio::before {
-  content: "\201C";
-  font-size: 5rem;
-  color: var(--color-accent);
-  opacity: 0.2;
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  font-family: serif;
-}
-
-.testimonio p {
-  font-style: italic;
-  margin-bottom: 1.5rem;
-}
-
-.autor {
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-.estrellas {
-  color: #FFD700;
-  margin-top: 0.5rem;
-}
-
-.calificacion {
-  max-width: 600px;
-  margin: 3rem auto 0;
-  padding: 2rem;
-  background-color: var(--color-white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-/* Sección de Contacto */
-#contacto {
-  background-color: var(--color-light);
-}
-
-.info-contacto {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto 3rem;
-  padding: 0 1.5rem;
-}
-
-.info-contacto > div {
-  text-align: center;
-}
-
-.iconos-redes {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.iconos-redes a {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-radius: var(--radius);
-}
-
-.iconos-redes a:hover {
-  background-color: var(--color-secondary);
-}
-
-.formulario-contacto {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: var(--color-white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-/* Sección de Políticas */
-#politicas {
-  background-color: var(--color-white);
-}
-
-.politica-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.politica {
-  background-color: var(--color-light);
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.terminos-completos {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.btn-terminos {
-  display: inline-block;
-}
-
-/* Footer */
-footer {
-  background-color: var(--color-dark);
-  color: var(--color-light);
-  padding: 3rem 0 1rem;
-}
-
-.footer-contenido {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.footer-logo h2 {
-  color: var(--color-white);
-}
-
-.footer-navegacion ul li {
-  margin-bottom: 0.5rem;
-}
-
-.footer-navegacion ul li a {
-  color: var(--color-light);
-}
-
-.footer-navegacion ul li a:hover {
-  color: var(--color-white);
-}
-
-.footer-contacto p {
-  margin-bottom: 0.5rem;
-}
-
-.footer-newsletter form {
-  display: flex;
-  margin-top: 1rem;
-}
-
-.footer-newsletter input {
-  flex: 1;
-  margin-bottom: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.footer-newsletter button {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  margin-left: -1px;
-}
-
-.footer-derechos {
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Estilos para redes sociales en footer */
-.footer-redes {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 1rem;
-}
-
-.footer-redes .red-social {
-    color: var(--color-light);
-    font-size: 1.1rem;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
-}
-
-.footer-redes .red-social:hover {
-    background-color: var(--color-accent);
-    transform: translateY(-3px);
-}
-
-/* Estilos para botones sociales en la sección de contacto */
-.btn-social {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    padding: 0.7rem 1.2rem;
-    border-radius: var(--radius);
-    margin: 0.5rem;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
-}
-
-.btn-social i {
-    margin-right: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.btn-social:hover {
-    background-color: var(--color-accent);
-    color: var(--color-white);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Iconos de contacto en el footer */
-.footer-contacto p i {
-    width: 20px;
-    margin-right: 0.5rem;
-    color: var(--color-accent);
-}
-
-/* Estilos responsivos para redes sociales */
-@media (max-width: 992px) {
-    .redes-header {
-        margin-top: 1rem;
-        margin-left: 0;
-        justify-content: center;
-    }
-    
-    .iconos-redes {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .btn-social {
-        font-size: 0.9rem;
-        padding: 0.6rem 1rem;
-        margin: 0.5rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .redes-header .red-social {
-        font-size: 1rem;
-        width: 28px;
-        height: 28px;
-    }
-    
-    .footer-redes {
-        justify-content: center;
-    }
-    
-    .btn-social {
-        width: 100%;
-        justify-content: center;
-        margin: 0.3rem 0;
-    }
-    
-    .banner-principal h2 {
-        font-size: 1.4rem;
-        padding: 0 1rem;
-    }
-    
-    /* Ajustes para el footer */
-    .footer-contenido {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    
-    .footer-navegacion, .footer-contacto, .footer-newsletter {
-        width: 100%;
-    }
-}
-
-/* Estilos para el modal de pago */
-.modal-pago {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999; /* para que quede sobre el footer */
-}
-
-.modal-pago .modal-contenido {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    position: relative;
-}
-
-.modal-pago .btn-cerrar {
-    margin-top: 1rem;
-}
-
-.loader {
-    border: 4px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 4px solid #5D4037;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
-    margin: 1rem auto;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Estilos para el itinerario */
-.itinerario-container {
-    margin: 30px 0;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.dia-itinerario {
-    margin-bottom: 30px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-}
-
-.dia-itinerario:last-child {
-    border-bottom: none;
-}
-
-.dia-itinerario h5 {
-    color: #4a7c59;
-    margin-bottom: 15px;
-    font-weight: 600;
-    border-bottom: 2px solid #4a7c59;
-    padding-bottom: 8px;
-    display: inline-block;
-}
-
-.franja-horaria {
-    margin-bottom: 15px;
-}
-
-.franja-horaria h6 {
-    background-color: #f0f0f0;
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    color: #333;
-    font-weight: 600;
-}
-
-.franja-horaria ul {
-    padding-left: 20px;
-}
-
-.franja-horaria li {
-    margin-bottom: 5px;
-    line-height: 1.5;
-}
-
-.notas-itinerario {
-    background-color: #f0f8ff;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    border-left: 4px solid #4a7c59;
-}
-
-.btn-descargar {
-    background-color: #4a7c59;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-}
-
-.btn-descargar:hover {
-    background-color: #3a6349;
-}
-
-/* Estilos para los checkbox de destinos */
-.destinos-checkbox {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.checkbox-item {
-    flex-basis: calc(50% - 10px);
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.checkbox-item:hover {
-    background-color: #f0f0f0;
-}
-
-.checkbox-item input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-@media (max-width: 768px) {
-    .checkbox-item {
-        flex-basis: 100%;
-    }
-    
-    .destinos-checkbox {
-        flex-direction: column;
-    }
-}
-
-.videos-destinos {
-  max-width: 1200px;
-  margin: 3rem auto;
-  padding: 0 1.5rem;
-}
-
-.video-card {
-  background-color: var(--color-white);
-  border-radius: var(--radius);
-  padding: 1rem;
-  box-shadow: var(--shadow);
-  height: 100%;
-  transition: var(--transition);
+.botones-navegacion button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .video-card:hover {
@@ -1643,4 +993,259 @@ footer {
         justify-content: center;
         margin: 0.3rem 0;
     }
+}
+
+/* Mejoras para el resumen del viaje e itinerario */
+.resumen-viaje {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid var(--color-primary);
+}
+
+.resumen-viaje h4 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--color-accent);
+  font-size: 1.4rem;
+}
+
+.resumen-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  align-items: center;
+}
+
+.resumen-item strong {
+  color: var(--color-dark);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.resumen-item span {
+  padding: 0.7rem;
+  background-color: var(--color-light);
+  border-radius: 6px;
+  font-size: 1.05rem;
+}
+
+.resumen-item.resumen-costo span {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  background-color: rgba(200, 230, 201, 0.3);
+}
+
+.itinerario-container {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  margin-top: 2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid var(--color-accent);
+}
+
+.itinerario-container h4 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--color-accent);
+  font-size: 1.4rem;
+}
+
+.dia-itinerario {
+  margin-bottom: 2rem;
+  padding-bottom: 1.8rem;
+  border-bottom: 1px dashed var(--color-accent);
+}
+
+.dia-itinerario:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.dia-itinerario h5 {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  font-size: 1.15rem;
+}
+
+.franja-horaria {
+  margin-bottom: 1.5rem;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--color-light);
+}
+
+.franja-horaria h6 {
+  color: var(--color-dark);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.franja-horaria ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+.franja-horaria ul li {
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.notas-itinerario {
+  background-color: var(--color-highlight);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  margin-top: 1.5rem;
+}
+
+.notas-itinerario p {
+  margin-bottom: 0.8rem;
+}
+
+.notas-itinerario ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+.notas-itinerario ul li {
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.acciones-itinerario {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-descargar, .btn-compartir {
+  min-width: 200px;
+}
+
+/* Estilos responsivos para el resumen */
+@media (max-width: 768px) {
+  .resumen-item {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  
+  .resumen-item strong {
+    margin-bottom: 0.3rem;
+  }
+  
+  .franja-horaria {
+    padding-left: 1rem;
+  }
+  
+  .acciones-itinerario {
+    flex-direction: column;
+  }
+  
+  .btn-descargar, .btn-compartir {
+    width: 100%;
+  }
+}
+
+/* Estilo para el botón modificar desde el resumen */
+.btn-modificar-desde-resumen {
+    display: block;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: var(--radius);
+    margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+}
+
+.btn-modificar-desde-resumen:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejorar los estilos para el comparador de precios */
+.comparador-precios {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.comparador-precios h3 {
+    color: var(--color-primary);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.comparador-precios table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.comparador-precios th, 
+.comparador-precios td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.comparador-precios th {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    font-weight: 600;
+}
+
+.comparador-precios tr:hover {
+    background-color: #f9f9f9;
+}
+
+.comparador-precios tr:last-child td {
+    border-bottom: none;
+}
+
+/* Destacar la celda personalizada actualizada */
+.comparador-precios td.precio-personalizado {
+    font-weight: bold;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.comparador-precios td.precio-personalizado-actualizado {
+    animation: highlight 2s ease;
+}
+
+@keyframes highlight {
+    0% { background-color: rgba(var(--color-primary-rgb), 0.2); }
+    100% { background-color: transparent; }
+}
+
+/* Resaltar filas al pasar el mouse */
+.comparador-precios tbody tr {
+    transition: all 0.2s ease;
+}
+
+.comparador-precios tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }

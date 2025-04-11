@@ -34,36 +34,28 @@
         <meta name="description" content="Crea tu viaje personalizado por el Eje Cafetero de Colombia. Descubre Parque del Café, Panaca, Ukumarí y más atracciones turísticas.">
         <meta name="keywords" content="eje cafetero, turismo, Parque del Café, Panaca, Colombia, viajes">
         
+        <!-- Estilos adicionales inline para los componentes clave -->
         <style>
-            /* Estilos para la reorganización del Paso 2 del planificador */
+            /* Estructura básica del Paso 2 */
             .servicios-grid {
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
                 gap: 20px;
-                margin-bottom: 30px;
+                margin-bottom: 20px;
             }
             
             .grupo-servicios {
+                flex: 1;
                 background-color: #f9f9f9;
                 padding: 20px;
-                border-radius: 8px;
+                border-radius: var(--radius);
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                flex: 1;
-                min-width: 280px;
             }
             
             .grupo-servicios h4 {
-                text-align: center;
                 margin-bottom: 15px;
-                color: #5D4037;
-                border-bottom: 2px solid #A1887F;
+                color: var(--color-primary);
+                border-bottom: 2px solid var(--color-accent);
                 padding-bottom: 8px;
-            }
-            
-            .servicios-extra-container {
-                width: 100%;
-                margin-top: 10px;
             }
             
             .opcion {
@@ -72,40 +64,240 @@
             
             .opcion label {
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 8px;
                 font-weight: 500;
             }
             
-            .opcion select {
-                width: 100%;
-                padding: 10px;
-                border-radius: 5px;
-                border: 1px solid #ddd;
+            /* Estilos para el select múltiple de servicios adicionales */
+            .servicios-extra-container {
+                margin-top: 25px;
+                padding: 20px;
+                background-color: var(--color-light);
+                border-radius: var(--radius);
+                border-left: 4px solid var(--color-primary);
             }
             
-            .opcion-extra select {
+            .opcion-extra select[multiple] {
                 height: 120px;
+                padding: 8px;
+                font-family: var(--font-main);
+                background-color: var(--color-white);
+            }
+            
+            .opcion-extra select[multiple] option {
+                padding: 8px;
+                margin-bottom: 5px;
+                border-bottom: 1px solid #f0f0f0;
+                transition: background-color 0.2s;
+            }
+            
+            .opcion-extra select[multiple] option:checked {
+                background-color: var(--color-highlight);
+                color: var(--color-dark);
+                font-weight: 500;
             }
             
             .simulacion-costos {
-                background-color: #5D4037;
-                color: white;
-                padding: 15px;
-                border-radius: 8px;
+                margin-top: 25px;
+                padding: 15px 20px;
+                background-color: var(--color-primary);
+                color: var(--color-white);
+                border-radius: var(--radius);
                 text-align: center;
-                margin: 20px auto;
-                max-width: 300px;
             }
             
             .simulacion-costos h4 {
-                color: white;
-                margin-bottom: 5px;
+                color: var(--color-white);
+                margin-bottom: 10px;
             }
             
             .simulacion-costos p {
-                font-size: 24px;
+                font-size: 1.5rem;
                 font-weight: bold;
                 margin: 0;
+            }
+            
+            /* Estilos para el Paso 3 y los botones de navegación */
+            .botones-navegacion {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 30px;
+                gap: 15px;
+            }
+            
+            .botones-navegacion button {
+                padding: 12px 25px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                transition: all 0.3s ease;
+            }
+            
+            .botones-navegacion button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .btn-pago {
+                background-color: var(--color-primary);
+                color: var(--color-white);
+                border: none;
+            }
+            
+            .btn-pago:hover {
+                background-color: var(--color-secondary);
+            }
+            
+            .resumen-viaje {
+                background-color: var(--color-white);
+                border-radius: var(--radius);
+                padding: 25px;
+                box-shadow: var(--shadow);
+                margin-bottom: 25px;
+            }
+            
+            .resumen-viaje h4 {
+                color: var(--color-primary);
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid var(--color-accent);
+            }
+            
+            .resumen-viaje ul {
+                list-style: none;
+                padding: 0;
+            }
+            
+            .resumen-viaje li {
+                padding: 10px 0;
+                border-bottom: 1px dashed #ddd;
+            }
+            
+            .resumen-viaje li:last-child {
+                border-bottom: none;
+                font-weight: 700;
+                color: var(--color-primary);
+            }
+            
+            .resumen-viaje li strong {
+                min-width: 150px;
+                display: inline-block;
+                color: var(--color-dark);
+            }
+            
+            .itinerario-container {
+                background-color: var(--color-white);
+                border-radius: var(--radius);
+                padding: 25px;
+                margin: 25px 0;
+                box-shadow: var(--shadow);
+                border-left: 4px solid var(--color-primary);
+            }
+            
+            .itinerario-container h4 {
+                color: var(--color-primary);
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid var(--color-accent);
+            }
+            
+            .dia-itinerario {
+                margin-bottom: 25px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .dia-itinerario:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+            
+            .dia-itinerario h5 {
+                color: var(--color-primary);
+                margin-bottom: 15px;
+                font-weight: 600;
+                display: inline-block;
+                padding: 5px 15px;
+                background-color: var(--color-light);
+                border-radius: var(--radius);
+            }
+            
+            .franja-horaria {
+                margin-bottom: 20px;
+                padding-left: 15px;
+                border-left: 3px solid var(--color-highlight);
+            }
+            
+            .franja-horaria h6 {
+                color: var(--color-dark);
+                margin-bottom: 10px;
+                font-weight: 600;
+            }
+            
+            .franja-horaria ul {
+                padding-left: 20px;
+            }
+            
+            .franja-horaria li {
+                margin-bottom: 8px;
+                line-height: 1.5;
+            }
+            
+            .notas-itinerario {
+                background-color: var(--color-light);
+                padding: 15px;
+                border-radius: var(--radius);
+                margin-top: 20px;
+            }
+            
+            .btn-descargar {
+                background-color: var(--color-secondary);
+                color: var(--color-white);
+                border: none;
+                padding: 10px 20px;
+                border-radius: var(--radius);
+                margin-top: 20px;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s;
+                font-weight: 500;
+            }
+            
+            .btn-descargar:hover {
+                background-color: var(--color-primary);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* Estilos responsivos */
+            @media (max-width: 768px) {
+                .servicios-grid {
+                    flex-direction: column;
+                }
+                
+                .grupo-servicios {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+                
+                .opcion-extra select[multiple] {
+                    height: 150px;
+                }
+                
+                .botones-navegacion {
+                    flex-direction: column;
+                }
+                
+                .botones-navegacion button {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+                
+                .resumen-viaje li strong {
+                    min-width: 100%;
+                    margin-bottom: 5px;
+                    display: block;
+                }
             }
         </style>
     </head>
@@ -2072,44 +2264,53 @@
 
     <!-- Sección de Planificador de Viaje -->
     <section id="planificador">
-        <h2>Planificador de Viaje Personalizado</h2>
-
-        <div class="pasos-planificador">
-            <div class="paso" id="paso-1">
-                <h3>Paso 1: Selección de destino y fechas</h3>
-                <form>
-                    <div class="campo">
-                        <label for="destinos-planificador">Destinos (selecciona uno o más):</label>
-                        <div class="destinos-checkbox">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="destino-ukumari" name="destinos[]" value="ukumari" data-precio-base="160000">
-                                <label for="destino-ukumari">Ukumarí</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="destino-consota" name="destinos[]" value="consota" data-precio-base="120000">
-                                <label for="destino-consota">Consotá</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="destino-panaca" name="destinos[]" value="panaca" data-precio-base="200000">
-                                <label for="destino-panaca">PANACA</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="destino-parque-cafe" name="destinos[]" value="parque-cafe" data-precio-base="150000">
-                                <label for="destino-parque-cafe">Parque del Café</label>
-                            </div>
+        <div class="container">
+            <h2>Planifica tu Viaje</h2>
+            
+            <div class="pasos-planificador">
+                <!-- Paso 1: Selección de destinos y duración -->
+                <div id="paso-1" class="paso">
+                    <h3>Paso 1: Elige tus destinos</h3>
+                    
+                    <div class="destinos-checkbox">
+                        <div class="form-check">
+                            <input type="checkbox" id="destino-parque-cafe" value="parque-cafe" data-precio-base="60000" class="form-check-input">
+                            <label for="destino-parque-cafe" class="form-check-label">Parque del Café</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" id="destino-panaca" value="panaca" data-precio-base="55000" class="form-check-input">
+                            <label for="destino-panaca" class="form-check-label">PANACA</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" id="destino-ukumari" value="ukumari" data-precio-base="48000" class="form-check-input">
+                            <label for="destino-ukumari" class="form-check-label">Bioparque Ukumarí</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" id="destino-consota" value="consota" data-precio-base="40000" class="form-check-input">
+                            <label for="destino-consota" class="form-check-label">Parque Consotá</label>
                         </div>
                     </div>
-
-                    <div class="campo">
-                        <label for="duracion-viaje">Duración:</label>
-                        <select id="duracion-viaje" onchange="actualizarInfoClima()">
+                    
+                    <div class="opcion-planificador">
+                        <label for="duracion-viaje">Duración del viaje:</label>
+                        <select id="duracion-viaje">
                             <option value="1">1 día</option>
                             <option value="2">2 días</option>
                             <option value="3">3 días</option>
+                            <option value="4">4 días</option>
+                            <option value="5">5 días</option>
                         </select>
                     </div>
-
-                    <div class="campo">
+                    
+                    <div class="opcion-planificador">
+                        <label for="fecha-viaje">Fecha de viaje (opcional):</label>
+                        <input type="date" id="fecha-viaje" min="2023-01-01">
+                    </div>
+                    
+                    <div class="opcion-planificador">
                         <label for="tipo-viajero">Tipo de viajero:</label>
                         <select id="tipo-viajero">
                             <option value="familiar">Familiar</option>
@@ -2118,150 +2319,168 @@
                             <option value="amigos">Grupo de amigos</option>
                         </select>
                     </div>
-
-                    <div class="campo">
-                        <label for="presupuesto">Rango de presupuesto:</label>
+                    
+                    <div class="opcion-planificador">
+                        <label for="presupuesto">Presupuesto aproximado:</label>
                         <select id="presupuesto">
-                            <option value="bajo">Bajo (menos de $300.000)</option>
-                            <option value="medio">Medio ($300.000 - $600.000)</option>
-                            <option value="alto">Alto (más de $600.000)</option>
+                            <option value="bajo">Económico</option>
+                            <option value="medio">Estándar</option>
+                            <option value="alto">Premium</option>
                         </select>
                     </div>
-
+                    
                     <div class="info-clima">
-                        <h4>Clima esperado:</h4>
-                        <p id="info-clima-texto">Selecciona una fecha para ver el clima</p>
+                        <h4><i class="fas fa-cloud-sun"></i> Clima Esperado</h4>
+                        <p id="info-clima-texto">Consultando información climática...</p>
                     </div>
-
+                    
                     <div class="eventos-especiales">
-                        <h4>Eventos especiales:</h4>
-                        <p id="info-eventos-texto">Selecciona una fecha para ver eventos</p>
+                        <h4><i class="fas fa-calendar-alt"></i> Eventos Especiales</h4>
+                        <p id="info-eventos-texto">Consultando eventos especiales...</p>
                     </div>
-
-                    <button type="button" onclick="mostrarPaso(2)">Continuar</button>
-                </form>
-            </div>
-
-            <div class="paso" id="paso-2" style="display: none;">
-                <h3>Paso 2: Personalización del paquete</h3>
-                <form>
-                    <div class="opciones-personalizacion">
-                        <div class="servicios-grid">
-                            <div class="grupo-servicios">
-                                <h4>Transporte y Alojamiento</h4>
-                                <div class="opcion">
-                                    <label for="transporte-plan">Transporte:</label>
-                                    <select id="transporte-plan" onchange="calcularCostos()">
-                                        <option value="privado" data-precio="50000">Privado</option>
-                                        <option value="compartido" data-precio="25000">Compartido</option>
-                                        <option value="chiva" data-precio="15000">Chiva tradicional</option>
-                                    </select>
-                                </div>
-
-                                <div class="opcion">
-                                    <label for="hospedaje-plan">¿Deseas hospedaje?</label>
-                                    <select id="hospedaje-plan" onchange="calcularCostos()">
-                                        <option value="no" data-precio="0">No</option>
-                                        <option value="si" data-precio="120000">Sí</option>
-                                    </select>
-                                </div>
+                    
+                    <div class="botones-navegacion">
+                        <button onclick="mostrarPaso(2)" class="btn btn-primario">Continuar <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Paso 2: Opciones adicionales y costos -->
+                <div id="paso-2" class="paso" style="display: none;">
+                    <h3>Paso 2: Personaliza tu experiencia</h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="opcion-planificador">
+                                <label for="transporte-plan">Tipo de transporte:</label>
+                                <select id="transporte-plan" data-precio-base="0">
+                                    <option value="compartido" data-precio="40000">Transporte compartido</option>
+                                    <option value="privado" data-precio="120000">Transporte privado</option>
+                                    <option value="chiva" data-precio="80000">Chiva tradicional</option>
+                                    <option value="propio" data-precio="0">Vehículo propio</option>
+                                </select>
                             </div>
-
-                            <div class="grupo-servicios">
-                                <h4>Alimentación y Guía</h4>
-                                <div class="opcion">
-                                    <label for="alimentacion-plan">Alimentación incluida:</label>
-                                    <select id="alimentacion-plan" onchange="calcularCostos()">
-                                        <option value="tipico" data-precio="0">Menú típico</option>
-                                        <option value="vegetariano" data-precio="10000">Vegetariano</option>
-                                        <option value="gourmet" data-precio="30000">Gourmet</option>
-                                    </select>
-                                </div>
-
-                                <div class="opcion">
-                                    <label for="guia-plan">Guía turístico:</label>
-                                    <select id="guia-plan" onchange="calcularCostos()">
-                                        <option value="si" data-precio="80000">Sí, incluir guía</option>
-                                        <option value="no" data-precio="0">No, gracias</option>
-                                    </select>
-                                </div>
+                            
+                            <div class="opcion-planificador">
+                                <label for="hospedaje-plan">Incluir hospedaje:</label>
+                                <select id="hospedaje-plan" data-precio-base="0">
+                                    <option value="no" data-precio="0">No incluir</option>
+                                    <option value="si" data-precio="150000">Incluir hospedaje típico</option>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="grupo-servicios servicios-extra-container">
-                            <h4>Servicios adicionales</h4>
-                            <div class="opcion opcion-extra">
-                                <label for="servicios-extra">Servicios extra (mantén presionada la tecla Ctrl para seleccionar varios):</label>
-                                <select id="servicios-extra" multiple onchange="calcularCostos()">
-                                    <option value="fotografia" data-precio="40000">Fotografía profesional</option>
-                                    <option value="exclusivas" data-precio="60000">Experiencias exclusivas</option>
-                                    <option value="transporte-aeropuerto" data-precio="30000">Transporte desde/hacia aeropuerto</option>
-                                    <option value="taller-barismo" data-precio="45000">Taller de barismo</option>
+                        
+                        <div class="col-md-6">
+                            <div class="opcion-planificador">
+                                <label for="alimentacion-plan">Plan de alimentación:</label>
+                                <select id="alimentacion-plan" data-precio-base="0">
+                                    <option value="basico" data-precio="25000">Básico (1 comida)</option>
+                                    <option value="tipico" data-precio="45000">Típico (3 comidas)</option>
+                                    <option value="gourmet" data-precio="85000">Gourmet (3 comidas gourmet)</option>
+                                    <option value="vegetariano" data-precio="55000">Vegetariano (3 comidas)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="opcion-planificador">
+                                <label for="guia-plan">Guía turístico:</label>
+                                <select id="guia-plan" data-precio-base="0">
+                                    <option value="no" data-precio="0">Sin guía</option>
+                                    <option value="si" data-precio="80000">Con guía especializado</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-
-                    <div class="simulacion-costos">
-                        <h4>Costo estimado:</h4>
-                        <p>$<span id="costo-total">0</span></p>
+                    
+                    <div class="opcion-planificador">
+                        <label for="servicios-extra">Servicios adicionales (opcional):</label>
+                        <select id="servicios-extra" multiple size="4">
+                            <option value="fotografia" data-precio="50000">Fotografía profesional</option>
+                            <option value="barismo" data-precio="35000">Taller de barismo</option>
+                            <option value="experiencias" data-precio="65000">Experiencias exclusivas</option>
+                            <option value="transporte-aeropuerto" data-precio="70000">Transporte desde/hacia aeropuerto</option>
+                        </select>
+                        <small>Mantén presionada la tecla Ctrl para seleccionar múltiples opciones</small>
                     </div>
-
+                    
+                    <div class="costo-total">
+                        <h4>Costo estimado total:</h4>
+                        <p>$<span id="costo-total">0</span> COP</p>
+                    </div>
+                    
                     <div class="botones-navegacion">
-                        <button type="button" onclick="mostrarPaso(1)">Atrás</button>
-                        <button type="button" onclick="mostrarPaso(3)">Continuar</button>
+                        <button onclick="mostrarPaso(1)" class="btn btn-secundario"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button onclick="mostrarPaso(3)" class="btn btn-primario">Finalizar <i class="fas fa-arrow-right"></i></button>
                     </div>
-                </form>
-            </div>
-
-            <div class="paso" id="paso-3" style="display: none;">
-                <h3>Paso 3: Confirmación de reserva</h3>
-                <div class="resumen-viaje">
-                    <h4>Resumen de tu viaje</h4>
-                    <ul>
-                        <li><strong>Destino:</strong> <span id="resumen-destino"></span></li>
-                        <li><strong>Duración:</strong> <span id="resumen-duracion"></span></li>
-                        <li><strong>Tipo de viajero:</strong> <span id="resumen-tipo-viajero"></span></li>
-                        <li><strong>Transporte:</strong> <span id="resumen-transporte"></span></li>
-                        <li><strong>Hospedaje:</strong> <span id="resumen-hospedaje"></span></li>
-                        <li><strong>Alimentación:</strong> <span id="resumen-alimentacion"></span></li>
-                        <li><strong>Guía:</strong> <span id="resumen-guia"></span></li>
-                        <li><strong>Servicios extra:</strong> <span id="resumen-servicios"></span></li>
-                        <li><strong>Costo total:</strong> $<span id="resumen-costo"></span></li>
-                    </ul>
                 </div>
                 
-                <div class="itinerario-container">
-                    <h4>Tu Itinerario</h4>
-                    <div id="itinerario-generado"></div>
-                    <button type="button" onclick="descargarItinerario()" class="btn-descargar">Guardar itinerario</button>
-                </div>
-
-                <div class="codigo-qr">
-                    <p>Tu itinerario digital con código QR:</p>
-                    <div id="qr-placeholder"></div>
-                </div>
-
-                <div class="opciones-envio">
-                    <h4>Recibe tu itinerario por:</h4>
-                    <div>
-                        <label for="email-itinerario">Email:</label>
-                        <input type="email" id="email-itinerario" placeholder="tucorreo@ejemplo.com">
+                <!-- Paso 3: Resumen e itinerario -->
+                <div id="paso-3" class="paso" style="display: none;">
+                    <h3>Tu Viaje Personalizado</h3>
+                    
+                    <div class="resumen-viaje">
+                        <h4><i class="fas fa-suitcase"></i> Resumen de tu viaje</h4>
+                        
+                        <div class="resumen-item">
+                            <strong>Destino(s):</strong>
+                            <span id="resumen-destino">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Fecha:</strong>
+                            <span id="resumen-fecha">No especificada</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Duración:</strong>
+                            <span id="resumen-duracion">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Tipo de viajero:</strong>
+                            <span id="resumen-tipo-viajero">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Transporte:</strong>
+                            <span id="resumen-transporte">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Hospedaje:</strong>
+                            <span id="resumen-hospedaje">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Alimentación:</strong>
+                            <span id="resumen-alimentacion">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Guía:</strong>
+                            <span id="resumen-guia">-</span>
+                        </div>
+                        
+                        <div class="resumen-item">
+                            <strong>Servicios extra:</strong>
+                            <span id="resumen-servicios">-</span>
+                        </div>
+                        
+                        <div class="resumen-item resumen-costo">
+                            <strong>Costo total:</strong>
+                            <span id="resumen-costo">0</span> COP
+                        </div>
                     </div>
-                    <div>
-                        <label for="whatsapp-itinerario">WhatsApp:</label>
-                        <input type="tel" id="whatsapp-itinerario" placeholder="+57 300 123 4567">
+                    
+                    <div class="itinerario-container">
+                        <h4><i class="fas fa-map-marked-alt"></i> Tu itinerario personalizado</h4>
+                        <div id="itinerario-generado">
+                            <p>Generando itinerario...</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="compartir">
-                    <h4>Compartir itinerario:</h4>
-                    <button onclick="compartirItinerario()">Compartir con amigos/familiares</button>
-                </div>
-
-                <div class="botones-navegacion">
-                    <button type="button" onclick="mostrarPaso(2)">Atrás</button>
-                    <button type="button" onclick="simularPago()" class="btn-pago">Proceder al pago</button>
+                    
+                    <div class="botones-navegacion">
+                        <button onclick="mostrarPaso(2)" class="btn btn-secundario"><i class="fas fa-arrow-left"></i> Modificar plan</button>
+                        <button onclick="simularPago()" class="btn btn-primario btn-pago"><i class="fas fa-credit-card"></i> Proceder al pago</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2303,8 +2522,8 @@
                     <p>Precio estimado: $<span class="monto">250.000</span></p>
                     <p>Descuentos aplicables: <span class="descuento">10%</span> para grupos de 4+</p>
                 </div>
-                <button class="modificar">Modificar</button>
-                <button class="reservar">Reservar</button>
+                <button class="modificar" onclick="seleccionarPaquete('aventura')">Modificar</button>
+                <button class="reservar" onclick="reservarPaquete('aventura')">Reservar</button>
             </div>
 
             <div class="paquete">
@@ -2334,8 +2553,8 @@
                     <p>Precio estimado: $<span class="monto">280.000</span></p>
                     <p>Descuentos aplicables: <span class="descuento">30%</span> en transporte para reservas superiores a $500.000</p>
                 </div>
-                <button class="modificar">Modificar</button>
-                <button class="reservar">Reservar</button>
+                <button class="modificar" onclick="seleccionarPaquete('naturaleza')">Modificar</button>
+                <button class="reservar" onclick="reservarPaquete('naturaleza')">Reservar</button>
             </div>
 
             <div class="paquete">
@@ -2365,8 +2584,8 @@
                     <p>Precio estimado: $<span class="monto">450.000</span></p>
                     <p>Descuentos aplicables: <span class="descuento">15%</span> en paquete completo</p>
                 </div>
-                <button class="modificar">Modificar</button>
-                <button class="reservar">Reservar</button>
+                <button class="modificar" onclick="seleccionarPaquete('completa')">Modificar</button>
+                <button class="reservar" onclick="reservarPaquete('completa')">Reservar</button>
             </div>
         </div>
 
@@ -2621,860 +2840,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script>
-        // Función para mostrar pasos del planificador
-        function mostrarPaso(numeroPaso) {
-            // Ocultar todos los pasos
-            document.querySelectorAll('.paso').forEach(paso => {
-                paso.style.display = 'none';
-            });
-            
-            // Mostrar el paso solicitado
-            document.getElementById('paso-' + numeroPaso).style.display = 'block';
-        }
-        
-        // Función para confirmar reserva
-        function confirmarReserva() {
-            alert('¡Tu reserva ha sido confirmada! Te hemos enviado el itinerario a tu correo y WhatsApp.');
-        }
-        
-        // Función para inicializar el mapa (placeholder)
-        function inicializarMapa() {
-            // Aquí iría el código para inicializar el mapa de Google Maps
-            console.log('Mapa inicializado');
-        }
-        
-        // Función para calcular costos en tiempo real
-        function calcularCostos() {
-            // Calcular precio base según los destinos seleccionados
-            let costoTotal = 0;
-            
-            // Sumar el costo de cada destino seleccionado
-            document.querySelectorAll('input[name="destinos[]"]:checked').forEach(checkbox => {
-                costoTotal += parseInt(checkbox.getAttribute('data-precio-base'));
-            });
-            
-            // Si no hay destinos seleccionados, mostrar un mensaje o usar valor por defecto
-            if (costoTotal === 0) {
-                costoTotal = 0;
-                document.getElementById('costo-total').textContent = "Selecciona al menos un destino";
-                return;
-            }
-            
-            // Factor multiplicador según duración (días)
-            const duracion = parseInt(document.getElementById('duracion-viaje').value);
-            if (duracion > 1) {
-                // Aplicar descuento por paquete multi-día (20% menos por día adicional)
-                costoTotal = costoTotal + (costoTotal * 0.8 * (duracion - 1));
-            }
-            
-            // Sumar costo de transporte
-            const transporteSelect = document.getElementById('transporte-plan');
-            costoTotal += parseInt(transporteSelect.options[transporteSelect.selectedIndex].getAttribute('data-precio'));
-            
-            // Sumar costo de hospedaje (multiplicado por noches)
-            const hospedajeSelect = document.getElementById('hospedaje-plan');
-            const costoHospedaje = parseInt(hospedajeSelect.options[hospedajeSelect.selectedIndex].getAttribute('data-precio'));
-            if (costoHospedaje > 0) {
-                // Si hay hospedaje, multiplicar por el número de noches (duración - 1)
-                costoTotal += costoHospedaje * (duracion - 1);
-            }
-            
-            // Sumar costo de alimentación (multiplicado por días)
-            const alimentacionSelect = document.getElementById('alimentacion-plan');
-            costoTotal += parseInt(alimentacionSelect.options[alimentacionSelect.selectedIndex].getAttribute('data-precio')) * duracion;
-            
-            // Sumar costo de guía
-            const guiaSelect = document.getElementById('guia-plan');
-            costoTotal += parseInt(guiaSelect.options[guiaSelect.selectedIndex].getAttribute('data-precio'));
-            
-            // Sumar costos de servicios extra
-            const serviciosExtra = document.getElementById('servicios-extra');
-            Array.from(serviciosExtra.selectedOptions).forEach(option => {
-                costoTotal += parseInt(option.getAttribute('data-precio'));
-            });
-            
-            // Actualizar el costo mostrado
-            document.getElementById('costo-total').textContent = costoTotal.toLocaleString('es-CO');
-        }
-        
-        // Función para actualizar resumen de viaje
-        function actualizarResumen() {
-            // Obtener valores seleccionados para los destinos
-            const destinosSeleccionados = [];
-            const destinosTexto = [];
-            document.querySelectorAll('input[name="destinos[]"]:checked').forEach(checkbox => {
-                destinosSeleccionados.push(checkbox.value);
-                destinosTexto.push(checkbox.nextElementSibling.textContent.trim());
-            });
-            document.getElementById('resumen-destino').textContent = destinosTexto.length > 0 ? destinosTexto.join(', ') : 'Ninguno seleccionado';
-            
-            // Duración
-            const duracionSelect = document.getElementById('duracion-viaje');
-            document.getElementById('resumen-duracion').textContent = duracionSelect.options[duracionSelect.selectedIndex].text;
-            
-            // Tipo de viajero
-            const tipoViajeroSelect = document.getElementById('tipo-viajero');
-            document.getElementById('resumen-tipo-viajero').textContent = tipoViajeroSelect.options[tipoViajeroSelect.selectedIndex].text;
-            
-            // Transporte
-            document.getElementById('resumen-transporte').textContent = 
-                document.getElementById('transporte-plan').options[
-                    document.getElementById('transporte-plan').selectedIndex
-                ].text;
-            
-            // Hospedaje
-            document.getElementById('resumen-hospedaje').textContent = 
-                document.getElementById('hospedaje-plan').options[
-                    document.getElementById('hospedaje-plan').selectedIndex
-                ].text;
-            
-            // Alimentación
-            document.getElementById('resumen-alimentacion').textContent = 
-                document.getElementById('alimentacion-plan').options[
-                    document.getElementById('alimentacion-plan').selectedIndex
-                ].text;
-            
-            // Guía
-            document.getElementById('resumen-guia').textContent = 
-                document.getElementById('guia-plan').options[
-                    document.getElementById('guia-plan').selectedIndex
-                ].text;
-            
-            // Obtener los servicios extra seleccionados y unir sus textos
-            const serviciosSelect = document.getElementById('servicios-extra');
-            const serviciosSeleccionados = Array.from(serviciosSelect.selectedOptions)
-                .map(option => option.textContent.trim())
-                .join(', ');
-            document.getElementById('resumen-servicios').textContent = serviciosSeleccionados || 'Ninguno';
-            
-            document.getElementById('resumen-costo').textContent = 
-                document.getElementById('costo-total').textContent;
-                
-            // Generar itinerario basado en los datos seleccionados
-            generarItinerario(destinosSeleccionados, parseInt(duracionSelect.value));
-        }
-        
-        // Función para generar itinerario optimizado
-        function generarItinerario(destinos, duracion) {
-            // Contenedor donde se mostrará el itinerario
-            const itinerarioContainer = document.getElementById('itinerario-generado');
-            itinerarioContainer.innerHTML = '';
-            
-            if (destinos.length === 0) {
-                itinerarioContainer.innerHTML = '<p>Por favor, selecciona al menos un destino para generar un itinerario.</p>';
-                return;
-            }
-            
-            // Opciones seleccionadas
-            const transporte = document.getElementById('transporte-plan').value;
-            const hospedaje = document.getElementById('hospedaje-plan').value;
-            const alimentacion = document.getElementById('alimentacion-plan').value;
-            
-            // Crear el contenido del itinerario
-            let itinerarioHTML = '';
-            
-            // Estructura para cada día según la duración seleccionada
-            for (let dia = 1; dia <= duracion; dia++) {
-                itinerarioHTML += `<div class="dia-itinerario">
-                    <h5>Día ${dia}</h5>`;
-                
-                // Seleccionar destinos para este día (distribuir destinos entre los días disponibles)
-                const destinosDelDia = distribuirDestinos(destinos, dia, duracion);
-                
-                // Mañana
-                itinerarioHTML += `<div class="franja-horaria">
-                    <h6>Mañana (8:00 AM - 12:00 PM)</h6>
-                    <ul>`;
-                    
-                if (destinosDelDia.length > 0) {
-                    itinerarioHTML += `<li>Visita a ${obtenerNombreDestino(destinosDelDia[0])}</li>`;
-                    
-                    // Añadir actividades específicas según el destino
-                    if (destinosDelDia[0] === 'parque-cafe') {
-                        itinerarioHTML += `<li>Recorrido en Jeep Willys (30 min)</li>
-                        <li>Show del Café (40 min)</li>`;
-                    } else if (destinosDelDia[0] === 'panaca') {
-                        itinerarioHTML += `<li>Exhibición de animales (1 hora)</li>
-                        <li>Show de aves (30 min)</li>`;
-                    } else if (destinosDelDia[0] === 'ukumari') {
-                        itinerarioHTML += `<li>Visita al ecosistema africano (45 min)</li>
-                        <li>Recorrido por el aviario (30 min)</li>`;
-                    } else if (destinosDelDia[0] === 'consota') {
-                        itinerarioHTML += `<li>Piscinas y atracciones acuáticas (1 hora)</li>
-                        <li>Recorrido guiado por la granja (30 min)</li>`;
-                    }
-                } else {
-                    itinerarioHTML += `<li>Desayuno en el hotel</li>
-                    <li>Tiempo libre para recorrer puntos de interés cercanos</li>`;
-                }
-                
-                // Añadir traslado si corresponde
-                if (dia === 1) {
-                    itinerarioHTML += `<li>Traslado desde el punto de encuentro (Tiempo estimado: 30 min)</li>`;
-                }
-                
-                itinerarioHTML += `</ul>
-                </div>`;
-                
-                // Almuerzo
-                itinerarioHTML += `<div class="franja-horaria">
-                    <h6>Almuerzo (12:00 PM - 2:00 PM)</h6>
-                    <ul>`;
-                    
-                if (alimentacion === 'tipico') {
-                    itinerarioHTML += `<li>Almuerzo típico en restaurante local (incluido)</li>`;
-                } else if (alimentacion === 'vegetariano') {
-                    itinerarioHTML += `<li>Menú vegetariano en restaurante especializado (incluido)</li>`;
-                } else if (alimentacion === 'gourmet') {
-                    itinerarioHTML += `<li>Experiencia gastronómica gourmet (incluido)</li>`;
-                }
-                
-                itinerarioHTML += `</ul>
-                </div>`;
-                
-                // Tarde
-                itinerarioHTML += `<div class="franja-horaria">
-                    <h6>Tarde (2:00 PM - 6:00 PM)</h6>
-                    <ul>`;
-                    
-                if (destinosDelDia.length > 1) {
-                    itinerarioHTML += `<li>Visita a ${obtenerNombreDestino(destinosDelDia[1])}</li>`;
-                    
-                    // Añadir actividades específicas según el destino
-                    if (destinosDelDia[1] === 'parque-cafe') {
-                        itinerarioHTML += `<li>Atracciones mecánicas (2 horas)</li>
-                        <li>Teleférico y mirador (30 min)</li>`;
-                    } else if (destinosDelDia[1] === 'panaca') {
-                        itinerarioHTML += `<li>Espectáculo ecuestre (45 min)</li>
-                        <li>Interacción con animales de granja (1 hora)</li>`;
-                    } else if (destinosDelDia[1] === 'ukumari') {
-                        itinerarioHTML += `<li>Tour por reptiles y anfibios (1 hora)</li>
-                        <li>Visita al área de mamíferos (45 min)</li>`;
-                    } else if (destinosDelDia[1] === 'consota') {
-                        itinerarioHTML += `<li>Sendero de la memoria indígena (45 min)</li>
-                        <li>Lagos de pesca (1 hora)</li>`;
-                    }
-                } else if (destinosDelDia.length > 0) {
-                    // Continuamos en el mismo destino de la mañana
-                    itinerarioHTML += `<li>Continuación de actividades en ${obtenerNombreDestino(destinosDelDia[0])}</li>`;
-                    
-                    if (destinosDelDia[0] === 'parque-cafe') {
-                        itinerarioHTML += `<li>Atracciones mecánicas (2 horas)</li>
-                        <li>Museo del Café (40 min)</li>`;
-                    } else if (destinosDelDia[0] === 'panaca') {
-                        itinerarioHTML += `<li>Espectáculo ecuestre (45 min)</li>
-                        <li>Demostración de ordeño (30 min)</li>`;
-                    } else if (destinosDelDia[0] === 'ukumari') {
-                        itinerarioHTML += `<li>Visita a los ecosistemas americanos (1 hora)</li>
-                        <li>Observación de fauna nocturna (45 min)</li>`;
-                    } else if (destinosDelDia[0] === 'consota') {
-                        itinerarioHTML += `<li>Réplica de Pereira Antigua (45 min)</li>
-                        <li>Actividades deportivas (1 hora)</li>`;
-                    }
-                } else {
-                    itinerarioHTML += `<li>Tiempo libre para actividades opcionales</li>
-                    <li>Tour por la ciudad (2 horas)</li>`;
-                }
-                
-                itinerarioHTML += `</ul>
-                </div>`;
-                
-                // Noche
-                itinerarioHTML += `<div class="franja-horaria">
-                    <h6>Noche (6:00 PM - 10:00 PM)</h6>
-                    <ul>`;
-                    
-                // Si hay hospedaje o es el último día
-                if (hospedaje === 'si' && dia < duracion) {
-                    itinerarioHTML += `<li>Cena en el hotel o restaurante recomendado</li>
-                    <li>Alojamiento en hotel categoría turista</li>`;
-                    
-                    // Sugerencias de hospedaje según la zona
-                    itinerarioHTML += `<li>Sugerencias de hospedaje:`;
-                    if (destinosDelDia.includes('parque-cafe') || destinosDelDia.includes('panaca')) {
-                        itinerarioHTML += `
-                        <ul>
-                            <li>Hotel Mocawa Resort (Montenegro)</li>
-                            <li>Decameron Panaca (Quimbaya)</li>
-                            <li>Hostería Los Naranjales (Montenegro)</li>
-                        </ul>`;
-                    } else if (destinosDelDia.includes('ukumari') || destinosDelDia.includes('consota')) {
-                        itinerarioHTML += `
-                        <ul>
-                            <li>Hotel Movich (Pereira Centro)</li>
-                            <li>Sonesta Hotel Pereira</li>
-                            <li>Hotel Don Alfonso (Pereira)</li>
-                        </ul>`;
-                    } else {
-                        itinerarioHTML += `
-                        <ul>
-                            <li>Hotel Soratama (Pereira Centro)</li>
-                            <li>Kolibrí Hostel (Pereira)</li>
-                            <li>Hotel Boutique Sazagua (Pereira)</li>
-                        </ul>`;
-                    }
-                    itinerarioHTML += `</li>`;
-                } else if (dia === duracion) {
-                    // Último día
-                    itinerarioHTML += `<li>Cena de despedida (opcional)</li>
-                    <li>Traslado al punto de regreso (Tiempo estimado: 30 min)</li>`;
-                } else {
-                    itinerarioHTML += `<li>Tiempo libre para actividades nocturnas</li>
-                    <li>Regreso al punto de encuentro</li>`;
-                }
-                
-                itinerarioHTML += `</ul>
-                </div>
-                </div>`;
-            }
-            
-            // Añadir notas adicionales
-            itinerarioHTML += `
-            <div class="notas-itinerario">
-                <h5>Notas importantes:</h5>
-                <ul>
-                    <li>Se recomienda llevar protector solar, repelente de insectos y ropa cómoda.</li>
-                    <li>Los horarios pueden ajustarse según condiciones climáticas.</li>
-                    <li>El transporte entre destinos está incluido con el tipo de transporte seleccionado.</li>
-                    ${hospedaje === 'si' ? '<li>El hospedaje incluye desayuno continental.</li>' : ''}
-                    ${alimentacion !== 'tipico' ? '<li>Las opciones de alimentación especial deben confirmarse con 24 horas de anticipación.</li>' : ''}
-                </ul>
-            </div>`;
-            
-            // Insertar el itinerario en el contenedor
-            itinerarioContainer.innerHTML = itinerarioHTML;
-        }
-        
-        // Función auxiliar para distribuir los destinos entre los días disponibles
-        function distribuirDestinos(destinos, diaActual, duracionTotal) {
-            // Si hay pocos destinos para los días disponibles, distribuir equitativamente
-            if (destinos.length <= duracionTotal) {
-                return (diaActual <= destinos.length) ? [destinos[diaActual - 1]] : [];
-            }
-            
-            // Si hay más destinos que días, agrupar de forma óptima (máximo 2 por día)
-            const destinosPorDia = Math.ceil(destinos.length / duracionTotal);
-            const inicio = (diaActual - 1) * destinosPorDia;
-            const fin = Math.min(inicio + destinosPorDia, destinos.length);
-            
-            return destinos.slice(inicio, fin);
-        }
-        
-        // Función auxiliar para obtener el nombre legible de un destino
-        function obtenerNombreDestino(codigoDestino) {
-            const nombres = {
-                'parque-cafe': 'Parque del Café',
-                'panaca': 'PANACA',
-                'consota': 'Parque Consotá',
-                'ukumari': 'Bioparque Ukumarí'
-            };
-            
-            return nombres[codigoDestino] || codigoDestino;
-        }
-        
-        // Función para descargar el itinerario
-        function descargarItinerario() {
-            const itinerarioHTML = document.getElementById('itinerario-generado').innerHTML;
-            const resumenDestino = document.getElementById('resumen-destino').textContent;
-            const resumenDuracion = document.getElementById('resumen-duracion').textContent;
-            
-            // Crear un blob con el contenido HTML completo
-            const htmlCompleto = `
-            <!DOCTYPE html>
-            <html lang="es">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Itinerario - ${resumenDestino}</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 20px; }
-                    h1, h2, h3, h4, h5, h6 { color: #4a7c59; }
-                    .itinerario-header { text-align: center; margin-bottom: 30px; }
-                    .dia-itinerario { margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-                    .franja-horaria { margin-bottom: 20px; }
-                    .franja-horaria h6 { color: #333; background-color: #f8f9fa; padding: 8px; }
-                    .notas-itinerario { background-color: #f8f9fa; padding: 15px; border-radius: 8px; }
-                </style>
-            </head>
-            <body>
-                <div class="itinerario-header">
-                    <h1>Tu Itinerario Personalizado</h1>
-                    <h3>${resumenDestino} - ${resumenDuracion}</h3>
-                    <p>Generado por Magia Cafetera</p>
-                </div>
-                
-                ${itinerarioHTML}
-                
-                <footer style="text-align: center; margin-top: 40px; color: #666;">
-                    <p>© 2025 Magia Cafetera - Tu viaje personalizado al Eje Cafetero</p>
-                </footer>
-            </body>
-            </html>`;
-            
-            const blob = new Blob([htmlCompleto], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            
-            // Crear enlace de descarga
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Itinerario_MagiaCafetera_${resumenDestino.replace(/,/g, '-').replace(/ /g, '_')}.html`;
-            a.click();
-            
-            // Liberar el objeto URL
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-        }
-        
-        // Función para reiniciar los filtros
-        function reiniciarFiltros() {
-            // Resetear selects
-            document.getElementById('filter-type').value = '';
-            document.getElementById('filter-location').value = '';
-            document.getElementById('filter-price').value = '';
-            document.getElementById('filter-duration').value = '';
-            
-            // Resetear checkboxes
-            document.getElementById('filter-accessibility').checked = false;
-            document.getElementById('filter-activity-senderismo').checked = false;
-            document.getElementById('filter-activity-montanas').checked = false;
-            document.getElementById('filter-activity-cultural').checked = false;
-            document.getElementById('filter-activity-acuatico').checked = false;
-            document.getElementById('filter-activity-gastronomia').checked = false;
-            
-            // Mostrar todos los destinos
-            document.querySelectorAll('.destino').forEach(destino => {
-                destino.style.display = 'block';
-            });
-            
-            // Ocultar mensaje de no resultados
-            const mensajeNoResultados = document.getElementById('mensaje-no-resultados');
-            if (mensajeNoResultados) {
-                mensajeNoResultados.style.display = 'none';
-            }
-        }
-        
-        // Función para aplicar filtros a los destinos
-        function aplicarFiltros() {
-            // Obtener valores de los filtros
-            const tipoFiltro = document.getElementById('filter-type').value;
-            const ubicacionFiltro = document.getElementById('filter-location').value;
-            const precioFiltro = document.getElementById('filter-price').value;
-            const duracionFiltro = document.getElementById('filter-duration').value;
-            
-            // Obtener valores de los checkboxes
-            const accesibilidadFiltro = document.getElementById('filter-accessibility').checked;
-            const senderismoFiltro = document.getElementById('filter-activity-senderismo').checked;
-            const montanasFiltro = document.getElementById('filter-activity-montanas').checked;
-            const culturalFiltro = document.getElementById('filter-activity-cultural').checked;
-            const acuaticoFiltro = document.getElementById('filter-activity-acuatico').checked;
-            const gastronomiaFiltro = document.getElementById('filter-activity-gastronomia').checked;
-            
-            // Filtrar los destinos
-            const destinos = document.querySelectorAll('.destino');
-            let destinosVisibles = 0;
-            
-            destinos.forEach(destino => {
-                // Obtener atributos de datos del destino
-                const tipo = destino.getAttribute('data-type');
-                const ubicacion = destino.getAttribute('data-location');
-                const precio = destino.getAttribute('data-price');
-                const duracion = destino.getAttribute('data-duration');
-                const actividades = destino.getAttribute('data-activities') || '';
-                const esAccesible = destino.getAttribute('data-accessible') === 'true';
-                
-                // Realizar filtrado
-                let mostrar = true;
-                
-                if (tipoFiltro && tipo !== tipoFiltro) mostrar = false;
-                if (ubicacionFiltro && ubicacion !== ubicacionFiltro) mostrar = false;
-                if (precioFiltro && precio !== precioFiltro) mostrar = false;
-                if (duracionFiltro && duracion !== duracionFiltro) mostrar = false;
-                
-                // Filtros de checkbox
-                if (accesibilidadFiltro && !esAccesible) mostrar = false;
-                if (senderismoFiltro && !actividades.includes('senderismo')) mostrar = false;
-                if (montanasFiltro && !actividades.includes('montanas')) mostrar = false;
-                if (culturalFiltro && !actividades.includes('cultural')) mostrar = false;
-                if (acuaticoFiltro && !actividades.includes('acuatico')) mostrar = false;
-                if (gastronomiaFiltro && !actividades.includes('gastronomia')) mostrar = false;
-                
-                // Mostrar u ocultar según resultados
-                destino.style.display = mostrar ? 'block' : 'none';
-                
-                // Contar destinos visibles
-                if (mostrar) destinosVisibles++;
-            });
-            
-            // Mostrar mensaje si no hay resultados
-            const mensajeNoResultados = document.getElementById('mensaje-no-resultados');
-            if (mensajeNoResultados) {
-                mensajeNoResultados.style.display = destinosVisibles === 0 ? 'block' : 'none';
-            }
-        }
-        
-        // Función para inicializar la página
-        function inicializar() {
-            // Vincular eventos para el planificador
-            document.getElementById('transporte-plan').addEventListener('change', calcularCostos);
-            document.getElementById('alimentacion-plan').addEventListener('change', calcularCostos);
-            document.getElementById('guia-plan').addEventListener('change', calcularCostos);
-            
-            // Inicializar valores del planificador
-            calcularCostos();
-            
-            // Para el paso de confirmación
-            const botonConfirmacion = document.querySelector('#paso-2 button[onclick="mostrarPaso(3)"]');
-            if (botonConfirmacion) {
-                botonConfirmacion.addEventListener('click', actualizarResumen);
-            }
-            
-            // Agregar evento a todos los controles de filtro
-            // Select elements
-            const selectFilters = document.querySelectorAll('#filter-type, #filter-location, #filter-price, #filter-duration');
-            selectFilters.forEach(filter => {
-                filter.addEventListener('change', aplicarFiltros);
-            });
-            
-            // Checkbox elements
-            const checkboxFilters = document.querySelectorAll('#filter-accessibility, #filter-activity-senderismo, #filter-activity-montanas, #filter-activity-cultural, #filter-activity-acuatico, #filter-activity-gastronomia');
-            checkboxFilters.forEach(filter => {
-                filter.addEventListener('change', aplicarFiltros);
-            });
-            
-            // Vincular eventos para los botones de filtro
-            const botonResetFiltros = document.getElementById('reset-filtros');
-            if (botonResetFiltros) {
-                botonResetFiltros.addEventListener('click', reiniciarFiltros);
-            }
-
-            // Verificar si hay destinos al cargar la página
-            aplicarFiltros();
-        }
-        
-        // Inicializar cuando el DOM esté cargado
-        document.addEventListener('DOMContentLoaded', inicializar);
-    </script>
-
-    <!-- Librerías necesarias para que los modales funcionen (Bootstrap JS, Popper, jQuery) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-    <!-- Script para verificar el funcionamiento de los modales -->
-    <script>
-        $(document).ready(function() {
-            if (typeof $.fn.modal === 'undefined') {
-                console.error('Bootstrap modal no está disponible. Verifica que las librerías estén cargadas.');
-            } else {
-                console.log('Bootstrap modal está disponible.');
-            }
-            
-            $('.modal').on('show.bs.modal', function (e) {
-                console.log('Modal abierto: ' + $(this).attr('id'));
-            });
-            
-            $('.modal').on('hidden.bs.modal', function (e) {
-                console.log('Modal cerrado: ' + $(this).attr('id'));
-            });
-            
-            $('button[data-toggle="modal"]').each(function() {
-                const targetId = $(this).attr('data-target');
-                const targetModal = $(targetId);
-                
-                if (targetModal.length === 0) {
-                    console.error('El modal ' + targetId + ' no existe pero está referenciado por un botón.');
-                }
-            });
-            
-            $('.sidebar h4').on('click', function() {
-                if (window.innerWidth < 768) {
-                    $(this).parent('.sidebar').toggleClass('active');
-                }
-            });
-            
-            function checkScreenSize() {
-                if (window.innerWidth >= 768) {
-                    $('.sidebar').addClass('active');
-                } else {
-                    $('.sidebar').removeClass('active');
-                }
-            }
-            
-            checkScreenSize();
-            
-            $(window).resize(checkScreenSize);
-        });
-    </script>
-
-    <!-- Función para actualizar costos base según el destino -->
-    <script>
-        function actualizarCostosBase() {
-            const destinoSelect = document.getElementById('destino-planificador');
-            if (!destinoSelect) return; // Evitar error si el elemento no existe
-            
-            // Verificar si tiene opciones antes de acceder a selectedIndex
-            if (destinoSelect.options && destinoSelect.options.length > 0) {
-                const precioBase = destinoSelect.options[destinoSelect.selectedIndex].getAttribute('data-precio-base');
-                calcularCostos();
-            }
-        }
-    </script>
-
-    <!-- Función para actualizar información del clima -->
-    <script>
-        function actualizarInfoClima() {
-            const fechaElement = document.getElementById('fecha-viaje');
-            const destinoElement = document.getElementById('destino-planificador');
-            const infoClimaTexto = document.getElementById('info-clima-texto');
-            const infoEventosTexto = document.getElementById('info-eventos-texto');
-            
-            // Verificar que los elementos existan para evitar errores
-            if (!fechaElement || !destinoElement || !infoClimaTexto || !infoEventosTexto) return;
-            
-            const fecha = fechaElement.value;
-            const destino = destinoElement.value;
-            
-            // Simulación de datos de clima
-            const climas = {
-                'parque-cafe': 'Temperatura: 22°C, Parcialmente nublado',
-                'panaca': 'Temperatura: 25°C, Despejado',
-                'consota': 'Temperatura: 20°C, Nublado',
-                'ukumari': 'Temperatura: 23°C, Soleado'
-            };
-            
-            infoClimaTexto.textContent = climas[destino] || 'Información no disponible';
-            
-            // Simulación de eventos
-            const eventos = {
-                'parque-cafe': 'Festival del Café',
-                'panaca': 'Exposición Agropecuaria',
-                'consota': 'Festival de la Montaña',
-                'ukumari': 'Día de la Fauna'
-            };
-            
-            infoEventosTexto.textContent = eventos[destino] || 'No hay eventos programados';
-        }
-    </script>
-
-    <!-- Función para simular el proceso de pago -->
-    <script>
-        function simularPago() {
-            const costoTotal = document.getElementById('costo-total').textContent;
-            
-            const modalPago = document.createElement('div');
-            modalPago.className = 'modal-pago';
-            modalPago.innerHTML = `
-  <div class="modal-contenido">
-      <h3>Pasarela de pagos</h3>
-      <p>Monto a pagar: $${costoTotal}</p>
-      <div class="opciones-pago" style="display: flex; justify-content: center; gap: 1rem; margin: 1rem 0;">
-          <button onclick="procesarPago('tarjeta')" class="btn btn-primary">Pagar con Tarjeta</button>
-          <button onclick="procesarPago('transferencia')" class="btn btn-primary">Transferencia Bancaria</button>
-          <button onclick="procesarPago('pse')" class="btn btn-primary">PSE</button>
-      </div>
-      <button onclick="cerrarModalPago()" class="btn btn-secondary">Cancelar</button>
-  </div>`;
-            
-            document.body.appendChild(modalPago);
-            
-            // Asegurar que el modal tenga un estilo coherente
-            const estiloModal = document.createElement('style');
-            estiloModal.textContent = `
-                .modal-pago {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.7);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                }
-                
-                .modal-contenido {
-                    background-color: #fff;
-                    padding: 30px;
-                    border-radius: 8px;
-                    max-width: 500px;
-                    width: 90%;
-                    text-align: center;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                }
-                
-                .modal-contenido h3 {
-                    color: #4a7c59;
-                    margin-bottom: 20px;
-                    font-weight: 600;
-                }
-                
-                .btn-primary {
-                    background-color: #4a7c59;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
-                }
-                
-                .btn-primary:hover {
-                    background-color: #3a6349;
-                }
-                
-                .btn-secondary {
-                    background-color: #f8f9fa;
-                    color: #333;
-                    border: 1px solid #ddd;
-                    padding: 10px 20px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    margin-top: 15px;
-                    transition: background-color 0.3s;
-                }
-                
-                .btn-secondary:hover {
-                    background-color: #e2e6ea;
-                }
-                
-                .loader {
-                    border: 5px solid #f3f3f3;
-                    border-top: 5px solid #4a7c59;
-                    border-radius: 50%;
-                    width: 50px;
-                    height: 50px;
-                    animation: spin 2s linear infinite;
-                    margin: 20px auto;
-                }
-                
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-                
-                @media (max-width: 768px) {
-                    .opciones-pago {
-                        flex-direction: column;
-                        gap: 10px;
-                    }
-                    
-                    .btn-primary, .btn-secondary {
-                        width: 100%;
-                        margin: 5px 0;
-                    }
-                }
-            `;
-            
-            document.head.appendChild(estiloModal);
-        }
-    </script>
-
-    <!-- Función para procesar el pago -->
-    <script>
-        function procesarPago(metodo) {
-            const modalPago = document.querySelector('.modal-pago');
-            modalPago.innerHTML = `
-                <div class="modal-contenido">
-                    <h3>Procesando pago...</h3>
-                    <div class="loader"></div>
-                    <p>Por favor, espere mientras procesamos su pago con ${metodo}</p>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                modalPago.innerHTML = `
-                    <div class="modal-contenido">
-                        <h3>¡Pago Exitoso!</h3>
-                        <p>Su reserva ha sido confirmada</p>
-                        <p>Se ha enviado el itinerario a su correo electrónico</p>
-                        <button onclick="cerrarModalPago()" class="btn btn-primary">Cerrar</button>
-                    </div>
-                `;
-            }, 2000);
-        }
-    </script>
-
-    <!-- Función para cerrar el modal de pago -->
-    <script>
-        function cerrarModalPago() {
-            const modalPago = document.querySelector('.modal-pago');
-            if (modalPago) {
-                modalPago.remove();
-            }
-        }
-    </script>
-
-    <!-- Función para compartir itinerario -->
-    <script>
-        function compartirItinerario() {
-            const resumen = {
-                destino: document.getElementById('resumen-destino').textContent,
-                fecha: document.getElementById('resumen-fecha').textContent,
-                transporte: document.getElementById('resumen-transporte').textContent,
-                alimentacion: document.getElementById('resumen-alimentacion').textContent,
-                guia: document.getElementById('resumen-guia').textContent,
-                servicios: document.getElementById('resumen-servicios').textContent,
-                costo: document.getElementById('resumen-costo').textContent
-            };
-            
-            const textoCompartir = `¡Mira mi viaje planeado!\n\n` +
-                `Destino: ${resumen.destino}\n` +
-                `Fecha: ${resumen.fecha}\n` +
-                `Transporte: ${resumen.transporte}\n` +
-                `Alimentación: ${resumen.alimentacion}\n` +
-                `Guía: ${resumen.guia}\n` +
-                `Servicios: ${resumen.servicios}\n` +
-                `Costo total: $${resumen.costo}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Mi Viaje Planeado',
-                    text: textoCompartir
-                });
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = textoCompartir;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('¡El itinerario ha sido copiado al portapapeles!');
-            }
-        }
-    </script>
-
-    <!-- Función para manejar el sidebar responsive -->
-    <script>
-        function inicializarSidebarResponsive() {
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const sidebar = document.querySelector('.sidebar');
-            
-            if (sidebarToggle && sidebar) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('active');
-                    this.classList.toggle('active');
-                });
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            inicializarSidebarResponsive();
-            actualizarCostosBase();
-            
-            // Verificar que el elemento exista antes de añadir el evento
-            const resetFiltros = document.getElementById('reset-filtros');
-            if (resetFiltros) {
-                resetFiltros.addEventListener('click', reiniciarFiltros);
-            }
-            
-            actualizarInfoClima();
-        });
-    </script>
-
-    <!-- Scripts con carga diferida para mejorar el rendimiento -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" defer integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>
