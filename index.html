@@ -19,8 +19,6 @@
         
         <!-- Estilos CSS críticos primero -->
         <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="sidebar-styles.css">
-        <link rel="stylesheet" href="social-icons.css">
         
         <!-- Bootstrap CSS cargado de forma asíncrona -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" media="print" onload="this.media='all'">
@@ -30,7 +28,6 @@
             <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-            <link rel="stylesheet" href="social-icons.css">
         </noscript>
         
         <!-- Meta tags para SEO y compartir en redes sociales -->
@@ -117,7 +114,7 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="img/logo.png" alt="Logo Magia Cafetera" style="height: 60px; width: 60px; border-radius: 50%; object-fit: cover; margin-right: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                <img src="img/logo.png" alt="Logo Magia Cafetera" style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; margin-right: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
                 <h1>Magia Cafetera</h1>
             </div>
             <div class="nav-links">
@@ -144,70 +141,8 @@
             <button onclick="window.location.hash='#planificador'">Personaliza tu viaje</button>
         </div>
 
-        <!-- Slider de videos de los sitios turísticos -->
-        <div class="slider-videos">
-            <div id="carouselVideos" class="carousel slide" data-ride="carousel" data-interval="false">
-                <div class="carousel-inner">
-                    <!-- Parque del Café -->
-                    <div class="carousel-item active">
-                        <div class="video-container embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/-_lDsuQmhV8" title="Parque del Café" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Parque del Café</h5>
-                            <p>Diversión y cultura cafetera</p>
-                        </div>
-                    </div>
-                    <!-- Panaca -->
-                    <div class="carousel-item">
-                        <div class="video-container embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/qN9QMtU5bPM" title="Panaca" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Panaca</h5>
-                            <p>Conéctate con el campo y los animales</p>
-                        </div>
-                    </div>
-                    <!-- Parque Consotá -->
-                    <div class="carousel-item">
-                        <div class="video-container embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/rirHNlNy3O8" title="Parque Consotá" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Parque Consotá</h5>
-                            <p>Recreación y tradición cultural</p>
-                        </div>
-                    </div>
-                    <!-- Bioparque Ukumarí -->
-                    <div class="carousel-item">
-                        <div class="video-container embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/JftHrLo4wgQ" title="Bioparque Ukumarí" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Bioparque Ukumarí</h5>
-                            <p>Descubre la fauna en su hábitat natural</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Controles del slider -->
-                <a class="carousel-control-prev" href="#carouselVideos" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselVideos" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Siguiente</span>
-                </a>
-                
-                <!-- Indicadores -->
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselVideos" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselVideos" data-slide-to="1"></li>
-                    <li data-target="#carouselVideos" data-slide-to="2"></li>
-                    <li data-target="#carouselVideos" data-slide-to="3"></li>
-                </ol>
-            </div>
+        <div class="video-promocional embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/l6Q333JGvbs" title="Video Promocional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </section>
 
