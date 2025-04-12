@@ -328,17 +328,11 @@ nav ul li a:hover {
 }
 
 .banner-principal {
-  /* Degradado con un color café semitransparente */
-  background-image: linear-gradient(
-      to bottom,
-      rgba(93, 64, 55, 0.7),  /* Opacidad 0.7 */
-      rgba(93, 64, 55, 0.7)   /* Opacidad 0.7 */
-    ),
-    url('img/PDC.jpg');
-    
+  /* Solo imagen de fondo aquí */
+  background-image: url('img/PDC.jpg');
   background-size: cover;
   background-position: center;
-  background-blend-mode: overlay; /* Mezcla el degradado con la imagen */
+  /* background-blend-mode: overlay; <-- Removido */
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -347,7 +341,24 @@ nav ul li a:hover {
   text-align: center;
   color: var(--color-white);
   padding: 0 1rem;
-  position: relative; /* Asegura que los elementos hijos se posicionen correctamente */
+  position: relative; /* Necesario para ::before */
+  overflow: hidden; /* Para contener el ::before */
+}
+
+/* Pseudo-elemento para el degradado oscuro */
+.banner-principal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(62, 39, 35, 0.75), /* var(--color-dark) con más opacidad */
+    rgba(62, 39, 35, 0.75)
+  );
+  z-index: 1; /* Detrás del contenido, sobre la imagen implícita */
 }
 
 .banner-principal h2 {
@@ -356,14 +367,34 @@ nav ul li a:hover {
   margin-bottom: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura para mejor legibilidad */
   position: relative; /* Asegura que el texto esté por encima del degradado */
-  z-index: 2; /* Mayor que el fondo */
+  z-index: 2; /* Mayor que el ::before */
   max-width: 800px; /* Limita el ancho para mejor legibilidad */
 }
 
+/* Estilo del botón del banner alineado con .btn y .btn-primario */
 .banner-principal button {
-  font-size: 1.2rem;
-  padding: 1rem 2rem;
-  background-color: var(--color-accent);
+  /* Hereda algunos estilos de .btn si se aplica la clase en HTML, pero definimos aquí para especificidad */
+  padding: 1rem 2rem; /* Padding específico más grande */
+  font-size: 1.1rem; /* Tamaño de fuente específico */
+  font-family: var(--font-main);
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-primary); /* Color primario */
+  border: none;
+  border-radius: var(--radius); /* Bordes redondeados */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative; /* Para z-index y efectos */
+  z-index: 2; /* Sobre el ::before */
+  box-shadow: var(--shadow);
+}
+
+.banner-principal button:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .video-promocional {
