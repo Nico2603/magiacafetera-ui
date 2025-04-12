@@ -83,18 +83,44 @@ a:hover {
   font-family: var(--font-main);
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   text-transform: uppercase;
   font-size: 0.9rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   border: 1px solid #ddd;
-  border-radius: var(--radius);
-  font-family: var(--font-main);
+  border-radius: 25px;
+  font-family: 'Montserrat', var(--font-main);
   font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  opacity: 0;
+  border-radius: inherit;
+  transition: transform 0.5s, opacity 0.3s;
+}
+
+.btn:hover::after {
+  transform: scale(1.5);
+  opacity: 0;
+}
+
+.btn:active::after {
+  transform: scale(0);
 }
 
 .btn-primario, .btn-pago, .btn-reservar, .btn-descargar {
@@ -106,7 +132,7 @@ a:hover {
 .btn-primario:hover, .btn-pago:hover, .btn-reservar:hover, .btn-descargar:hover {
   background-color: var(--color-secondary);
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secundario, .btn-modificar {
@@ -131,6 +157,31 @@ a:hover {
 .destino button {
   margin: 0 1.5rem 1.5rem;
   width: calc(100% - 3rem);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', var(--font-main);
+  position: relative;
+  overflow: hidden;
+}
+
+.destino button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  opacity: 0;
+  border-radius: inherit;
+  transition: transform 0.5s, opacity 0.3s;
+}
+
+.destino button:hover::after {
+  transform: scale(1.5);
+  opacity: 0;
 }
 
 .destino button:first-of-type {
@@ -142,6 +193,8 @@ a:hover {
 .destino button:first-of-type:hover {
   background-color: var(--color-primary);
   color: var(--color-white);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 input, select, textarea {
@@ -270,8 +323,8 @@ nav ul li a:hover {
   /* Degradado con un color café semitransparente */
   background-image: linear-gradient(
       to bottom,
-      rgba(93, 64, 55, 0.5),  /* Marrón café semitransparente */
-      rgba(93, 64, 55, 0.7)   /* Un poco más opaco hacia abajo */
+      rgba(93, 64, 55, 0.6),  /* Marrón café semitransparente (aumentado opacidad) */
+      rgba(93, 64, 55, 0.8)   /* Un poco más opaco hacia abajo (aumentado opacidad) */
     ),
     url('img/PDC.jpg');
     
@@ -286,13 +339,17 @@ nav ul li a:hover {
   text-align: center;
   color: var(--color-white);
   padding: 0 1rem;
+  position: relative; /* Asegura que los elementos hijos se posicionen correctamente */
 }
 
 .banner-principal h2 {
   font-size: 3rem;
   color: var(--color-white);
   margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura para mejor legibilidad */
+  position: relative; /* Asegura que el texto esté por encima del degradado */
+  z-index: 2; /* Mayor que el fondo */
+  max-width: 800px; /* Limita el ancho para mejor legibilidad */
 }
 
 .banner-principal button {
@@ -346,6 +403,9 @@ nav ul li a:hover {
   margin-bottom: 0.5rem;
   font-weight: 500;
   color: var(--color-dark);
+  font-family: 'Montserrat', var(--font-main);
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
 }
 
 .filtro select,
@@ -356,6 +416,9 @@ nav ul li a:hover {
   border-radius: var(--radius);
   background-color: var(--color-light);
   transition: var(--transition);
+  font-family: 'Montserrat', var(--font-main);
+  font-size: 0.9rem;
+  color: var(--color-text);
 }
 
 .filtro select:focus,
@@ -365,25 +428,73 @@ nav ul li a:hover {
   box-shadow: 0 0 0 2px rgba(161, 136, 127, 0.2);
 }
 
+/* Estilo para el texto de placeholder en los select */
+.filtro select option {
+  font-family: 'Montserrat', var(--font-main);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  background-color: white;
+  padding: 8px 12px;
+}
+
+.filtro select option:first-child {
+  color: #777;
+  font-style: italic;
+}
+
 .form-check {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
 }
 
 .form-check-input {
   margin-right: 0.5rem;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.form-check-input:checked::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .form-check-label {
   font-size: 0.95rem;
   color: var(--color-text);
-  font-family: var(--font-main);
+  font-family: 'Montserrat', var(--font-main);
   padding-left: 0.3rem;
   margin-bottom: 0;
   line-height: 1.4;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .form-check:hover .form-check-label {
   color: var(--color-primary);
+}
+
+.form-check:hover .form-check-input {
+  border-color: var(--color-accent);
 }
 
 .form-switch {
@@ -672,8 +783,31 @@ nav ul li a:hover {
 .botones-navegacion button {
   padding: 12px 25px;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
+  border-radius: 25px;
+  font-family: 'Montserrat', var(--font-main);
+  position: relative;
+  overflow: hidden;
+}
+
+.botones-navegacion button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  opacity: 0;
+  border-radius: inherit;
+  transition: transform 0.5s, opacity 0.3s;
+}
+
+.botones-navegacion button:hover::after {
+  transform: scale(1.5);
+  opacity: 0;
 }
 
 .botones-navegacion button:hover {
@@ -2164,8 +2298,31 @@ footer h3 {
 .botones-navegacion button {
     padding: 12px 25px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
+    border-radius: 25px;
+    font-family: 'Montserrat', var(--font-main);
+    position: relative;
+    overflow: hidden;
+}
+
+.botones-navegacion button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(0);
+    opacity: 0;
+    border-radius: inherit;
+    transition: transform 0.5s, opacity 0.3s;
+}
+
+.botones-navegacion button:hover::after {
+    transform: scale(1.5);
+    opacity: 0;
 }
 
 .botones-navegacion button:hover {

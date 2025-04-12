@@ -118,7 +118,124 @@ document.addEventListener('DOMContentLoaded', function() {
     selectoresPaso2.forEach(selector => {
         selector.addEventListener('change', calcularCostos);
     });
+    
+    // Inicializar el slider de videos si existe en la página
+    inicializarSliderVideos();
 });
+
+// Función para inicializar el slider de videos
+function inicializarSliderVideos() {
+    const carouselVideos = document.getElementById('carouselVideos');
+    if (!carouselVideos) return; // Si no existe el carrusel, salir
+    
+    // Comprobar si Bootstrap está disponible
+    if (typeof jQuery !== 'undefined' && typeof jQuery.fn.carousel !== 'undefined') {
+        // Inicializar con jQuery si está disponible
+        jQuery('#carouselVideos').carousel({
+            interval: 7000, // Tiempo entre slides (7 segundos)
+            pause: 'hover', // Pausar al pasar el mouse
+            wrap: true,     // Continuar al llegar al final
+            keyboard: true  // Permitir navegación con teclado
+        });
+    } else {
+        // Implementación nativa si jQuery/Bootstrap no está disponible
+        let currentSlide = 0;
+        const slides = carouselVideos.querySelectorAll('.carousel-item');
+        const indicators = carouselVideos.querySelectorAll('.carousel-indicators li');
+        const prevBtn = carouselVideos.querySelector('.carousel-control-prev');
+        const nextBtn = carouselVideos.querySelector('.carousel-control-next');
+        const totalSlides = slides.length;
+        let slideInterval;
+        
+        // Función para mostrar una diapositiva específica
+        function showSlide(index) {
+            if (index >= totalSlides) index = 0;
+            if (index < 0) index = totalSlides - 1;
+            
+            // Ocultar todos los slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Desactivar todos los indicadores
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            
+            // Mostrar el slide actual y activar su indicador
+            slides[index].classList.add('active');
+            if (indicators[index]) {
+                indicators[index].classList.add('active');
+            }
+            
+            currentSlide = index;
+        }
+        
+        // Función para avanzar al siguiente slide
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        // Función para retroceder al slide anterior
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        // Configurar intervalo automático
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 7000);
+        }
+        
+        // Detener intervalo (al interactuar)
+        function stopInterval() {
+            clearInterval(slideInterval);
+        }
+        
+        // Agregar event listeners
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                prevSlide();
+                stopInterval();
+                startInterval();
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                nextSlide();
+                stopInterval();
+                startInterval();
+            });
+        }
+        
+        // Configurar indicadores
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', function(e) {
+                e.preventDefault();
+                showSlide(index);
+                stopInterval();
+                startInterval();
+            });
+        });
+        
+        // Iniciar el slider
+        startInterval();
+    }
+    
+    // Asegurarse de que los videos no se reproduzcan todos a la vez
+    carouselVideos.addEventListener('slide.bs.carousel', function (e) {
+        // Pausar todos los videos cuando cambia el slide
+        const videos = document.querySelectorAll('.carousel-item iframe');
+        videos.forEach(video => {
+            // Obtener la URL actual del video
+            const currentSrc = video.src;
+            // Reiniciar el src para detener la reproducción
+            video.src = currentSrc;
+        });
+    });
+}
 
 // Función para actualizar lista de destinos seleccionados
 function actualizarDestinosSeleccionados() {
@@ -1312,4 +1429,35 @@ function reservarPaquete(tipoPaquete) {
     
     // Ir al paso 3 directamente
     mostrarPaso(3);
+}
+
+// Función para seleccionar un destino específico y redireccionar al planificador
+function seleccionarDestinoYRedireccionar(destinoId) {
+    // Desmarcar todos los checkboxes primero
+    document.querySelectorAll('.destinos-checkbox input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    // Marcar solo el destino seleccionado
+    const checkbox = document.querySelector(`.destinos-checkbox input[value="${destinoId}"]`);
+    if (checkbox) {
+        checkbox.checked = true;
+        
+        // Actualizar la lista de destinos seleccionados
+        actualizarDestinosSeleccionados();
+        
+        // Mostrar notificación
+        mostrarNotificacion(`Has seleccionado ${checkbox.nextElementSibling.textContent} para tu viaje`, 'success');
+        
+        // Redireccionar al planificador
+        window.location.href = '#planificador';
+        
+        // Si es necesario, mostrar el paso 1 del planificador
+        mostrarPaso(1);
+        
+        // Asegurarse de que la información del clima se actualice
+        actualizarInfoClima();
+    } else {
+        console.error(`No se encontró el destino con ID: ${destinoId}`);
+    }
 } 
