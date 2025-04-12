@@ -1435,10 +1435,6 @@ footer button {
     background-color: var(--color-white);
 }
 
-#paquetes .container {
-    max-width: 1100px; /* Ajuste para mejor visualización */
-}
-
 #paquetes h2, #blog h2, #opiniones h2, #contacto h2, #politicas h2 {
     margin-bottom: 2.5rem; /* Más espacio debajo de los títulos principales de sección */
 }
@@ -2490,4 +2486,14 @@ footer h3 {
         margin-bottom: 5px;
         display: block;
     }
+}
+
+/* Standardize container width for specific sections to match #planificador content */
+#planificador .container, /* Optional: include for clarity or if needed */
+#paquetes .container,
+#blog .container,
+#opiniones .container,
+#contacto .container,
+#politicas .container {
+    max-width: 900px; /* Match .pasos-planificador width */
 }

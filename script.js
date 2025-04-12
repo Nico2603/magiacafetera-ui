@@ -121,6 +121,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Inicializar el slider de videos si existe en la página
     inicializarSliderVideos();
+
+    // --- Configuración Filtros Destinos ---
+    const filterControls = document.querySelectorAll('.sidebar .filtro select, .sidebar .filtro input[type="checkbox"]');
+    const resetButton = document.getElementById('reset-filtros');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarContent = document.querySelector('.sidebar .filtros-destinos');
+    const mainSidebarContainer = document.querySelector('.sidebar'); // Contenedor principal del sidebar
+
+    // Aplicar filtros al cambiar cualquier control
+    filterControls.forEach(control => {
+        control.addEventListener('change', filtrarDestinos);
+    });
+
+    // Limpiar filtros al hacer clic en el botón
+    if (resetButton) {
+        resetButton.addEventListener('click', limpiarFiltros);
+    }
+
+    // Mostrar/ocultar sidebar en móvil
+    if (sidebarToggle && sidebarContent && mainSidebarContainer) {
+        sidebarToggle.addEventListener('click', () => {
+            mainSidebarContainer.classList.toggle('active'); // Toggle en el contenedor principal
+            sidebarToggle.classList.toggle('active'); // Para cambiar icono +/- o similar
+            // La visibilidad del contenido (.filtros-destinos) se maneja por CSS basado en .sidebar.active
+        });
+    }
+
+    // Filtrar al cargar la página por si hay valores preseleccionados (aunque no es el caso aquí)
+    filtrarDestinos(); 
+    // --- Fin Configuración Filtros Destinos ---
 });
 
 // Función para inicializar el slider de videos
@@ -708,6 +738,15 @@ function crearFranjaHoraria(titulo, actividades) {
 
 // Funciones para obtener actividades según destino y hora del día
 function obtenerActividadesMañana(destino) {
+    // Asegurarse que 'destino' no sea undefined
+    if (!destino || !destino.valor) {
+        return [
+            'Desayuno típico de la región',
+            'Visita a atractivos locales',
+            'Recorrido por centro histórico'
+        ];
+    }
+    
     const actividades = {
         'ukumari': [
             'Visita al bioparque Ukumarí',
@@ -739,6 +778,15 @@ function obtenerActividadesMañana(destino) {
 }
 
 function obtenerActividadesTarde(destino) {
+    // Asegurarse que 'destino' no sea undefined
+    if (!destino || !destino.valor) {
+        return [
+            'Almuerzo regional',
+            'Visita a miradores panorámicos',
+            'Tiempo libre para compras artesanales'
+        ];
+    }
+
     const actividades = {
         'ukumari': [
             'Visita a la sección de fauna africana',
@@ -1460,4 +1508,78 @@ function seleccionarDestinoYRedireccionar(destinoId) {
     } else {
         console.error(`No se encontró el destino con ID: ${destinoId}`);
     }
-} 
+}
+
+// --- INICIO: Lógica para filtros de destinos ---
+
+function filtrarDestinos() {
+    const filterType = document.getElementById('filter-type').value;
+    const filterLocation = document.getElementById('filter-location').value;
+    const filterPrice = document.getElementById('filter-price').value;
+    const filterDuration = document.getElementById('filter-duration').value;
+    const filterAccessibility = document.getElementById('filter-accessibility').checked;
+    
+    const selectedActivities = [];
+    document.querySelectorAll('.sidebar .filtro input[type="checkbox"][id^="filter-activity-"]:checked').forEach(checkbox => {
+        // Extraer el nombre de la actividad del ID (ej: 'filter-activity-senderismo' -> 'senderismo')
+        selectedActivities.push(checkbox.id.replace('filter-activity-', ''));
+    });
+
+    const destinos = document.querySelectorAll('.lista-destinos .destino');
+    const mensajeNoResultados = document.getElementById('mensaje-no-resultados');
+    let resultadosVisibles = 0;
+
+    destinos.forEach(destino => {
+        const tipo = destino.dataset.type || '';
+        const ubicacion = destino.dataset.location || ''; // Puede tener múltiples valores: "risaralda pereira"
+        const precio = destino.dataset.price || '';
+        const duracion = destino.dataset.duration || '';
+        const accesibilidad = destino.dataset.accessibility === 'true';
+        const actividadesDestino = (destino.dataset.activities || '').split(','); // "senderismo,cultural" -> ['senderismo', 'cultural']
+
+        let mostrar = true;
+
+        // Comprobar cada filtro
+        if (filterType && tipo !== filterType) mostrar = false;
+        if (filterLocation && !ubicacion.includes(filterLocation)) mostrar = false; // Usar includes para ubicaciones múltiples
+        if (filterPrice && precio !== filterPrice) mostrar = false;
+        if (filterDuration && duracion !== filterDuration) mostrar = false;
+        if (filterAccessibility && !accesibilidad) mostrar = false;
+
+        // Comprobar actividades (deben estar TODAS las seleccionadas)
+        if (mostrar && selectedActivities.length > 0) {
+            const todasPresentes = selectedActivities.every(actividadSel => actividadesDestino.includes(actividadSel));
+            if (!todasPresentes) mostrar = false;
+        }
+
+        // Mostrar u ocultar el destino
+        if (mostrar) {
+            destino.style.display = 'block';
+            resultadosVisibles++;
+        } else {
+            destino.style.display = 'none';
+        }
+    });
+
+    // Mostrar mensaje si no hay resultados
+    if (mensajeNoResultados) {
+        mensajeNoResultados.style.display = resultadosVisibles === 0 ? 'block' : 'none';
+    }
+}
+
+function limpiarFiltros() {
+    // Restablecer selects
+    document.querySelectorAll('.sidebar .filtro select').forEach(select => {
+        select.selectedIndex = 0; // Poner la primera opción ("Todos...")
+    });
+    
+    // Restablecer checkboxes
+    document.querySelectorAll('.sidebar .filtro input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    // Volver a aplicar los filtros (ahora vacíos) para mostrar todos
+    filtrarDestinos();
+}
+
+// --- FIN: Lógica para filtros de destinos --- 
