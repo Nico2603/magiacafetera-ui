@@ -271,7 +271,9 @@ nav {
 }
 
 .nav-links {
-  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 nav ul {
@@ -299,7 +301,6 @@ nav ul li a:hover {
 .redes-header {
   display: flex;
   gap: 0.8rem;
-  margin-left: 1rem;
 }
 
 .redes-header .red-social {
