@@ -1654,21 +1654,23 @@ footer button {
 
 /* Estilos para el carrusel del blog */
 #carouselBlog .carousel-item {
-    padding: 0 15%; /* Espacio a los lados para centrar la tarjeta */
-    min-height: 250px; /* Altura mínima para evitar colapso */
-    display: flex; /* Para centrar contenido si es necesario */
-    align-items: center;
-    justify-content: center;
+    padding: 0 15%; /* Mantener espacio a los lados */
+    min-height: 250px; /* Mantener altura mínima */
+    /* display: flex; <-- Eliminado */
+    /* align-items: center; <-- Eliminado */
+    /* justify-content: center; <-- Eliminado */
+    /* El item vuelve a ser un bloque normal */
 }
 
 .articulo-blog-card {
     background-color: var(--color-white);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 2rem; /* Padding interno */
-    margin: 1rem 0; /* Margen vertical */
-    text-align: center; /* Centrar texto */
-    width: 100%; /* Ocupar el espacio disponible dentro del padding del item */
+    padding: 2rem; 
+    margin: 1rem auto; /* Centrar la tarjeta horizontalmente */
+    text-align: center; 
+    /* width: 100%; <-- No necesario si usamos margin auto */
+    max-width: 90%; /* Limitar ancho de la tarjeta */
     border-left: 5px solid var(--color-accent);
 }
 
