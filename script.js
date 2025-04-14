@@ -1,1585 +1,781 @@
-// Variables globales para almacenar selecciones del usuario
-let destinosSeleccionados = [];
-let datosViaje = {
-    destinos: [],
-    duracion: 1,
-    tipoViajero: 'familiar',
-    presupuesto: 'bajo',
-    transporte: 'privado',
-    hospedaje: 'no',
-    alimentacion: 'tipico',
-    guia: 'si',
-    serviciosExtra: [],
-    costoTotal: 0
+// --- NUEVA LÓGICA PARA PLANIFICADOR FLEXIBLE ---
+
+// 1. Estructura de Datos de Componentes Disponibles
+const componentesDisponibles = {
+    destinos: [
+        { id: 'destino-pdc', nombre: 'Parque del Café', descripcion: 'Entrada general', precio: 86000, categoria: 'Destino' },
+        { id: 'destino-panaca', nombre: 'PANACA', descripcion: 'Pasaporte Terra', precio: 110000, categoria: 'Destino' },
+        { id: 'destino-ukumari', nombre: 'Bioparque Ukumarí', descripcion: 'Pasaporte Adulto', precio: 49000, categoria: 'Destino' },
+        { id: 'destino-consota', nombre: 'Parque Consotá', descripcion: 'Entrada Particular', precio: 36800, categoria: 'Destino' },
+        { id: 'destino-salento', nombre: 'Salento y Valle de Cocora', descripcion: 'Transporte y guía básico', precio: 75000, categoria: 'Destino' }
+    ],
+    transporte: [
+        { id: 'trans-compartido', nombre: 'Transporte Compartido', descripcion: 'Van o bus grupal (precio por día)', precio: 50000, categoria: 'Transporte' },
+        { id: 'trans-privado', nombre: 'Transporte Privado', descripcion: 'Vehículo exclusivo (precio por día)', precio: 150000, categoria: 'Transporte' },
+        { id: 'trans-chiva', nombre: 'Chiva Tradicional', descripcion: 'Experiencia folclórica (precio por día)', precio: 90000, categoria: 'Transporte' },
+        { id: 'trans-propio', nombre: 'Vehículo Propio', descripcion: 'No requiere servicio', precio: 0, categoria: 'Transporte' }
+    ],
+    hospedaje: [
+        { id: 'hosp-hotel-3', nombre: 'Hotel 3 Estrellas', descripcion: 'Estándar con desayuno (precio por noche)', precio: 180000, categoria: 'Hospedaje' },
+        { id: 'hosp-hotel-4', nombre: 'Hotel 4 Estrellas', descripcion: 'Superior con más servicios (precio por noche)', precio: 280000, categoria: 'Hospedaje' },
+        { id: 'hosp-finca', nombre: 'Finca Cafetera Típica', descripcion: 'Experiencia rural (precio por noche)', precio: 220000, categoria: 'Hospedaje' },
+        { id: 'hosp-ninguno', nombre: 'Sin Hospedaje', descripcion: 'Ya tengo dónde quedarme', precio: 0, categoria: 'Hospedaje' }
+    ],
+    alimentacion: [
+        { id: 'alim-desayuno', nombre: 'Solo Desayunos', descripcion: '(precio por día)', precio: 30000, categoria: 'Alimentación' },
+        { id: 'alim-media', nombre: 'Media Pensión', descripcion: 'Desayuno y cena (precio por día)', precio: 70000, categoria: 'Alimentación' },
+        { id: 'alim-completa', nombre: 'Pensión Completa', descripcion: 'Desayuno, almuerzo y cena (precio por día)', precio: 110000, categoria: 'Alimentación' },
+        { id: 'alim-ninguna', nombre: 'Sin Plan de Comidas', descripcion: 'Comeré por mi cuenta', precio: 0, categoria: 'Alimentación' }
+    ],
+    guias: [
+        { id: 'guia-basico', nombre: 'Guía Básico Local', descripcion: 'Para recorridos específicos (precio por día)', precio: 80000, categoria: 'Guía' },
+        { id: 'guia-experto', nombre: 'Guía Experto Bilingüe', descripcion: 'Acompañamiento completo (precio por día)', precio: 200000, categoria: 'Guía' },
+        { id: 'guia-ninguno', nombre: 'Sin Guía Turístico', descripcion: 'Exploraré por mi cuenta', precio: 0, categoria: 'Guía' }
+    ],
+    extras: [
+        { id: 'extra-fotografia', nombre: 'Fotografía Profesional', descripcion: 'Sesión de fotos en 1 destino (precio único)', precio: 150000, categoria: 'Extra' },
+        { id: 'extra-barismo', nombre: 'Taller de Barismo', descripcion: 'Aprende a preparar café (precio único)', precio: 60000, categoria: 'Extra' },
+        { id: 'extra-cabalgata', nombre: 'Cabalgata Ecológica', descripcion: 'Paseo a caballo (2h) (precio único)', precio: 90000, categoria: 'Extra' },
+        { id: 'extra-termales', nombre: 'Visita a Termales', descripcion: 'Entrada y transporte básico (precio único)', precio: 120000, categoria: 'Extra' }
+    ]
 };
 
-// Eventos climáticos simulados para fechas
-const climasSimulados = [
-    "Soleado con altas de 28°C",
-    "Parcialmente nublado con posibilidad de lluvias ligeras",
-    "Despejado con bajas de 18°C",
-    "Cielo cubierto con lluvias intermitentes",
-    "Clima templado con máximas de 24°C",
-    "Mañanas frescas y tardes soleadas, 22°C",
-    "Nublado por la mañana, soleado por la tarde, 25°C",
-    "Lluvias ocasionales con 21°C",
-    "Cielo despejado con brisa suave, 26°C",
-    "Caluroso con 30°C"
-];
-
-// Mensajes asociados al clima
-const mensajesClima = [
-    "¡Perfecto para actividades al aire libre!",
-    "Lleva contigo un paraguas por si acaso.",
-    "Ideal para disfrutar un buen café caliente.",
-    "Recomendamos llevar ropa impermeable.",
-    "Condiciones ideales para explorar los cafetales.",
-    "No olvides protector solar y sombrero.",
-    "Ideal para caminatas y fotografía.",
-    "Recomendable llevar una chaqueta ligera.",
-    "Excelente para visitar miradores panorámicos.",
-    "Refresca con bebidas tradicionales de la región."
-];
-
-// Eventos especiales simulados
-const eventosSimulados = [
-    "Festival del Café en Montenegro",
-    "Exposición artesanal en Salento",
-    "Feria gastronómica en Armenia",
-    "Festival de la cosecha en Calarcá",
-    "Competencia de baristas en Pereira",
-    "Noche de cuentos tradicionales en Quimbaya",
-    "Mercado tradicional campesino en Circasia",
-    "Torneo de Tejo en Filandia",
-    "Exhibición cultural en Buenavista",
-    "Fiesta tradicional cafetera en Córdoba"
-];
-
-// Definición de paquetes predefinidos
-const paquetesPredefinidos = {
-    'aventura': {
-        nombre: 'Aventura Cafetera',
-        destinos: ['parque-cafe', 'consota'],
-        duracion: 2,
-        tipoViajero: 'amigos',
-        transporte: 'chiva',
-        hospedaje: 'si',
-        alimentacion: 'tipico',
-        guia: 'si',
-        serviciosExtra: ['Taller de barismo'],
-        precio: 250000
-    },
-    'naturaleza': {
-        nombre: 'Naturaleza y Tradición',
-        destinos: ['ukumari', 'consota'],
-        duracion: 2,
-        tipoViajero: 'familiar',
-        transporte: 'compartido',
-        hospedaje: 'si',
-        alimentacion: 'vegetariano',
-        guia: 'si',
-        serviciosExtra: [],
-        precio: 280000
-    },
-    'completa': {
-        nombre: 'Experiencia Completa',
-        destinos: ['parque-cafe', 'panaca', 'ukumari', 'consota'],
-        duracion: 3,
-        tipoViajero: 'familiar',
-        transporte: 'privado',
-        hospedaje: 'si',
-        alimentacion: 'gourmet',
-        guia: 'si',
-        serviciosExtra: ['Fotografía profesional', 'Experiencias exclusivas'],
-        precio: 450000
-    }
+// 2. Estado del Plan Actual
+let planActual = { // Ahora es un objeto para más estructura
+    componentes: [], // Array de IDs de componentes seleccionados
+    numeroViajeros: 1,
+    fechaViaje: null,
+    duracionDias: 1 // Nueva propiedad para duración
 };
+let costoTotalActual = 0;
 
-// Inicialización cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    // Configurar los listeners para los checkboxes de destinos
-    const checkboxesDestinos = document.querySelectorAll('.destinos-checkbox input[type="checkbox"]');
-    checkboxesDestinos.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            actualizarDestinosSeleccionados();
-        });
-    });
-    
-    // Configurar listener para cambio en duración
-    document.getElementById('duracion-viaje').addEventListener('change', function() {
-        actualizarInfoClima();
-    });
-    
-    // Inicializar información de clima
-    actualizarInfoClima();
-    
-    // Configurar listeners para los selectores en el paso 2
-    const selectoresPaso2 = document.querySelectorAll('#paso-2 select');
-    selectoresPaso2.forEach(selector => {
-        selector.addEventListener('change', calcularCostos);
-    });
-    
-    // Inicializar el slider de videos si existe en la página
-    inicializarSliderVideos();
 
-    // --- Configuración Filtros Destinos ---
-    const filterControls = document.querySelectorAll('.sidebar .filtro select, .sidebar .filtro input[type="checkbox"]');
-    const resetButton = document.getElementById('reset-filtros');
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebarContent = document.querySelector('.sidebar .filtros-destinos');
-    const mainSidebarContainer = document.querySelector('.sidebar'); // Contenedor principal del sidebar
-
-    // Aplicar filtros al cambiar cualquier control
-    filterControls.forEach(control => {
-        control.addEventListener('change', filtrarDestinos);
-    });
-
-    // Limpiar filtros al hacer clic en el botón
-    if (resetButton) {
-        resetButton.addEventListener('click', limpiarFiltros);
+// --- Funciones Auxiliares ---
+function encontrarComponente(id) {
+    for (const categoria in componentesDisponibles) {
+        const componente = componentesDisponibles[categoria].find(comp => comp.id === id);
+        if (componente) return componente;
     }
+    return null;
+}
 
-    // Mostrar/ocultar sidebar en móvil
-    if (sidebarToggle && sidebarContent && mainSidebarContainer) {
-        sidebarToggle.addEventListener('click', () => {
-            mainSidebarContainer.classList.toggle('active'); // Toggle en el contenedor principal
-            sidebarToggle.classList.toggle('active'); // Para cambiar icono +/- o similar
-            // La visibilidad del contenido (.filtros-destinos) se maneja por CSS basado en .sidebar.active
-        });
+function formatearPrecio(precio) {
+    // Asegurarse que el precio sea un número antes de formatear
+    const numPrecio = Number(precio);
+    if (isNaN(numPrecio)) {
+        return 'N/A'; // O algún valor por defecto
     }
+    return numPrecio.toLocaleString('es-CO');
+}
 
-    // Filtrar al cargar la página por si hay valores preseleccionados (aunque no es el caso aquí)
-    filtrarDestinos(); 
-    // --- Fin Configuración Filtros Destinos ---
-});
+// --- Lógica de Renderizado ---
 
-// Función para inicializar el slider de videos
-function inicializarSliderVideos() {
-    const carouselVideos = document.getElementById('carouselVideos');
-    if (!carouselVideos) return; // Si no existe el carrusel, salir
-    
-    // Comprobar si Bootstrap está disponible
-    if (typeof jQuery !== 'undefined' && typeof jQuery.fn.carousel !== 'undefined') {
-        // Inicializar con jQuery si está disponible
-        jQuery('#carouselVideos').carousel({
-            interval: 7000, // Tiempo entre slides (7 segundos)
-            pause: 'hover', // Pausar al pasar el mouse
-            wrap: true,     // Continuar al llegar al final
-            keyboard: true  // Permitir navegación con teclado
+function renderizarComponentesDisponibles() {
+    const container = document.getElementById('componentes-disponibles');
+    if (!container) return;
+
+    container.innerHTML = '<h4><i class="fas fa-puzzle-piece"></i> Componentes Disponibles</h4>';
+
+    // Controles Generales (Viajeros, Fecha, Duración)
+    const controlesViajeHTML = `
+        <div class=\"controles-viaje mb-3 p-3 bg-light border rounded\">
+            <h5><i class=\"fas fa-users\"></i> Detalles del Viaje</h5>
+            <div class=\"form-row\">
+                <div class=\"form-group col-md-4\">
+                    <label for=\"numero-viajeros-flexible\">Viajeros:</label>
+                    <input type=\"number\" id=\"numero-viajeros-flexible\" class=\"form-control form-control-sm\" value=\"${planActual.numeroViajeros}\" min=\"1\">
+                </div>
+                <div class=\"form-group col-md-4\">
+                    <label for=\"duracion-dias-flexible\">Días:</label>
+                    <input type=\"number\" id=\"duracion-dias-flexible\" class=\"form-control form-control-sm\" value=\"${planActual.duracionDias}\" min=\"1\">
+                </div>
+                <div class=\"form-group col-md-4\">
+                     <label for=\"fecha-viaje-flexible\">Fecha Inicio:</label>
+                     <input type=\"date\" id=\"fecha-viaje-flexible\" class=\"form-control form-control-sm\" value=\"${planActual.fechaViaje || ''}\" min=\"${new Date().toISOString().split('T')[0]}\">
+                 </div>
+            </div>
+        </div>
+        <hr>
+    `;
+    container.innerHTML += controlesViajeHTML;
+
+    // Escuchar cambios en los controles generales
+    document.getElementById('numero-viajeros-flexible')?.addEventListener('change', (e) => {
+        planActual.numeroViajeros = parseInt(e.target.value) || 1;
+        calcularCostoTotalFlexible();
+    });
+     document.getElementById('duracion-dias-flexible')?.addEventListener('change', (e) => {
+        planActual.duracionDias = parseInt(e.target.value) || 1;
+        calcularCostoTotalFlexible(); // Duración afecta costo de servicios por día
+    });
+    document.getElementById('fecha-viaje-flexible')?.addEventListener('change', (e) => {
+        planActual.fechaViaje = e.target.value || null;
+    });
+
+    // Renderizar Categorías y Componentes
+    for (const categoriaNombre in componentesDisponibles) {
+        const categoriaDiv = document.createElement('div');
+        categoriaDiv.className = 'categoria-componente card mb-3'; // Usar card para mejor estructura
+
+        const tituloCategoria = document.createElement('div');
+        tituloCategoria.className = 'card-header bg-light';
+        // Iconos representativos por categoría (ejemplo)
+        let icono = 'fa-puzzle-piece';
+        if (categoriaNombre === 'destinos') icono = 'fa-map-marker-alt';
+        else if (categoriaNombre === 'transporte') icono = 'fa-car';
+        else if (categoriaNombre === 'hospedaje') icono = 'fa-bed';
+        else if (categoriaNombre === 'alimentacion') icono = 'fa-utensils';
+        else if (categoriaNombre === 'guias') icono = 'fa-user-tie';
+        else if (categoriaNombre === 'extras') icono = 'fa-star';
+
+        tituloCategoria.innerHTML = `<h5><i class="fas ${icono} mr-2"></i>${categoriaNombre.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</h5>`;
+        categoriaDiv.appendChild(tituloCategoria);
+
+        const cardBody = document.createElement('div');
+        cardBody.className = 'list-group list-group-flush'; // Usar list-group
+
+        componentesDisponibles[categoriaNombre].forEach(componente => {
+            const itemButton = document.createElement('button'); // Cambiar a button para mejor semántica y accesibilidad
+            itemButton.type = 'button';
+            itemButton.className = 'list-group-item list-group-item-action componente-item d-flex justify-content-between align-items-center';
+            itemButton.dataset.id = componente.id;
+
+            // Determinar si el componente está actualmente seleccionado
+             const isSelected = planActual.componentes.includes(componente.id);
+             if (isSelected) {
+                itemButton.classList.add('active'); // Marcar visualmente si está seleccionado
+             }
+
+
+            itemButton.innerHTML = `
+                <div class=\"componente-info flex-grow-1 mr-3\">
+                    <span class=\"font-weight-bold\">${componente.nombre}</span>
+                    ${componente.descripcion ? `<small class=\"d-block text-muted\">${componente.descripcion}</small>` : ''}
+                    <small class=\"d-block text-primary\">$${formatearPrecio(componente.precio)} ${componente.categoria !== 'Destino' && componente.categoria !== 'Extra' ? '/ día' : componente.categoria === 'Extra' ? '(único)' : '/ entrada'}</small>
+                </div>
+                <i class=\"fas ${isSelected ? 'fa-check-circle text-success' : 'fa-plus-circle text-primary'} btn-anadir-quitar\"></i>
+            `;
+
+             // Listener para añadir/quitar
+            itemButton.addEventListener('click', () => {
+                if (planActual.componentes.includes(componente.id)) {
+                    quitarComponenteDelPlan(componente.id);
+                } else {
+                    agregarComponenteAlPlan(componente.id);
+                }
+                 // Actualizar visualmente el botón después de la acción
+                renderizarComponentesDisponibles(); // Re-renderizar para actualizar estado visual
+                renderizarPlanSeleccionado();
+            });
+
+            cardBody.appendChild(itemButton);
         });
+
+        categoriaDiv.appendChild(cardBody);
+        container.appendChild(categoriaDiv);
+    }
+}
+
+
+function renderizarPlanSeleccionado() {
+    const listaContainer = document.getElementById('lista-plan-seleccionado');
+    const costoTotalElement = document.getElementById('costo-total-flexible');
+    if (!listaContainer || !costoTotalElement) return;
+
+    listaContainer.innerHTML = ''; // Limpiar lista
+
+    if (planActual.componentes.length === 0) {
+        listaContainer.innerHTML = '<p class=\"text-muted text-center\">Añade componentes desde la izquierda.</p>';
     } else {
-        // Implementación nativa si jQuery/Bootstrap no está disponible
-        let currentSlide = 0;
-        const slides = carouselVideos.querySelectorAll('.carousel-item');
-        const indicators = carouselVideos.querySelectorAll('.carousel-indicators li');
-        const prevBtn = carouselVideos.querySelector('.carousel-control-prev');
-        const nextBtn = carouselVideos.querySelector('.carousel-control-next');
-        const totalSlides = slides.length;
-        let slideInterval;
-        
-        // Función para mostrar una diapositiva específica
-        function showSlide(index) {
-            if (index >= totalSlides) index = 0;
-            if (index < 0) index = totalSlides - 1;
-            
-            // Ocultar todos los slides
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-            });
-            
-            // Desactivar todos los indicadores
-            indicators.forEach(indicator => {
-                indicator.classList.remove('active');
-            });
-            
-            // Mostrar el slide actual y activar su indicador
-            slides[index].classList.add('active');
-            if (indicators[index]) {
-                indicators[index].classList.add('active');
+        // Agrupar por categoría para mejor visualización
+        const planAgrupado = {};
+        planActual.componentes.forEach(id => {
+            const comp = encontrarComponente(id);
+            if (comp) {
+                if (!planAgrupado[comp.categoria]) {
+                    planAgrupado[comp.categoria] = [];
+                }
+                planAgrupado[comp.categoria].push(comp);
             }
-            
-            currentSlide = index;
-        }
-        
-        // Función para avanzar al siguiente slide
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-        
-        // Función para retroceder al slide anterior
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-        
-        // Configurar intervalo automático
-        function startInterval() {
-            slideInterval = setInterval(nextSlide, 7000);
-        }
-        
-        // Detener intervalo (al interactuar)
-        function stopInterval() {
-            clearInterval(slideInterval);
-        }
-        
-        // Agregar event listeners
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                prevSlide();
-                stopInterval();
-                startInterval();
-            });
-        }
-        
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                nextSlide();
-                stopInterval();
-                startInterval();
-            });
-        }
-        
-        // Configurar indicadores
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', function(e) {
-                e.preventDefault();
-                showSlide(index);
-                stopInterval();
-                startInterval();
+        });
+
+         for (const categoria in planAgrupado) {
+             const categoriaDiv = document.createElement('div');
+             categoriaDiv.className = 'mb-2';
+             const tituloCat = document.createElement('strong');
+             tituloCat.textContent = categoria + ':';
+             categoriaDiv.appendChild(tituloCat);
+             const listaUl = document.createElement('ul');
+             listaUl.className = 'list-unstyled pl-3';
+
+             planAgrupado[categoria].forEach(comp => {
+                 const itemLi = document.createElement('li');
+                 itemLi.className = 'd-flex justify-content-between align-items-center componente-seleccionado-item';
+                 itemLi.innerHTML = `
+                     <small>${comp.nombre} ($${formatearPrecio(comp.precio)})</small>
+                     <button class=\"btn-quitar btn btn-sm btn-outline-danger border-0\" data-id=\"${comp.id}\" title=\"Quitar\">&times;</button>
+                 `;
+                 listaUl.appendChild(itemLi);
+             });
+             categoriaDiv.appendChild(listaUl);
+             listaContainer.appendChild(categoriaDiv);
+         }
+
+
+        // Añadir listeners a los botones \"Quitar\"
+        listaContainer.querySelectorAll('.btn-quitar').forEach(button => {
+            button.addEventListener('click', () => {
+                quitarComponenteDelPlan(button.dataset.id);
+                 renderizarComponentesDisponibles(); // Actualizar botones de añadir/quitar
             });
         });
-        
-        // Iniciar el slider
-        startInterval();
     }
-    
-    // Asegurarse de que los videos no se reproduzcan todos a la vez
-    carouselVideos.addEventListener('slide.bs.carousel', function (e) {
-        // Pausar todos los videos cuando cambia el slide
-        const videos = document.querySelectorAll('.carousel-item iframe');
-        videos.forEach(video => {
-            // Obtener la URL actual del video
-            const currentSrc = video.src;
-            // Reiniciar el src para detener la reproducción
-            video.src = currentSrc;
+
+    // Actualizar costo total (se llama desde calcularCostoTotalFlexible)
+    calcularCostoTotalFlexible();
+     // Actualizar texto del botón PDF para reflejar el costo
+     const btnPdf = document.querySelector('.acciones-plan .btn-descargar');
+     if (btnPdf) {
+         btnPdf.innerHTML = `<i class=\"fas fa-download\"></i> Descargar Resumen ($${formatearPrecio(costoTotalActual)})`;
+     }
+}
+
+// --- Lógica de Manipulación del Plan ---
+
+function agregarComponenteAlPlan(id) {
+    const componente = encontrarComponente(id);
+    if (!componente) return;
+
+    const categoriaComponente = componente.categoria;
+    const esExclusivo = ['Transporte', 'Hospedaje', 'Alimentación', 'Guía'].includes(categoriaComponente);
+
+    if (esExclusivo) {
+        // Remover cualquier otro componente de la misma categoría
+        planActual.componentes = planActual.componentes.filter(itemId => {
+            const compExistente = encontrarComponente(itemId);
+            return !compExistente || compExistente.categoria !== categoriaComponente;
         });
+    }
+
+     // Añadir el nuevo componente si no es una opción \"ninguno\" o si no estaba ya
+    if (componente.precio >= 0 && !planActual.componentes.includes(id)) { // Permitir añadir los de precio 0 (ej. Sin Guía)
+         planActual.componentes.push(id);
+    }
+
+    // No es necesario llamar a renderizarPlanSeleccionado aquí, se llamará desde la función que lo invoca (listener)
+}
+
+function quitarComponenteDelPlan(id) {
+    planActual.componentes = planActual.componentes.filter(itemId => itemId !== id);
+    // No es necesario llamar a renderizarPlanSeleccionado aquí, se llamará desde la función que lo invoca (listener)
+}
+
+// --- Cálculo de Costo ---
+
+function calcularCostoTotalFlexible() {
+    costoTotalActual = 0;
+    let costoPorDia = 0;
+    let costoUnico = 0;
+
+    planActual.componentes.forEach(id => {
+        const componente = encontrarComponente(id);
+        if (componente) {
+            // Categorías con costo por día vs costo único
+            if (['Transporte', 'Hospedaje', 'Alimentación', 'Guía'].includes(componente.categoria)) {
+                costoPorDia += componente.precio;
+            } else { // Destinos y Extras tienen costo único por persona (o por entrada/servicio)
+                costoUnico += componente.precio;
+            }
+        }
     });
-}
 
-// Función para actualizar lista de destinos seleccionados
-function actualizarDestinosSeleccionados() {
-    destinosSeleccionados = [];
-    const checkboxes = document.querySelectorAll('.destinos-checkbox input[type="checkbox"]:checked');
-    
-    checkboxes.forEach(checkbox => {
-        destinosSeleccionados.push({
-            nombre: checkbox.nextElementSibling.textContent,
-            valor: checkbox.value,
-            precioBase: parseInt(checkbox.dataset.precioBase)
-        });
-    });
-    
-    // Actualizar costo total
-    calcularCostos();
-}
+    // Calcular costo total: (Costo único * viajeros) + (Costo por día * viajeros * días)
+     // Asegurarse de que la duración sea al menos 1
+     const duracionEfectiva = Math.max(1, planActual.duracionDias);
+     // Para hospedaje, el costo es por noche, así que restamos 1 día si la duración es > 0
+     const nochesHospedaje = Math.max(0, duracionEfectiva - 1);
 
-// Función para actualizar información del clima y eventos según fecha
-function actualizarInfoClima() {
-    // Obtener duración seleccionada y fecha
-    const duracion = parseInt(document.getElementById('duracion-viaje').value);
-    const fechaEl = document.getElementById('fecha-viaje');
-    
-    // Obtener los destinos seleccionados para personalizar el clima
-    let destinoActual = 'generico';
-    if (destinosSeleccionados.length > 0) {
-        destinoActual = destinosSeleccionados[0].valor;
-    }
-    
-    // Determinar índice de clima y evento basado en fecha, duración y destino
-    let indiceClima, indiceEvento, indiceMensaje;
-    
-    // Si hay una fecha seleccionada, usarla para determinar el clima
-    if (fechaEl && fechaEl.value) {
-        const fecha = new Date(fechaEl.value);
-        const sumaDias = fecha.getDate() + fecha.getMonth();
-        indiceClima = sumaDias % climasSimulados.length;
-        indiceEvento = (sumaDias + duracion) % eventosSimulados.length;
-        // Usar un índice de mensaje diferente para tener variedad
-        indiceMensaje = (sumaDias * 2) % mensajesClima.length;
-    } else {
-        // Si no hay fecha, usar combinación de duración y destino
-        const hashDestino = destinoActual.length;
-        indiceClima = (duracion + hashDestino) % climasSimulados.length;
-        indiceEvento = (duracion * 2 + hashDestino) % eventosSimulados.length;
-        indiceMensaje = (duracion + 3) % mensajesClima.length;
-    }
-    
-    // Asegurarse de que el índice del mensaje climático sea diferente del clima
-    if (indiceMensaje === indiceClima) {
-        indiceMensaje = (indiceMensaje + 1) % mensajesClima.length;
-    }
-    
-    // Generar un mensaje asociado al clima
-    const mensajeClima = mensajesClima[indiceMensaje];
-    
-    // Actualizar textos
-    document.getElementById('info-clima-texto').textContent = `${climasSimulados[indiceClima]}. ${mensajeClima}`;
-    document.getElementById('info-eventos-texto').textContent = eventosSimulados[indiceEvento];
-}
+     let costoTotalHospedaje = 0;
+     let costoTotalOtrosPorDia = 0;
 
-// Función para navegar entre los pasos
-function mostrarPaso(numeroPaso) {
-    // Ocultar todos los pasos
-    document.querySelectorAll('.paso').forEach(paso => {
-        paso.style.display = 'none';
-    });
-    
-    // Si pasamos del paso 1 al 2, guardamos la información
-    if (numeroPaso === 2) {
-        guardarInfoPaso1();
-    }
-    
-    // Si pasamos al paso 3, generamos el resumen
-    if (numeroPaso === 3) {
-        // Si venimos de modificar un paquete, asegurarnos de guardar el plan
-        guardarInfoPaso2();
-        
-        // Verificar que hay destinos seleccionados antes de continuar
-        if (!datosViaje.destinos || datosViaje.destinos.length === 0) {
-            alert('Por favor, selecciona al menos un destino para continuar');
-            mostrarPaso(1);
-            return;
-        }
-        
-        // Actualizar la información del resumen e itinerario
-        actualizarResumenViaje();
-        generarItinerario();
-    }
-    
-    // Mostrar el paso solicitado
-    document.getElementById(`paso-${numeroPaso}`).style.display = 'block';
-    
-    // Si volvemos al paso 2 desde el paso 3, actualizar la interfaz
-    if (numeroPaso === 2 && document.getElementById('paso-3').style.display === 'none') {
-        // Asegurarse de que los selectores reflejen las opciones guardadas
-        const transporteSelect = document.getElementById('transporte-plan');
-        if (transporteSelect) transporteSelect.value = datosViaje.transporte;
-        
-        const hospedajeSelect = document.getElementById('hospedaje-plan');
-        if (hospedajeSelect) hospedajeSelect.value = datosViaje.hospedaje;
-        
-        const alimentacionSelect = document.getElementById('alimentacion-plan');
-        if (alimentacionSelect) alimentacionSelect.value = datosViaje.alimentacion;
-        
-        const guiaSelect = document.getElementById('guia-plan');
-        if (guiaSelect) guiaSelect.value = datosViaje.guia;
-        
-        // Actualizar servicios extra
-        const serviciosSelect = document.getElementById('servicios-extra');
-        if (serviciosSelect && datosViaje.serviciosExtra) {
-            // Limpiar selecciones actuales
-            Array.from(serviciosSelect.options).forEach(option => {
-                option.selected = false;
-            });
-            
-            // Seleccionar servicios guardados
-            datosViaje.serviciosExtra.forEach(servicio => {
-                Array.from(serviciosSelect.options).forEach(option => {
-                    if (option.textContent === servicio) {
-                        option.selected = true;
-                    }
-                });
-            });
-        }
-        
-        // Actualizar costo
-        calcularCostos();
-    }
-    
-    // Scroll al inicio del paso
-    window.scrollTo({
-        top: document.getElementById(`paso-${numeroPaso}`).offsetTop - 100,
-        behavior: 'smooth'
-    });
-}
+     planActual.componentes.forEach(id => {
+        const comp = encontrarComponente(id);
+        if (comp) {
+            if (comp.categoria === 'Hospedaje') {
+                costoTotalHospedaje += comp.precio;
+            } else if (['Transporte', 'Alimentación', 'Guía'].includes(comp.categoria)) {
+                 costoTotalOtrosPorDia += comp.precio;
+             }
+         }
+     });
 
-// Guardar información del paso 1
-function guardarInfoPaso1() {
-    datosViaje.destinos = destinosSeleccionados;
-    datosViaje.duracion = parseInt(document.getElementById('duracion-viaje').value);
-    datosViaje.tipoViajero = document.getElementById('tipo-viajero').value;
-    datosViaje.presupuesto = document.getElementById('presupuesto').value;
-    
-    // Guardar fecha si está seleccionada
-    const fechaEl = document.getElementById('fecha-viaje');
-    if (fechaEl && fechaEl.value) {
-        datosViaje.fecha = fechaEl.value;
-    }
-    
-    // También podemos guardar la información del clima y eventos
-    datosViaje.climaEsperado = document.getElementById('info-clima-texto').textContent;
-    datosViaje.eventosEspeciales = document.getElementById('info-eventos-texto').textContent;
-}
 
-// Guardar información del paso 2
-function guardarInfoPaso2() {
-    datosViaje.transporte = document.getElementById('transporte-plan').value;
-    datosViaje.hospedaje = document.getElementById('hospedaje-plan').value;
-    datosViaje.alimentacion = document.getElementById('alimentacion-plan').value;
-    datosViaje.guia = document.getElementById('guia-plan').value;
-    
-    // Obtener servicios extra seleccionados
-    datosViaje.serviciosExtra = [];
-    const serviciosSelect = document.getElementById('servicios-extra');
-    for (let i = 0; i < serviciosSelect.options.length; i++) {
-        if (serviciosSelect.options[i].selected) {
-            datosViaje.serviciosExtra.push(serviciosSelect.options[i].textContent);
-        }
-    }
-    
-    // Guardar costo total
-    datosViaje.costoTotal = parseInt(document.getElementById('costo-total').textContent.replace(/\D/g, ''));
-    
-    // Detectar si venimos de un paquete modificado y actualizar comparador si es necesario
-    const ultimoPaqueteModificado = sessionStorage.getItem('ultimoPaqueteModificado');
-    if (ultimoPaqueteModificado) {
-        actualizarComparadorPrecios(ultimoPaqueteModificado);
-        // Limpiar el valor después de usarlo
-        sessionStorage.removeItem('ultimoPaqueteModificado');
+    costoTotalActual = (costoUnico * planActual.numeroViajeros) +
+                         (costoTotalOtrosPorDia * planActual.numeroViajeros * duracionEfectiva) +
+                         (costoTotalHospedaje * planActual.numeroViajeros * nochesHospedaje);
+
+
+    const costoTotalElement = document.getElementById('costo-total-flexible');
+    if (costoTotalElement) {
+        costoTotalElement.textContent = formatearPrecio(costoTotalActual);
     }
 }
 
-// Función para calcular costos según selecciones del usuario
-function calcularCostos() {
-    let costoTotal = 0;
-    
-    // Agregar costo base por cada destino seleccionado
-    destinosSeleccionados.forEach(destino => {
-        costoTotal += destino.precioBase;
-    });
-    
-    // Añadir costos según servicios seleccionados
-    const factoresMultiplicadores = {
-        'transporte': {
-            'privado': 1.3,
-            'compartido': 1.1,
-            'chiva': 1.2,
-            'ninguno': 0.9
-        },
-        'hospedaje': {
-            'si': 1.5,
-            'no': 1.0
-        },
-        'alimentacion': {
-            'basico': 1.0,
-            'tipico': 1.2,
-            'vegetariano': 1.25,
-            'gourmet': 1.4
-        },
-        'guia': {
-            'si': 1.2,
-            'no': 1.0
-        }
-    };
-    
-    // Obtener valores seleccionados
-    const transporte = document.getElementById('transporte-plan').value;
-    const hospedaje = document.getElementById('hospedaje-plan').value;
-    const alimentacion = document.getElementById('alimentacion-plan').value;
-    const guia = document.getElementById('guia-plan').value;
-    
-    // Aplicar factores
-    costoTotal *= factoresMultiplicadores.transporte[transporte] || 1;
-    costoTotal *= factoresMultiplicadores.hospedaje[hospedaje] || 1;
-    costoTotal *= factoresMultiplicadores.alimentacion[alimentacion] || 1;
-    costoTotal *= factoresMultiplicadores.guia[guia] || 1;
-    
-    // Calcular costo extra por servicios adicionales
-    const serviciosSelect = document.getElementById('servicios-extra');
-    let serviciosSeleccionados = [];
-    
-    for (let i = 0; i < serviciosSelect.options.length; i++) {
-        if (serviciosSelect.options[i].selected) {
-            serviciosSeleccionados.push(serviciosSelect.options[i].value);
-        }
-    }
-    
-    // Costo por cada servicio extra (simulado)
-    const costosServicios = {
-        'fotografo': 50000,
-        'barismo': 40000,
-        'souvenirs': 30000,
-        'exclusivas': 80000,
-        'wellness': 60000,
-        'folklore': 45000
-    };
-    
-    // Sumar costos de servicios seleccionados
-    serviciosSeleccionados.forEach(servicio => {
-        costoTotal += costosServicios[servicio] || 0;
-    });
-    
-    // Redondear costo a miles
-    costoTotal = Math.round(costoTotal / 1000) * 1000;
-    
-    // Actualizar en la interfaz
-    document.getElementById('costo-total').textContent = costoTotal.toLocaleString();
-    
-    // Verificar si hay un paquete activo para actualizar el comparador
-    const ultimoPaqueteModificado = sessionStorage.getItem('ultimoPaqueteModificado');
-    if (ultimoPaqueteModificado) {
-        actualizarComparadorPrecios(ultimoPaqueteModificado);
-    }
-}
 
-// Función para actualizar el resumen de viaje
-function actualizarResumenViaje() {
-    // Verificar que todos los datos necesarios estén presentes
-    if (!datosViaje.destinos || datosViaje.destinos.length === 0) {
-        console.warn("No hay destinos seleccionados para mostrar en el resumen");
-    }
+// --- Generación de Itinerario (Simplificado - Muestra componentes) ---
+function generarItinerarioFlexible() {
+    const container = document.getElementById('itinerario-flexible-contenido');
+    const containerWrapper = document.getElementById('itinerario-flexible-container');
+    if (!container || !containerWrapper) return;
 
-    // Mostrar destinos seleccionados
-    const destinos = datosViaje.destinos.map(d => d.nombre).join(', ');
-    document.getElementById('resumen-destino').textContent = destinos || 'Ninguno seleccionado';
-    
-    // Actualizar fecha si existe
-    if (datosViaje.fecha) {
-        // Formatear la fecha para mostrarla en formato legible
-        const fecha = new Date(datosViaje.fecha);
-        const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
-        const fechaFormateada = fecha.toLocaleDateString('es-ES', opciones);
-        
-        // Si existe el elemento para mostrar la fecha, actualizarlo
-        const resumenFechaEl = document.getElementById('resumen-fecha');
-        if (resumenFechaEl) {
-            resumenFechaEl.textContent = fechaFormateada;
-        }
-    }
-    
-    // Actualizar duración
-    document.getElementById('resumen-duracion').textContent = `${datosViaje.duracion} día(s)`;
-    
-    // Actualizar tipo de viajero
-    const tipoViajeroTexto = obtenerTextoPorValor('tipo-viajero', datosViaje.tipoViajero);
-    document.getElementById('resumen-tipo-viajero').textContent = tipoViajeroTexto;
-    
-    // Actualizar transporte
-    document.getElementById('resumen-transporte').textContent = obtenerTextoPorValor('transporte-plan', datosViaje.transporte);
-    
-    // Actualizar hospedaje
-    document.getElementById('resumen-hospedaje').textContent = datosViaje.hospedaje === 'si' ? 'Incluido' : 'No incluido';
-    
-    // Actualizar alimentación
-    document.getElementById('resumen-alimentacion').textContent = obtenerTextoPorValor('alimentacion-plan', datosViaje.alimentacion);
-    
-    // Actualizar guía
-    document.getElementById('resumen-guia').textContent = datosViaje.guia === 'si' ? 'Incluido' : 'No incluido';
-    
-    // Actualizar servicios extra
-    document.getElementById('resumen-servicios').textContent = datosViaje.serviciosExtra.length > 0 ? 
-        datosViaje.serviciosExtra.join(', ') : 'Ninguno seleccionado';
-    
-    // Actualizar costo
-    document.getElementById('resumen-costo').textContent = datosViaje.costoTotal.toLocaleString();
-    
-    // Añadir botón para modificar directamente desde el resumen
-    const resumenContainer = document.querySelector('.resumen-viaje');
-    if (resumenContainer) {
-        // Verificar si ya existe el botón para no duplicarlo
-        const botonExistente = resumenContainer.querySelector('.btn-modificar-desde-resumen');
-        if (!botonExistente) {
-            const botonModificar = document.createElement('button');
-            botonModificar.className = 'btn btn-modificar-desde-resumen';
-            botonModificar.innerHTML = '<i class="fas fa-edit"></i> Modificar plan';
-            botonModificar.onclick = function() {
-                mostrarPaso(2);
-            };
-            
-            resumenContainer.appendChild(botonModificar);
-        }
-    }
-}
+    container.innerHTML = ''; // Limpiar
 
-// Función para obtener texto descriptivo según valor seleccionado
-function obtenerTextoPorValor(selectId, valor) {
-    const select = document.getElementById(selectId);
-    for (let i = 0; i < select.options.length; i++) {
-        if (select.options[i].value === valor) {
-            return select.options[i].textContent;
-        }
-    }
-    return valor;
-}
-
-// Función para generar el itinerario basado en los destinos seleccionados
-function generarItinerario() {
-    const itinerarioEl = document.getElementById('itinerario-generado');
-    itinerarioEl.innerHTML = '';
-    
-    if (datosViaje.destinos.length === 0) {
-        itinerarioEl.innerHTML = '<p>No has seleccionado ningún destino para tu viaje.</p>';
+    if (planActual.componentes.length === 0) {
+        container.innerHTML = '<p class=\"text-muted\">No has seleccionado ningún componente para generar un itinerario.</p>';
+        containerWrapper.style.display = 'block';
         return;
     }
-    
-    // Distribuir destinos por días según la duración seleccionada
-    const destinosPorDia = distribuirDestinosPorDia(datosViaje.destinos, datosViaje.duracion);
-    
-    // Generar HTML del itinerario por día
-    for (let dia = 1; dia <= datosViaje.duracion; dia++) {
-        const destinosDelDia = destinosPorDia[dia - 1];
-        
-        // Crear contenedor del día
-        const diaEl = document.createElement('div');
-        diaEl.className = 'dia-itinerario';
-        
-        // Agregar título del día
-        const tituloDia = document.createElement('h5');
-        tituloDia.textContent = `Día ${dia}`;
-        diaEl.appendChild(tituloDia);
-        
-        // Crear horarios para este día
-        if (destinosDelDia && destinosDelDia.length > 0) {
-            // Mañana
-            const mananaEl = crearFranjaHoraria('Mañana (8:00 AM - 12:00 PM)', obtenerActividadesMañana(destinosDelDia[0]));
-            diaEl.appendChild(mananaEl);
-            
-            // Tarde
-            const tardeEl = crearFranjaHoraria('Tarde (2:00 PM - 6:00 PM)', 
-                destinosDelDia.length > 1 ? obtenerActividadesTarde(destinosDelDia[1]) : obtenerActividadesTarde(destinosDelDia[0]));
-            diaEl.appendChild(tardeEl);
-            
-            // Noche
-            const nocheEl = crearFranjaHoraria('Noche (7:00 PM - 9:00 PM)', obtenerActividadesNoche(datosViaje.tipoViajero));
-            diaEl.appendChild(nocheEl);
-        } else {
-            // Si no hay destinos asignados para este día
-            const sinDestinos = document.createElement('p');
-            sinDestinos.textContent = 'Día libre o de descanso';
-            diaEl.appendChild(sinDestinos);
-        }
-        
-        // Agregar notas si es el último día
-        if (dia === datosViaje.duracion) {
-            const notasEl = document.createElement('div');
-            notasEl.className = 'notas-itinerario';
-            notasEl.innerHTML = `
-                <p><strong>Notas importantes:</strong></p>
-                <ul>
-                    <li>Clima esperado: ${datosViaje.climaEsperado}</li>
-                    <li>Eventos especiales: ${datosViaje.eventosEspeciales}</li>
-                    <li>Este itinerario es flexible y puede ajustarse según tus preferencias.</li>
-                    <li>Recomendamos reservar con anticipación en temporada alta.</li>
-                </ul>
-            `;
-            diaEl.appendChild(notasEl);
-        }
-        
-        // Agregar día al itinerario
-        itinerarioEl.appendChild(diaEl);
-    }
-    
-    // Agregar botones de acción para el itinerario
-    const accionesEl = document.createElement('div');
-    accionesEl.className = 'acciones-itinerario';
-    accionesEl.innerHTML = `
-        <button onclick="descargarItinerario()" class="btn btn-descargar">
-            <i class="fas fa-download"></i> Descargar Itinerario
-        </button>
-        <button onclick="compartirItinerario()" class="btn btn-secundario btn-compartir">
-            <i class="fas fa-share-alt"></i> Compartir
-        </button>
-    `;
-    itinerarioEl.appendChild(accionesEl);
-}
 
-// Función para distribuir destinos por día
-function distribuirDestinosPorDia(destinos, dias) {
-    const resultado = [];
-    const destinosCopia = [...destinos];
-    
-    // Si hay menos destinos que días, añadir un destino por día
-    if (destinosCopia.length <= dias) {
-        for (let i = 0; i < dias; i++) {
-            resultado.push(i < destinosCopia.length ? [destinosCopia[i]] : []);
+    // Generar un resumen básico en lugar de un itinerario diario complejo por ahora
+    let resumenHTML = '<h5>Resumen del Plan:</h5><ul>';
+    planActual.componentes.forEach(id => {
+        const comp = encontrarComponente(id);
+        if (comp) {
+            resumenHTML += `<li><strong>${comp.categoria}:</strong> ${comp.nombre} ${comp.descripcion ? `(${comp.descripcion})` : ''}</li>`;
         }
-    } 
-    // Si hay más destinos que días, distribuir equitativamente
-    else {
-        const destinosPorDia = Math.ceil(destinosCopia.length / dias);
-        for (let i = 0; i < dias; i++) {
-            resultado.push(destinosCopia.splice(0, destinosPorDia));
-        }
-    }
-    
-    return resultado;
-}
-
-// Función para crear elemento de franja horaria
-function crearFranjaHoraria(titulo, actividades) {
-    const franjaEl = document.createElement('div');
-    franjaEl.className = 'franja-horaria';
-    
-    const tituloEl = document.createElement('h6');
-    tituloEl.textContent = titulo;
-    franjaEl.appendChild(tituloEl);
-    
-    const actividadesEl = document.createElement('ul');
-    actividades.forEach(actividad => {
-        const li = document.createElement('li');
-        li.textContent = actividad;
-        actividadesEl.appendChild(li);
     });
-    
-    franjaEl.appendChild(actividadesEl);
-    return franjaEl;
-}
-
-// Funciones para obtener actividades según destino y hora del día
-function obtenerActividadesMañana(destino) {
-    // Asegurarse que 'destino' no sea undefined
-    if (!destino || !destino.valor) {
-        return [
-            'Desayuno típico de la región',
-            'Visita a atractivos locales',
-            'Recorrido por centro histórico'
-        ];
+    resumenHTML += '</ul>';
+    resumenHTML += `<p><strong>Viajeros:</strong> ${planActual.numeroViajeros}</p>`;
+    resumenHTML += `<p><strong>Duración:</strong> ${planActual.duracionDias} día(s)</p>`;
+    if (planActual.fechaViaje) {
+        resumenHTML += `<p><strong>Fecha Inicio:</strong> ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}</p>`;
     }
-    
-    const actividades = {
-        'ukumari': [
-            'Visita al bioparque Ukumarí',
-            'Recorrido por el sendero de fauna silvestre',
-            'Exhibición educativa sobre especies nativas'
-        ],
-        'consota': [
-            'Exploración del Parque Arqueológico Consotá',
-            'Visita a las réplicas de viviendas indígenas',
-            'Recorrido por la hacienda tradicional'
-        ],
-        'panaca': [
-            'Recorrido por las estaciones agropecuarias de PANACA',
-            'Exhibición de ganadería y ordeño',
-            'Show de actividades campestres'
-        ],
-        'parque-cafe': [
-            'Recorrido por el sendero del café',
-            'Visita al Museo del Café',
-            'Show cultural sobre la historia cafetera'
-        ]
-    };
-    
-    return actividades[destino.valor] || [
-        'Desayuno típico de la región',
-        'Visita a atractivos locales',
-        'Recorrido por centro histórico'
-    ];
+    resumenHTML += `<p class=\"h5 text-primary mt-2\"><strong>Costo Total Estimado:</strong> $${formatearPrecio(costoTotalActual)} COP</p>`;
+
+
+    container.innerHTML = resumenHTML;
+    containerWrapper.style.display = 'block';
+    containerWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function obtenerActividadesTarde(destino) {
-    // Asegurarse que 'destino' no sea undefined
-    if (!destino || !destino.valor) {
-        return [
-            'Almuerzo regional',
-            'Visita a miradores panorámicos',
-            'Tiempo libre para compras artesanales'
-        ];
+
+// --- Simulación de Pago (Adaptada) ---
+function simularPagoFlexible() {
+     if (planActual.componentes.length === 0) {
+        alert("Por favor, añade al menos un componente a tu plan antes de proceder al pago.");
+        return;
     }
-
-    const actividades = {
-        'ukumari': [
-            'Visita a la sección de fauna africana',
-            'Alimentación de especies en exhibición',
-            'Show de conservación ambiental'
-        ],
-        'consota': [
-            'Actividades recreativas en el parque',
-            'Paseo por senderos naturales',
-            'Experiencia de arqueología participativa'
-        ],
-        'panaca': [
-            'Espectáculo ecuestre',
-            'Participación en actividades agrícolas',
-            'Recorrido en carreta por la hacienda'
-        ],
-        'parque-cafe': [
-            'Atracciones mecánicas del parque',
-            'Show del café en el teatro',
-            'Teleférico panorámico'
-        ]
-    };
-    
-    return actividades[destino.valor] || [
-        'Almuerzo regional',
-        'Visita a miradores panorámicos',
-        'Tiempo libre para compras artesanales'
-    ];
-}
-
-function obtenerActividadesNoche(tipoViajero) {
-    const actividades = {
-        'familiar': [
-            'Cena familiar con platos típicos',
-            'Actividad recreativa en el hospedaje',
-            'Descanso y tiempo libre'
-        ],
-        'pareja': [
-            'Cena romántica en restaurante local',
-            'Recorrido nocturno por la ciudad',
-            'Tiempo de descanso'
-        ],
-        'escolar': [
-            'Cena grupal en el hospedaje',
-            'Actividades educativas y de integración',
-            'Tiempo de descanso'
-        ],
-        'amigos': [
-            'Cena en restaurante local',
-            'Visita a sitios de entretenimiento nocturno',
-            'Tiempo libre para disfrutar de la vida nocturna'
-        ]
-    };
-    
-    return actividades[tipoViajero] || [
-        'Cena en restaurante local',
-        'Descanso en el hospedaje',
-        'Preparación para el día siguiente'
-    ];
-}
-
-// Función para simular el proceso de pago
-function simularPago() {
-    // Crear modal de pago
     const modalPago = document.createElement('div');
     modalPago.className = 'modal-pago';
+    modalPago.style.display = 'flex'; // Asegurar visibilidad si se reutiliza CSS
     modalPago.innerHTML = `
-        <div class="modal-contenido">
+        <div class=\"modal-contenido\">
             <h3>Pasarela de pagos</h3>
-            <p>Monto a pagar: $<span>${datosViaje.costoTotal.toLocaleString('es-CO')}</span></p>
-            
-            <div class="opciones-pago">
-                <button onclick="procesarPago('tarjeta')" class="btn-opcion-pago">
-                    <i class="fas fa-credit-card"></i> Pagar con Tarjeta
-                </button>
-                <button onclick="procesarPago('transferencia')" class="btn-opcion-pago">
-                    <i class="fas fa-university"></i> Transferencia Bancaria
-                </button>
-                <button onclick="procesarPago('pse')" class="btn-opcion-pago">
-                    <i class="fas fa-money-check"></i> PSE
-                </button>
+            <p>Monto a pagar: $<span>${formatearPrecio(costoTotalActual)}</span> COP</p>
+            <div class=\"opciones-pago\">
+                 <button onclick=\"procesarPagoFlexible('tarjeta')\" class=\"btn-opcion-pago btn btn-primary\"><i class=\"fas fa-credit-card\"></i> Tarjeta</button>
+                 <button onclick=\"procesarPagoFlexible('transferencia')\" class=\"btn-opcion-pago btn btn-primary\"><i class=\"fas fa-university\"></i> Transferencia</button>
+                 <button onclick=\"procesarPagoFlexible('pse')\" class=\"btn-opcion-pago btn btn-primary\"><i class=\"fas fa-money-check\"></i> PSE</button>
+             </div>
+            <div class=\"resumen-pago mt-3\">
+                <strong>Resumen:</strong>
+                <ul>${planActual.componentes.map(id => `<li><small>${encontrarComponente(id)?.nombre || '?'}</small></li>`).join('')}</ul>
+                <small>Viajeros: ${planActual.numeroViajeros} | Días: ${planActual.duracionDias} ${planActual.fechaViaje ? '| Fecha: ' + new Date(planActual.fechaViaje).toLocaleDateString('es-ES') : ''}</small>
             </div>
-            
-            <div class="resumen-pago">
-                <p><strong>Resumen de tu compra:</strong></p>
-                <p>Destinos: ${datosViaje.destinos.map(d => d.nombre).join(', ')}</p>
-                <p>Duración: ${datosViaje.duracion} día(s)</p>
-                <p>Servicios extra: ${datosViaje.serviciosExtra.length > 0 ? datosViaje.serviciosExtra.join(', ') : 'Ninguno'}</p>
-            </div>
-            
-            <button class="btn-cerrar" onclick="cerrarModalPago()">Cancelar</button>
+            <button class=\"btn btn-secondary mt-3\" onclick=\"cerrarModalPago()\">Cancelar</button>
         </div>
     `;
-    
     document.body.appendChild(modalPago);
-    
-    // Agregar estilos específicos para el modal
-    const estiloModal = document.createElement('style');
-    estiloModal.textContent = `
-        .modal-pago {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .modal-contenido {
-            background-color: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .modal-contenido h3 {
-            color: var(--color-primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--color-accent);
-        }
-        
-        .opciones-pago {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 25px 0;
-            flex-wrap: nowrap; /* Asegura que los elementos estén en una línea */
-        }
-        
-        .btn-opcion-pago {
-            background-color: var(--color-primary);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            min-width: 0; /* Permite que los botones se ajusten en el contenedor */
-        }
-        
-        .btn-opcion-pago i {
-            font-size: 1.5rem;
-        }
-        
-        .btn-opcion-pago:hover {
-            background-color: var(--color-accent);
-            transform: translateY(-3px);
-        }
-        
-        .resumen-pago {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: var(--radius);
-            margin: 20px 0;
-            text-align: left;
-            border-left: 3px solid var(--color-primary);
-        }
-        
-        .resumen-pago p {
-            margin: 5px 0;
-        }
-        
-        .btn-cerrar {
-            background-color: #f8f9fa;
-            color: #333;
-            border: 1px solid #ddd;
-            padding: 10px 20px;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-cerrar:hover {
-            background-color: #e2e6ea;
-        }
-        
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--color-primary);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 576px) {
-            .opciones-pago {
-                flex-direction: column;
-            }
-        }
-    `;
-    
-    document.head.appendChild(estiloModal);
+
+     // Añadir estilos si no existen (importante si se eliminó el CSS viejo)
+     if (!document.getElementById('estilos-modal-pago')) {
+         const estiloModal = document.createElement('style');
+         estiloModal.id = 'estilos-modal-pago';
+         estiloModal.textContent = `
+            .modal-pago { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; }
+            .modal-contenido { background-color: white; padding: 30px; border-radius: var(--radius); max-width: 500px; width: 90%; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+            .modal-contenido h3 { color: var(--color-primary); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--color-accent); }
+            .opciones-pago { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+            .btn-opcion-pago { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-basis: 100px; } /* Ajustar base */
+            .btn-opcion-pago i { font-size: 1.5rem; margin-bottom: 5px; }
+            .resumen-pago { background-color: #f9f9f9; padding: 10px; border-radius: var(--radius); text-align: left; font-size: 0.9rem; border-left: 3px solid var(--color-primary); }
+            .resumen-pago ul { padding-left: 15px; margin-bottom: 5px; }
+            .loader { border: 5px solid #f3f3f3; border-top: 5px solid var(--color-primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1.5s linear infinite; margin: 20px auto; }
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            .confirmacion-pago i { font-size: 3rem; color: #28a745; margin-bottom: 10px; }
+            .detalles-reserva { background-color: #f9f9f9; padding: 15px; border-radius: var(--radius); margin-bottom: 15px; text-align: left; font-size: 0.9rem;}
+            .detalles-reserva p { margin: 5px 0; }
+            .codigo-reserva { font-weight: bold; color: var(--color-primary); }
+            .acciones-confirmacion { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+            .btn-accion { background-color: var(--color-primary); color: white; }
+        `;
+        document.head.appendChild(estiloModal);
+     }
 }
 
-// Función para procesar el pago
-function procesarPago(metodo) {
-    const modalPago = document.querySelector('.modal-pago .modal-contenido');
-    modalPago.innerHTML = `
-        <h3>Procesando tu pago</h3>
-        <div class="loader"></div>
-        <p>Estamos procesando tu pago a través de ${obtenerTextoMetodoPago(metodo)}...</p>
-    `;
-    
-    // Simular proceso de pago (3 segundos)
+
+function procesarPagoFlexible(metodo) {
+    const modalContenido = document.querySelector('.modal-pago .modal-contenido');
+    if (!modalContenido) return;
+
+    modalContenido.innerHTML = `<h3>Procesando pago...</h3><div class=\"loader\"></div>`;
+
     setTimeout(function() {
-        const codigoReserva = `MC-${Math.floor(Math.random() * 10000)}`;
-        
-        modalPago.innerHTML = `
+        const codigoReserva = `MCF-${Math.floor(Math.random() * 100000)}`;
+        const componentesNombres = planActual.componentes.map(id => encontrarComponente(id)?.nombre || '?').join(', ');
+
+        modalContenido.innerHTML = `
             <h3>¡Pago Exitoso!</h3>
-            <div class="confirmacion-pago">
-                <i class="fas fa-check-circle"></i>
-                <p>Tu reserva ha sido confirmada</p>
+            <div class=\"confirmacion-pago\"><i class=\"fas fa-check-circle\"></i><p>Reserva confirmada</p></div>
+            <div class=\"detalles-reserva\">
+                 <p><strong>Componentes:</strong> ${componentesNombres}</p>
+                 <p><strong>Viajeros:</strong> ${planActual.numeroViajeros} | <strong>Días:</strong> ${planActual.duracionDias}</p>
+                 ${planActual.fechaViaje ? `<p><strong>Fecha:</strong> ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}</p>` : ''}
+                 <p><strong>Monto:</strong> $${formatearPrecio(costoTotalActual)} COP | <strong>Método:</strong> ${obtenerTextoMetodoPago(metodo)}</p>
+                 <p><strong>Código Reserva:</strong> <span class=\"codigo-reserva\">${codigoReserva}</span></p>
+             </div>
+            <p><small>Hemos enviado el resumen a tu correo electrónico.</small></p>
+            <div class=\"acciones-confirmacion\">
+                <button class=\"btn btn-sm btn-accion\" onclick=\"descargarItinerario()\"><i class=\"fas fa-download\"></i> Descargar Resumen</button>
+                <button class=\"btn btn-sm btn-accion\" onclick=\"window.location.reload()\"><i class=\"fas fa-plus-circle\"></i> Nuevo Plan</button>
             </div>
-            
-            <div class="detalles-reserva">
-                <p><strong>Destinos:</strong> ${datosViaje.destinos.map(d => d.nombre).join(', ')}</p>
-                <p><strong>Duración:</strong> ${datosViaje.duracion} día(s)</p>
-                <p><strong>Fecha:</strong> ${datosViaje.fecha || 'No especificada'}</p>
-                <p><strong>Monto pagado:</strong> $${datosViaje.costoTotal.toLocaleString()} COP</p>
-                <p><strong>Método de pago:</strong> ${obtenerTextoMetodoPago(metodo)}</p>
-                <p><strong>Código de reserva:</strong> <span class="codigo-reserva">${codigoReserva}</span></p>
-            </div>
-            
-            <p>Hemos enviado el itinerario a tu correo electrónico</p>
-            
-            <div class="acciones-confirmacion">
-                <button class="btn-accion" onclick="descargarItinerario()">
-                    <i class="fas fa-download"></i> Descargar Itinerario
-                </button>
-                <button class="btn-accion" onclick="compartirItinerario()">
-                    <i class="fas fa-share-alt"></i> Compartir
-                </button>
-            </div>
-            
-            <button class="btn-cerrar" onclick="cerrarModalPago()">Cerrar</button>
+            <button class=\"btn btn-sm btn-secondary mt-2\" onclick=\"cerrarModalPago()\">Cerrar</button>
         `;
-        
-        // Agregar estilos específicos para confirmación
-        const estilosConfirmacion = document.createElement('style');
-        estilosConfirmacion.textContent = `
-            .confirmacion-pago {
-                text-align: center;
-                margin: 20px 0;
-            }
-            
-            .confirmacion-pago i {
-                font-size: 3rem;
-                color: #28a745;
-                margin-bottom: 15px;
-            }
-            
-            .detalles-reserva {
-                background-color: #f9f9f9;
-                padding: 15px;
-                border-radius: var(--radius);
-                margin-bottom: 20px;
-                text-align: left;
-            }
-            
-            .detalles-reserva p {
-                margin: 8px 0;
-            }
-            
-            .codigo-reserva {
-                font-weight: bold;
-                color: var(--color-primary);
-                letter-spacing: 1px;
-            }
-            
-            .acciones-confirmacion {
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-                margin: 20px 0;
-            }
-            
-            .btn-accion {
-                background-color: var(--color-primary);
-                color: white;
-                border: none;
-                padding: 10px 15px;
-                border-radius: var(--radius);
-                cursor: pointer;
-                transition: all 0.3s;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            
-            .btn-accion:hover {
-                background-color: var(--color-accent);
-                transform: translateY(-2px);
-            }
-        `;
-        
-        document.head.appendChild(estilosConfirmacion);
-        
-        // Guardar el código de reserva en sessionStorage
-        sessionStorage.setItem('codigoReserva', codigoReserva);
-    }, 3000);
+    }, 2500); // Reducido tiempo de simulación
 }
 
-// Función para obtener el texto descriptivo del método de pago
-function obtenerTextoMetodoPago(metodo) {
-    switch(metodo) {
-        case 'tarjeta':
-            return 'Tarjeta de Crédito/Débito';
-        case 'transferencia':
-            return 'Transferencia Bancaria';
-        case 'pse':
-            return 'PSE (Pagos Seguros en Línea)';
-        default:
-            return metodo;
-    }
-}
-
-// Función para cerrar el modal de pago
-function cerrarModalPago() {
-    const modalPago = document.querySelector('.modal-pago');
-    if (modalPago) {
-        modalPago.remove();
-    }
-}
-
-// Función para descargar itinerario (implementada)
-function descargarItinerario() {
-    // Verificar si hay destinos seleccionados
-    if (!datosViaje.destinos || datosViaje.destinos.length === 0) {
-        alert('No hay destinos seleccionados para generar un itinerario.');
+// --- Generación de PDF (Adaptada) ---
+function descargarItinerario() { // Ahora genera un Resumen del Plan
+    if (planActual.componentes.length === 0) {
+        alert('No hay componentes seleccionados para generar un resumen.');
         return;
     }
-    
-    // Crear contenido del itinerario
-    let contenido = `
-        ITINERARIO DE VIAJE - MAGIA CAFETERA
-        =====================================
-        
-        DETALLES DEL VIAJE:
-        -------------------
-        Destinos: ${datosViaje.destinos.map(d => d.nombre).join(', ')}
-        Duración: ${datosViaje.duracion} día(s)
-        Fecha: ${datosViaje.fecha || 'No especificada'}
-        Tipo de viajero: ${obtenerTextoPorValor('tipo-viajero', datosViaje.tipoViajero)}
-        
-        SERVICIOS INCLUIDOS:
-        -------------------
-        Transporte: ${obtenerTextoPorValor('transporte-plan', datosViaje.transporte)}
-        Hospedaje: ${datosViaje.hospedaje === 'si' ? 'Incluido' : 'No incluido'}
-        Alimentación: ${obtenerTextoPorValor('alimentacion-plan', datosViaje.alimentacion)}
-        Guía: ${datosViaje.guia === 'si' ? 'Incluido' : 'No incluido'}
-        Servicios extra: ${datosViaje.serviciosExtra.length > 0 ? datosViaje.serviciosExtra.join(', ') : 'Ninguno'}
-        
-        COSTO TOTAL: $${datosViaje.costoTotal.toLocaleString()} COP
-        
-        ITINERARIO DIARIO:
-        -----------------
-    `;
-    
-    // Obtener elementos del itinerario generado
-    const diasItinerario = document.querySelectorAll('.dia-itinerario');
-    
-    diasItinerario.forEach((dia, index) => {
-        // Obtener título del día
-        const tituloDia = dia.querySelector('h5').textContent;
-        contenido += `\n${tituloDia}:\n`;
-        
-        // Obtener franjas horarias
-        const franjas = dia.querySelectorAll('.franja-horaria');
-        
-        franjas.forEach(franja => {
-            const tituloFranja = franja.querySelector('h6').textContent;
-            contenido += `  ${tituloFranja}\n`;
-            
-            // Obtener actividades
-            const actividades = franja.querySelectorAll('li');
-            actividades.forEach(actividad => {
-                contenido += `    - ${actividad.textContent}\n`;
-            });
-        });
-    });
-    
-    // Añadir notas
-    const notas = document.querySelector('.notas-itinerario');
-    if (notas) {
-        contenido += '\nNOTAS IMPORTANTES:\n';
-        const items = notas.querySelectorAll('li');
-        items.forEach(item => {
-            contenido += `  - ${item.textContent}\n`;
-        });
+
+    if (typeof window.jspdf === 'undefined') {
+        mostrarNotificacion('Error al generar PDF: La librería no está cargada.', 'error');
+        return;
     }
-    
-    contenido += `
-        =====================================
-        ¡Gracias por elegir Magia Cafetera!
-        Contacto: info@magiacafetera.com
-        Teléfono: +57 123 456 7890
-    `;
-    
-    // Crear un elemento para descargar
-    const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contenido));
-    element.setAttribute('download', 'Itinerario_Magia_Cafetera.txt');
-    
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    
-    element.click();
-    
-    document.body.removeChild(element);
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    let y = 15; // Margen superior
+    const pageHeight = doc.internal.pageSize.height;
+    const margin = 15;
+    const lineHeight = 6; // Ajustar para más líneas
+    const sectionSpacing = 8;
+
+    function checkPageBreak(increment) {
+        if (y + increment > pageHeight - margin) { // Margen inferior
+            doc.addPage();
+            y = margin; // Resetear y al inicio de nueva página
+        }
+    }
+
+    // Título
+    doc.setFontSize(16);
+    doc.setFont(undefined, 'bold');
+    doc.text('Resumen de Plan - Magia Cafetera', margin, y);
+    y += sectionSpacing;
+    doc.setLineWidth(0.3);
+    doc.line(margin, y, doc.internal.pageSize.width - margin, y);
+    y += sectionSpacing;
+
+    // Detalles Generales
+    checkPageBreak(lineHeight * 3);
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'bold');
+    doc.text('Detalles Generales:', margin, y); y += lineHeight * 1.2;
+    doc.setFontSize(10);
+    doc.setFont(undefined, 'normal');
+    doc.text(`Número de Viajeros: ${planActual.numeroViajeros}`, margin, y); y += lineHeight;
+    doc.text(`Duración: ${planActual.duracionDias} día(s)`, margin, y); y += lineHeight;
+     if (planActual.fechaViaje) {
+         checkPageBreak(lineHeight);
+         doc.text(`Fecha de Viaje: ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}`, margin, y); y += lineHeight;
+     }
+     y += sectionSpacing * 0.5;
+
+    // Componentes Seleccionados
+    checkPageBreak(lineHeight * 2);
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text('COMPONENTES SELECCIONADOS:', margin, y);
+    y += lineHeight * 1.5;
+    doc.setFontSize(9); // Tamaño más pequeño para lista
+    doc.setFont(undefined, 'normal');
+
+    // Agrupar por categoría
+    const planAgrupadoPDF = {};
+     planActual.componentes.forEach(id => {
+         const comp = encontrarComponente(id);
+         if (comp) {
+             if (!planAgrupadoPDF[comp.categoria]) {
+                 planAgrupadoPDF[comp.categoria] = [];
+             }
+             planAgrupadoPDF[comp.categoria].push(comp);
+         }
+     });
+
+     for (const categoria in planAgrupadoPDF) {
+        checkPageBreak(lineHeight * 1.5);
+        doc.setFont(undefined, 'bold');
+        doc.text(categoria + ':', margin, y);
+        y += lineHeight * 0.8;
+        doc.setFont(undefined, 'normal');
+
+        planAgrupadoPDF[categoria].forEach(comp => {
+            checkPageBreak(lineHeight);
+             // Formato: Nombre (Descripción si existe) - $Precio
+            let textoComp = `- ${comp.nombre}`;
+            if (comp.descripcion) textoComp += ` (${comp.descripcion})`;
+            textoComp += ` - $${formatearPrecio(comp.precio)}`;
+            // Añadir indicación de costo por día/noche donde aplique
+             if (['Transporte', 'Alimentación', 'Guía'].includes(comp.categoria)) {
+                 textoComp += ' / día';
+             } else if (comp.categoria === 'Hospedaje') {
+                 textoComp += ' / noche';
+             } else if (comp.categoria === 'Extra') {
+                 textoComp += ' (pago único)';
+             }
+
+            const splitText = doc.splitTextToSize(textoComp, doc.internal.pageSize.width - margin * 2 - 5); // -5 para indentación
+            doc.text(splitText, margin + 5, y);
+            y += splitText.length * (lineHeight * 0.8); // Ajustar espaciado para texto dividido
+        });
+        y += lineHeight * 0.5; // Espacio entre categorías
+     }
+     y += sectionSpacing;
+
+
+    // Costo Total
+    checkPageBreak(lineHeight * 2);
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'bold');
+    doc.text(`COSTO TOTAL ESTIMADO: $${formatearPrecio(costoTotalActual)} COP`, margin, y);
+     doc.setFontSize(9);
+     doc.setFont(undefined, 'normal');
+     doc.text(`(para ${planActual.numeroViajeros} viajero(s) durante ${planActual.duracionDias} día(s))`, margin, y + lineHeight * 0.8);
+    y += sectionSpacing * 1.5;
+
+
+    // Pie de página
+    checkPageBreak(lineHeight * 4); // Más espacio para el pie de página
+    doc.setLineWidth(0.3);
+    doc.line(margin, y, doc.internal.pageSize.width - margin, y);
+    y += lineHeight * 1.5;
+    doc.setFontSize(8);
+    doc.setFont(undefined, 'italic');
+    doc.text('Este es un resumen del plan seleccionado. Los precios son estimados y pueden variar.', margin, y); y += lineHeight * 0.8;
+    doc.text('¡Gracias por elegir Magia Cafetera!', margin, y); y += lineHeight * 0.8;
+    doc.text('Contacto: magiacafetera17@gmail.com | WhatsApp: +57 310 694 7318', margin, y);
+
+    // Guardar PDF
+    try {
+        doc.save('Resumen_Plan_Magia_Cafetera.pdf');
+        mostrarNotificacion('Resumen PDF generado con éxito.', 'success');
+    } catch (error) {
+        console.error("Error al generar PDF:", error);
+        mostrarNotificacion('Hubo un error al generar el PDF.', 'error');
+    }
 }
 
-// Función para compartir itinerario (actualizada)
-function compartirItinerario() {
-    // Simulación de funcionalidad de compartir
-    // En una implementación real, esto podría conectarse a una API de compartir
-    
-    // Verificar si el navegador soporta Web Share API
-    if (navigator.share) {
-        navigator.share({
-            title: 'Mi Itinerario - Magia Cafetera',
-            text: `He planificado un viaje de ${datosViaje.duracion} días por ${datosViaje.destinos.map(d => d.nombre).join(', ')}`,
-            url: window.location.href
-        }).then(() => {
-            console.log('Itinerario compartido con éxito');
-        }).catch(error => {
-            console.error('Error al compartir:', error);
-            alert('Esta funcionalidad estará disponible próximamente. Por ahora, puedes descargar tu itinerario y compartirlo manualmente.');
+
+// --- Inicialización ---
+document.addEventListener('DOMContentLoaded', function() {
+    // Renderizar el nuevo planificador
+    renderizarComponentesDisponibles();
+    renderizarPlanSeleccionado(); // Renderizar el plan (inicialmente vacío)
+
+    // Comprobar si hay un destino pendiente de la selección inicial
+     const destinoPendiente = sessionStorage.getItem('destinoInicialPendiente');
+     if (destinoPendiente) {
+         agregarComponenteAlPlan(destinoPendiente);
+         renderizarComponentesDisponibles(); // Re-renderizar para marcarlo
+         renderizarPlanSeleccionado();
+         sessionStorage.removeItem('destinoInicialPendiente'); // Limpiar
+         mostrarNotificacion(`${encontrarComponente(destinoPendiente)?.nombre} añadido al plan.`, 'success');
+     }
+
+
+    // --- Configuración Filtros Destinos (SE MANTIENE) ---
+    const filterControls = document.querySelectorAll('.sidebar .filtro select, .sidebar .filtro input[type=\"checkbox\"]');
+    const resetButton = document.getElementById('reset-filtros');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mainSidebarContainer = document.querySelector('.sidebar'); // Puede ser null si se eliminó el sidebar
+
+    if (filterControls.length > 0 && mainSidebarContainer) { // Verificar que existan los controles y el sidebar
+        filterControls.forEach(control => {
+            control.addEventListener('change', filtrarDestinos);
         });
+
+        if (resetButton) {
+            resetButton.addEventListener('click', limpiarFiltros);
+        }
+
+        if (sidebarToggle) {
+             // Lógica para colapsar/expandir sidebar en móvil
+             const sidebarContent = mainSidebarContainer.querySelector('.filtros-destinos'); // El contenido real a mostrar/ocultar
+             if (window.innerWidth < 768 && sidebarContent) { // Oculto por defecto en móvil
+                 mainSidebarContainer.classList.remove('active');
+                 sidebarToggle.classList.remove('active');
+                 sidebarContent.style.display = 'none'; // Ocultar explícitamente
+             } else if (sidebarContent) { // Visible por defecto en desktop
+                 mainSidebarContainer.classList.add('active');
+                  sidebarToggle.classList.add('active');
+                  sidebarContent.style.display = 'block'; // Mostrar explícitamente
+             }
+
+
+            sidebarToggle.addEventListener('click', () => {
+                mainSidebarContainer.classList.toggle('active');
+                sidebarToggle.classList.toggle('active');
+                 if (sidebarContent) { // Mostrar/ocultar contenido
+                    sidebarContent.style.display = mainSidebarContainer.classList.contains('active') ? 'block' : 'none';
+                 }
+            });
+        }
+        filtrarDestinos(); // Filtrar al cargar si existen filtros
     } else {
-        alert('Esta funcionalidad estará disponible próximamente. Por ahora, puedes descargar tu itinerario y compartirlo manualmente.');
+        console.log("Controles de filtro o sidebar no encontrados. Se omite configuración de filtros.");
     }
-}
+     // --- Fin Configuración Filtros Destinos ---
 
-// Función para mostrar notificaciones temporales
-function mostrarNotificacion(mensaje, tipo = 'success') {
-    // Crear elemento para notificación
-    const notificacion = document.createElement('div');
-    notificacion.className = `notificacion notificacion-${tipo}`;
-    notificacion.innerHTML = `
-        <div class="notificacion-contenido">
-            <i class="fas ${tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-            <p>${mensaje}</p>
-        </div>
-    `;
-    
-    // Agregar estilos si no existen
-    if (!document.getElementById('estilos-notificacion')) {
-        const estilos = document.createElement('style');
-        estilos.id = 'estilos-notificacion';
-        estilos.textContent = `
-            .notificacion {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                background-color: white;
-                border-radius: var(--radius);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                z-index: 1000;
-                animation: slideIn 0.5s ease, fadeOut 0.5s ease 3s forwards;
-                max-width: 350px;
-            }
-            
-            .notificacion-contenido {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .notificacion i {
-                font-size: 1.5rem;
-            }
-            
-            .notificacion p {
-                margin: 0;
-                font-size: 1rem;
-            }
-            
-            .notificacion-success i {
-                color: #28a745;
-            }
-            
-            .notificacion-warning i {
-                color: #ffc107;
-            }
-            
-            .notificacion-error i {
-                color: #dc3545;
-            }
-            
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; visibility: hidden; }
-            }
-        `;
-        document.head.appendChild(estilos);
-    }
-    
-    // Agregar al DOM
-    document.body.appendChild(notificacion);
-    
-    // Eliminar después de 3.5 segundos
-    setTimeout(() => {
-        notificacion.remove();
-    }, 3500);
-}
+});
 
-// Actualizar la función seleccionarPaquete para mostrar notificación
-function seleccionarPaquete(tipoPaquete) {
-    const paquete = paquetesPredefinidos[tipoPaquete];
-    if (!paquete) return;
-    
-    // Guardar el paquete seleccionado para referencia posterior
-    sessionStorage.setItem('ultimoPaqueteModificado', tipoPaquete);
-    
-    // Ir a la sección de planificador
-    window.location.href = '#planificador';
-    
-    // Marcar los destinos correspondientes
-    document.querySelectorAll('.destinos-checkbox input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = paquete.destinos.includes(checkbox.value);
-    });
-    
-    // Actualizar destinos seleccionados
-    actualizarDestinosSeleccionados();
-    
-    // Establecer duración
-    const duracionSelect = document.getElementById('duracion-viaje');
-    duracionSelect.value = paquete.duracion;
-    
-    // Establecer tipo de viajero
-    const tipoViajeroSelect = document.getElementById('tipo-viajero');
-    tipoViajeroSelect.value = paquete.tipoViajero;
-    
-    // Actualizar clima
-    actualizarInfoClima();
-    
-    // Configurar opciones del paso 2 si venimos del paso 3
-    const paso2Config = {
-        'transporte-plan': paquete.transporte,
-        'hospedaje-plan': paquete.hospedaje,
-        'alimentacion-plan': paquete.alimentacion,
-        'guia-plan': paquete.guia
-    };
-    
-    // Aplicar configuraciones
-    for (const [id, valor] of Object.entries(paso2Config)) {
-        const elemento = document.getElementById(id);
-        if (elemento) {
-            elemento.value = valor;
-        }
-    }
-    
-    // Actualizar servicios extra si existen
-    const serviciosExtra = document.getElementById('servicios-extra');
-    if (serviciosExtra) {
-        // Desmarcar todos primero
-        Array.from(serviciosExtra.options).forEach(option => {
-            option.selected = false;
-        });
-        
-        // Marcar los del paquete
-        paquete.serviciosExtra.forEach(servicio => {
-            Array.from(serviciosExtra.options).forEach(option => {
-                if (option.textContent === servicio) {
-                    option.selected = true;
-                }
-            });
-        });
-    }
-    
-    // Calcular costos
-    calcularCostos();
-    
-    // Actualizar comparador de precios
-    actualizarComparadorPrecios(tipoPaquete);
-    
-    // Mostrar notificación
-    mostrarNotificacion(`Paquete "${paquete.nombre}" cargado correctamente. Puedes modificarlo a tu gusto.`);
-    
-    // Ir al paso 1
-    mostrarPaso(1);
-}
 
-// Nueva función para actualizar el comparador de precios en tiempo real
-function actualizarComparadorPrecios(tipoPaqueteSeleccionado) {
-    // Obtener la fila del comparador correspondiente al paquete
-    const filas = document.querySelectorAll('.comparador-precios table tbody tr');
-    const costoPersonalizado = datosViaje.costoTotal;
-    
-    filas.forEach(fila => {
-        const celdas = fila.querySelectorAll('td');
-        if (celdas.length >= 4) {
-            const nombrePaquete = celdas[0].textContent.trim();
-            
-            // Verificar si esta fila corresponde al paquete seleccionado
-            let correspondeAlSeleccionado = false;
-            if (tipoPaqueteSeleccionado === 'aventura' && nombrePaquete === 'Aventura Cafetera') {
-                correspondeAlSeleccionado = true;
-            } else if (tipoPaqueteSeleccionado === 'naturaleza' && nombrePaquete === 'Naturaleza y Tradición') {
-                correspondeAlSeleccionado = true;
-            } else if (tipoPaqueteSeleccionado === 'completa' && nombrePaquete === 'Experiencia Completa') {
-                correspondeAlSeleccionado = true;
-            }
-            
-            // Actualizar celda de precio personalizado para el paquete seleccionado
-            if (correspondeAlSeleccionado) {
-                celdas[3].textContent = `$${costoPersonalizado.toLocaleString()}`;
-                celdas[3].style.fontWeight = 'bold';
-                celdas[3].style.color = 'var(--color-primary)';
-            }
-        }
-    });
-}
-
-// Función para reservar directamente un paquete (ir al paso 3 con datos preestablecidos)
-function reservarPaquete(tipoPaquete) {
-    const paquete = paquetesPredefinidos[tipoPaquete];
-    if (!paquete) return;
-    
-    // Guardar el paquete seleccionado para referencia posterior
-    sessionStorage.setItem('ultimoPaqueteModificado', tipoPaquete);
-    
-    // Ir a la sección de planificador
-    window.location.href = '#planificador';
-    
-    // Establecer destinos
-    destinosSeleccionados = [];
-    paquete.destinos.forEach(destinoId => {
-        const checkbox = document.querySelector(`.destinos-checkbox input[value="${destinoId}"]`);
-        if (checkbox) {
-            destinosSeleccionados.push({
-                nombre: checkbox.nextElementSibling.textContent,
-                valor: destinoId,
-                precioBase: parseInt(checkbox.dataset.precioBase)
-            });
-        }
-    });
-    
-    // Rellenar datos del viaje
-    datosViaje = {
-        destinos: destinosSeleccionados,
-        duracion: paquete.duracion,
-        tipoViajero: paquete.tipoViajero,
-        presupuesto: 'medio', // Valor predeterminado
-        transporte: paquete.transporte,
-        hospedaje: paquete.hospedaje,
-        alimentacion: paquete.alimentacion,
-        guia: paquete.guia,
-        serviciosExtra: paquete.serviciosExtra,
-        costoTotal: paquete.precio,
-        climaEsperado: document.getElementById('info-clima-texto').textContent,
-        eventosEspeciales: document.getElementById('info-eventos-texto').textContent,
-        paqueteSeleccionado: tipoPaquete // Guardar referencia al paquete seleccionado
-    };
-    
-    // Actualizar la vista del paso 3
-    actualizarResumenViaje();
-    generarItinerario();
-    
-    // Actualizar comparador de precios
-    actualizarComparadorPrecios(tipoPaquete);
-    
-    // Ir al paso 3 directamente
-    mostrarPaso(3);
-}
-
-// Función para seleccionar un destino específico y redireccionar al planificador
-function seleccionarDestinoYRedireccionar(destinoId) {
-    // Desmarcar todos los checkboxes primero
-    document.querySelectorAll('.destinos-checkbox input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-    });
-    
-    // Marcar solo el destino seleccionado
-    const checkbox = document.querySelector(`.destinos-checkbox input[value="${destinoId}"]`);
-    if (checkbox) {
-        checkbox.checked = true;
-        
-        // Actualizar la lista de destinos seleccionados
-        actualizarDestinosSeleccionados();
-        
-        // Mostrar notificación
-        mostrarNotificacion(`Has seleccionado ${checkbox.nextElementSibling.textContent} para tu viaje`, 'success');
-        
-        // Redireccionar al planificador
-        window.location.href = '#planificador';
-        
-        // Si es necesario, mostrar el paso 1 del planificador
-        mostrarPaso(1);
-        
-        // Asegurarse de que la información del clima se actualice
-        actualizarInfoClima();
-    } else {
-        console.error(`No se encontró el destino con ID: ${destinoId}`);
-    }
-}
-
-// --- INICIO: Lógica para filtros de destinos ---
-
+// --- Lógica Filtros Destinos (SE MANTIENE) ---
 function filtrarDestinos() {
-    const filterType = document.getElementById('filter-type').value;
-    const filterLocation = document.getElementById('filter-location').value;
-    const filterPrice = document.getElementById('filter-price').value;
-    const filterDuration = document.getElementById('filter-duration').value;
-    const filterAccessibility = document.getElementById('filter-accessibility').checked;
-    
-    const selectedActivities = [];
-    document.querySelectorAll('.sidebar .filtro input[type="checkbox"][id^="filter-activity-"]:checked').forEach(checkbox => {
-        // Extraer el nombre de la actividad del ID (ej: 'filter-activity-senderismo' -> 'senderismo')
-        selectedActivities.push(checkbox.id.replace('filter-activity-', ''));
-    });
+     // Verificar si los elementos existen antes de acceder a sus propiedades
+     const filterTypeEl = document.getElementById('filter-type');
+     const filterLocationEl = document.getElementById('filter-location');
+     const filterPriceEl = document.getElementById('filter-price');
+     const filterDurationEl = document.getElementById('filter-duration');
+     const filterAccessibilityEl = document.getElementById('filter-accessibility');
+     const mensajeNoResultados = document.getElementById('mensaje-no-resultados');
+     const listaDestinosContainer = document.querySelector('.lista-destinos');
 
-    const destinos = document.querySelectorAll('.lista-destinos .destino');
-    const mensajeNoResultados = document.getElementById('mensaje-no-resultados');
+     // Si no existe el contenedor de destinos, no hacer nada
+     if (!listaDestinosContainer) return;
+
+     const filterType = filterTypeEl ? filterTypeEl.value : '';
+     const filterLocation = filterLocationEl ? filterLocationEl.value : '';
+     const filterPrice = filterPriceEl ? filterPriceEl.value : '';
+     const filterDuration = filterDurationEl ? filterDurationEl.value : '';
+     const filterAccessibility = filterAccessibilityEl ? filterAccessibilityEl.checked : false;
+
+
+    const selectedActivities = [];
+     // Asegurarse que el contenedor de filtros exista
+     const sidebarFiltros = document.querySelector('.sidebar .filtros-destinos');
+     if (sidebarFiltros) {
+         sidebarFiltros.querySelectorAll('input[type=\"checkbox\"][id^=\"filter-activity-\"]:checked').forEach(checkbox => {
+             selectedActivities.push(checkbox.id.replace('filter-activity-', ''));
+         });
+     }
+
+
+    const destinos = listaDestinosContainer.querySelectorAll('.destino');
     let resultadosVisibles = 0;
 
     destinos.forEach(destino => {
         const tipo = destino.dataset.type || '';
-        const ubicacion = destino.dataset.location || ''; // Puede tener múltiples valores: "risaralda pereira"
+        const ubicacion = destino.dataset.location || '';
         const precio = destino.dataset.price || '';
         const duracion = destino.dataset.duration || '';
         const accesibilidad = destino.dataset.accessibility === 'true';
-        const actividadesDestino = (destino.dataset.activities || '').split(','); // "senderismo,cultural" -> ['senderismo', 'cultural']
+        const actividadesDestino = (destino.dataset.activities || '').split(',');
 
         let mostrar = true;
 
-        // Comprobar cada filtro
         if (filterType && tipo !== filterType) mostrar = false;
-        if (filterLocation && !ubicacion.includes(filterLocation)) mostrar = false; // Usar includes para ubicaciones múltiples
+        if (filterLocation && !ubicacion.includes(filterLocation)) mostrar = false;
         if (filterPrice && precio !== filterPrice) mostrar = false;
         if (filterDuration && duracion !== filterDuration) mostrar = false;
         if (filterAccessibility && !accesibilidad) mostrar = false;
 
-        // Comprobar actividades (deben estar TODAS las seleccionadas)
         if (mostrar && selectedActivities.length > 0) {
             const todasPresentes = selectedActivities.every(actividadSel => actividadesDestino.includes(actividadSel));
             if (!todasPresentes) mostrar = false;
         }
 
-        // Mostrar u ocultar el destino
-        if (mostrar) {
-            destino.style.display = 'block';
-            resultadosVisibles++;
-        } else {
-            destino.style.display = 'none';
-        }
+        destino.style.display = mostrar ? 'block' : 'none';
+        if (mostrar) resultadosVisibles++;
     });
 
-    // Mostrar mensaje si no hay resultados
     if (mensajeNoResultados) {
         mensajeNoResultados.style.display = resultadosVisibles === 0 ? 'block' : 'none';
     }
 }
 
 function limpiarFiltros() {
-    // Restablecer selects
-    document.querySelectorAll('.sidebar .filtro select').forEach(select => {
-        select.selectedIndex = 0; // Poner la primera opción ("Todos...")
+     const sidebarFiltros = document.querySelector('.sidebar .filtros-destinos');
+     if (!sidebarFiltros) return; // Salir si no hay filtros
+
+    sidebarFiltros.querySelectorAll('select').forEach(select => {
+        select.selectedIndex = 0;
     });
-    
-    // Restablecer checkboxes
-    document.querySelectorAll('.sidebar .filtro input[type="checkbox"]').forEach(checkbox => {
+    sidebarFiltros.querySelectorAll('input[type=\"checkbox\"]').forEach(checkbox => {
         checkbox.checked = false;
     });
-
-    // Volver a aplicar los filtros (ahora vacíos) para mostrar todos
-    filtrarDestinos();
+    filtrarDestinos(); // Reaplicar filtros (ahora limpios)
 }
 
-// --- FIN: Lógica para filtros de destinos --- 
+
+// --- Funciones reutilizadas o mantenidas ---
+function mostrarNotificacion(mensaje, tipo = 'success') {
+    const notificacion = document.createElement('div');
+    notificacion.className = `notificacion notificacion-${tipo}`;
+    notificacion.innerHTML = `
+        <div class=\"notificacion-contenido\">
+            <i class=\"fas ${tipo === 'success' ? 'fa-check-circle' : tipo === 'error' ? 'fa-times-circle' : 'fa-info-circle'}\"></i>
+            <p>${mensaje}</p>
+        </div>
+    `;
+    // Reutilizar estilos si ya existen
+    if (!document.getElementById('estilos-notificacion')) {
+        const estilos = document.createElement('style');
+        estilos.id = 'estilos-notificacion';
+        estilos.textContent = `
+            .notificacion { position: fixed; top: 20px; right: 20px; padding: 12px 18px; background-color: #fff; border-left: 5px solid #ccc; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 1060; animation: slideInRight 0.4s ease, fadeOut 0.5s ease 3.5s forwards; max-width: 350px; font-size: 0.95rem; }
+            .notificacion-contenido { display: flex; align-items: center; gap: 10px; }
+            .notificacion i { font-size: 1.2rem; } .notificacion p { margin: 0; }
+            .notificacion-success { border-left-color: #28a745; } .notificacion-success i { color: #28a745; }
+            .notificacion-error { border-left-color: #dc3545; } .notificacion-error i { color: #dc3545; }
+            .notificacion-info { border-left-color: #17a2b8; } .notificacion-info i { color: #17a2b8; }
+            @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+            @keyframes fadeOut { 90% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        `;
+        document.head.appendChild(estilos);
+    }
+    document.body.appendChild(notificacion);
+    setTimeout(() => { notificacion.remove(); }, 4000); // 4 segundos visible
+}
+
+// Adaptada para añadir al nuevo planificador
+function seleccionarDestinoYRedireccionar(destinoIdCompleto) {
+    const componente = encontrarComponente(destinoIdCompleto);
+
+    if (componente && componente.categoria === 'Destino') {
+         // Limpiar otros destinos si la lógica es que solo se puede empezar con uno
+         planActual.componentes = planActual.componentes.filter(id => {
+             const compExistente = encontrarComponente(id);
+             return !compExistente || compExistente.categoria !== 'Destino';
+         });
+         agregarComponenteAlPlan(destinoIdCompleto); // Añade el destino al plan
+         renderizarComponentesDisponibles(); // Actualiza visualmente la lista de disponibles
+         renderizarPlanSeleccionado(); // Actualiza el plan seleccionado
+         mostrarNotificacion(`Has añadido ${componente.nombre} a tu plan. Continúa personalizando.`, 'success');
+
+        window.location.hash = '#planificador';
+        const planificadorSection = document.getElementById('planificador');
+        if (planificadorSection) {
+            planificadorSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    } else {
+        console.error(`No se encontró el componente de destino con ID: ${destinoIdCompleto} o no es un destino.`);
+        mostrarNotificacion(`Error al seleccionar el destino. Inténtalo de nuevo.`, 'error');
+    }
+}
+
+
+// --- FIN DE LA NUEVA LÓGICA ---

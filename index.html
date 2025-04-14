@@ -2051,363 +2051,42 @@
     <!-- Sección de Planificador de Viaje -->
     <section id="planificador">
         <div class="container">
-            <h2>Planifica tu Viaje</h2>
-            
-            <div class="pasos-planificador">
-                <!-- Paso 1: Selección de destinos y duración -->
-                <div id="paso-1" class="paso">
-                    <h3>Paso 1: Elige tus destinos</h3>
-                    
-                    <div class="destinos-checkbox">
-                        <div class="form-check">
-                            <input type="checkbox" id="destino-parque-cafe" value="parque-cafe" data-precio-base="60000" class="form-check-input">
-                            <label for="destino-parque-cafe" class="form-check-label">Parque del Café</label>
-                        </div>
-                        
-                        <div class="form-check">
-                            <input type="checkbox" id="destino-panaca" value="panaca" data-precio-base="55000" class="form-check-input">
-                            <label for="destino-panaca" class="form-check-label">PANACA</label>
-                        </div>
-                        
-                        <div class="form-check">
-                            <input type="checkbox" id="destino-ukumari" value="ukumari" data-precio-base="48000" class="form-check-input">
-                            <label for="destino-ukumari" class="form-check-label">Bioparque Ukumarí</label>
-                        </div>
-                        
-                        <div class="form-check">
-                            <input type="checkbox" id="destino-consota" value="consota" data-precio-base="40000" class="form-check-input">
-                            <label for="destino-consota" class="form-check-label">Parque Consotá</label>
-                        </div>
-                    </div>
-                    
-                    <div class="opcion-planificador">
-                        <label for="duracion-viaje">Duración del viaje:</label>
-                        <select id="duracion-viaje">
-                            <option value="1">1 día</option>
-                            <option value="2">2 días</option>
-                            <option value="3">3 días</option>
-                            <option value="4">4 días</option>
-                            <option value="5">5 días</option>
-                        </select>
-                    </div>
-                    
-                    <div class="opcion-planificador">
-                        <label for="fecha-viaje">Fecha de viaje (opcional):</label>
-                        <input type="date" id="fecha-viaje" min="2023-01-01">
-                    </div>
-                    
-                    <div class="opcion-planificador">
-                        <label for="tipo-viajero">Tipo de viajero:</label>
-                        <select id="tipo-viajero">
-                            <option value="familiar">Familiar</option>
-                            <option value="pareja">Pareja</option>
-                            <option value="escolar">Escolar</option>
-                            <option value="amigos">Grupo de amigos</option>
-                            <option value="solo">Solo</option>  </select>
-                    </div>
-                    
-                    <div class="opcion-planificador">
-                        <label for="presupuesto">Presupuesto aproximado:</label>
-                        <select id="presupuesto">
-                            <option value="bajo">Económico</option>
-                            <option value="medio">Estándar</option>
-                            <option value="alto">Premium</option>
-                        </select>
-                    </div>
-                    
-                    <div class="info-clima">
-                        <h4><i class="fas fa-cloud-sun"></i> Clima Esperado</h4>
-                        <p id="info-clima-texto">Consultando información climática...</p>
-                    </div>
-                    
-                    <div class="eventos-especiales">
-                        <h4><i class="fas fa-calendar-alt"></i> Eventos Especiales</h4>
-                        <p id="info-eventos-texto">Consultando eventos especiales...</p>
-                    </div>
-                    
-                    <div class="botones-navegacion">
-                        <button onclick="mostrarPaso(2)" class="btn btn-primario">Continuar <i class="fas fa-arrow-right"></i></button>
-                    </div>
+            <h2><i class="fas fa-drafting-compass"></i> Diseña tu Viaje a Medida</h2>
+            <p class="text-center mb-4">Selecciona los componentes que deseas incluir en tu viaje. El costo se actualizará automáticamente.</p>
+
+            <div class="planificador-flexible">
+                <!-- Columna Izquierda: Componentes Disponibles -->
+                <div id="componentes-disponibles" class="columna-componentes">
+                    <h4>Componentes Disponibles</h4>
+                    <!-- Aquí se cargarán dinámicamente las categorías y componentes -->
+                    <div id="componentes-carga">Cargando opciones...</div> 
                 </div>
-                
-                <!-- Paso 2: Opciones adicionales y costos -->
-                <div id="paso-2" class="paso" style="display: none;">
-                    <h3>Paso 2: Personaliza tu experiencia</h3>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="opcion-planificador">
-                                <label for="transporte-plan">Tipo de transporte:</label>
-                                <select id="transporte-plan" data-precio-base="0">
-                                    <option value="compartido" data-precio="40000">Transporte compartido</option>
-                                    <option value="privado" data-precio="120000">Transporte privado</option>
-                                    <option value="chiva" data-precio="80000">Chiva tradicional</option>
-                                    <option value="propio" data-precio="0">Vehículo propio</option>
-                                </select>
-                            </div>
-                            
-                            <div class="opcion-planificador">
-                                <label for="hospedaje-plan">Incluir hospedaje:</label>
-                                <select id="hospedaje-plan" data-precio-base="0">
-                                    <option value="no" data-precio="0">No incluir</option>
-                                    <option value="si" data-precio="150000">Incluir hospedaje típico</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="opcion-planificador">
-                                <label for="alimentacion-plan">Plan de alimentación:</label>
-                                <select id="alimentacion-plan" data-precio-base="0">
-                                    <option value="basico" data-precio="25000">Básico</option>
-                                    <option value="tipico" data-precio="45000">Típico</option>
-                                    <option value="gourmet" data-precio="85000">Gourmet</option>
-                                    <option value="vegetariano" data-precio="55000">Vegetariano</option>
-                                    <option value="noaplica" data-precio="0">No aplica</option>
-                                </select>
-                            </div>
-                            
-                            <div class="opcion-planificador">
-                                <label for="guia-plan">Guía turístico:</label>
-                                <select id="guia-plan" data-precio-base="0">
-                                    <option value="no" data-precio="0">Sin guía</option>
-                                    <option value="si" data-precio="80000">Con guía especializado</option>
-                                </select>
-                            </div>
-                        </div>
+
+                <!-- Columna Derecha: Plan Seleccionado -->
+                <div id="plan-seleccionado" class="columna-plan">
+                    <h4><i class="fas fa-shopping-cart"></i> Tu Plan Actual</h4>
+                    <div id="lista-plan-seleccionado">
+                        <p>Añade componentes desde la izquierda.</p>
                     </div>
-                    
-                    <div class="opcion-planificador">
-                        <label for="servicios-extra">Servicios adicionales (opcional):</label>
-                        <select id="servicios-extra" multiple size="4">
-                            <option value="fotografia" data-precio="50000">Fotografía profesional</option>
-                            <option value="barismo" data-precio="35000">Taller de barismo</option>
-                            <option value="experiencias" data-precio="65000">Experiencias exclusivas</option>
-                            <option value="transporte-aeropuerto" data-precio="70000">Transporte desde/hacia aeropuerto</option>
-                        </select>
-                        <small>Mantén presionada la tecla Ctrl para seleccionar múltiples opciones</small>
+                    <div class="costo-total-planificador">
+                        <h5>Costo Estimado Total:</h5>
+                        <p>$<span id="costo-total-flexible">0</span> COP</p>
                     </div>
-                    
-                    <div class="costo-total">
-                        <h4>Costo estimado total:</h4>
-                        <p>$<span id="costo-total">0</span> COP</p>
-                    </div>
-                    
-                    <div class="botones-navegacion">
-                        <button onclick="mostrarPaso(1)" class="btn btn-secundario"><i class="fas fa-arrow-left"></i> Anterior</button>
-                        <button onclick="mostrarPaso(3)" class="btn btn-primario">Finalizar <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-                
-                <!-- Paso 3: Resumen e itinerario -->
-                <div id="paso-3" class="paso" style="display: none;">
-                    <h3>Tu Viaje Personalizado</h3>
-                    
-                    <div class="resumen-viaje">
-                        <h4><i class="fas fa-suitcase"></i> Resumen de tu viaje</h4>
-                        
-                        <div class="resumen-item">
-                            <strong>Destino(s):</strong>
-                            <span id="resumen-destino">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Fecha:</strong>
-                            <span id="resumen-fecha">No especificada</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Duración:</strong>
-                            <span id="resumen-duracion">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Tipo de viajero:</strong>
-                            <span id="resumen-tipo-viajero">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Transporte:</strong>
-                            <span id="resumen-transporte">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Hospedaje:</strong>
-                            <span id="resumen-hospedaje">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Alimentación:</strong>
-                            <span id="resumen-alimentacion">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Guía:</strong>
-                            <span id="resumen-guia">-</span>
-                        </div>
-                        
-                        <div class="resumen-item">
-                            <strong>Servicios extra:</strong>
-                            <span id="resumen-servicios">-</span>
-                        </div>
-                        
-                        <div class="resumen-item resumen-costo">
-                            <strong>Costo total:</strong>
-                            <span id="resumen-costo">0</span> COP
-                        </div>
-                    </div>
-                    
-                    <div class="itinerario-container">
-                        <h4><i class="fas fa-map-marked-alt"></i> Tu itinerario personalizado</h4>
-                        <div id="itinerario-generado">
-                            <p>Generando itinerario...</p>
-                        </div>
-                    </div>
-                    
-                    <div class="botones-navegacion">
-                        <button onclick="mostrarPaso(2)" class="btn btn-secundario"><i class="fas fa-arrow-left"></i> Modificar plan</button>
-                        <button onclick="simularPago()" class="btn btn-primario btn-pago"><i class="fas fa-credit-card"></i> Proceder al pago</button>
+                    <div class="acciones-plan">
+                         <button onclick="generarItinerarioFlexible()" class="btn btn-info mr-2"><i class="fas fa-list-alt"></i> Ver Itinerario</button>
+                         <button onclick="simularPagoFlexible()" class="btn btn-primario btn-pago"><i class="fas fa-credit-card"></i> Proceder al Pago</button>
+                         <button onclick="descargarItinerario()" class="btn btn-descargar mt-2" style="width: 100%;"><i class="fas fa-download"></i> Descargar Resumen (PDF)</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Sección de Paquetes de Viaje -->
-    <section id="paquetes">
-        <h2>Paquetes de Viaje</h2>
-        <div class="como-funciona">
-            <h3>Cómo funciona</h3>
-            <p>Selecciona un paquete prediseñado y personalízalo según tus preferencias.</p>
-        </div>
-
-        <div class="lista-paquetes">
-            <div class="paquete">
-                <h3>Aventura Cafetera</h3>
-                <div class="actividades">
-                    <h4>Actividades incluidas:</h4>
-                    <ul>
-                        <li>
-                            <input type="checkbox" id="act1" checked>
-                            <label for="act1">Visita al Parque del Café</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="act2" checked>
-                            <label for="act2">Tour por cafetales</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="act3" checked>
-                            <label for="act3">Cata de café</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="act4">
-                            <label for="act4">Paseo en Jeep Willys (opcional)</label>
-                        </li>
-                    </ul>
+             <!-- Contenedor para mostrar el itinerario generado -->
+             <div id="itinerario-flexible-container" class="mt-4" style="display: none;">
+                <h3><i class="fas fa-map-marked-alt"></i> Itinerario Propuesto</h3>
+                <div id="itinerario-flexible-contenido">
+                    <!-- El itinerario se generará aquí -->
                 </div>
-                <div class="precio">
-                    <p>Precio estimado: $<span class="monto">250.000</span></p>
-                    <p>Descuentos aplicables: <span class="descuento">10%</span> para grupos de 4+</p>
-                </div>
-                <button class="modificar" onclick="seleccionarPaquete('aventura')">Modificar</button>
-                <button class="reservar" onclick="reservarPaquete('aventura')">Reservar</button>
+                <button onclick="document.getElementById('itinerario-flexible-container').style.display='none';" class="btn btn-secondary mt-3">Ocultar Itinerario</button>
             </div>
-
-            <div class="paquete">
-                <h3>Naturaleza y Tradición</h3>
-                <div class="actividades">
-                    <h4>Actividades incluidas:</h4>
-                    <ul>
-                        <li>
-                            <input type="checkbox" id="nat1" checked>
-                            <label for="nat1">Parque Ukumarí</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="nat2" checked>
-                            <label for="nat2">Jardín Botánico</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="nat3" checked>
-                            <label for="nat3">Artesanías típicas</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="nat4" checked>
-                            <label for="nat4">Cabalgata (opcional)</label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="precio">
-                    <p>Precio estimado: $<span class="monto">280.000</span></p>
-                    <p>Descuentos aplicables: <span class="descuento">30%</span> en transporte para reservas superiores a $500.000</p>
-                </div>
-                <button class="modificar" onclick="seleccionarPaquete('naturaleza')">Modificar</button>
-                <button class="reservar" onclick="reservarPaquete('naturaleza')">Reservar</button>
-            </div>
-
-            <div class="paquete">
-                <h3>Experiencia Completa</h3>
-                <div class="actividades">
-                    <h4>Actividades incluidas:</h4>
-                    <ul>
-                        <li>
-                            <input type="checkbox" id="exp1" checked>
-                            <label for="exp1">Parque del Café</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="exp2" checked>
-                            <label for="exp2">Panaca</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="exp3" checked>
-                            <label for="exp3">Ukumarí</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="exp4" checked>
-                            <label for="exp4">Parque Consotá</label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="precio">
-                    <p>Precio estimado: $<span class="monto">450.000</span></p>
-                    <p>Descuentos aplicables: <span class="descuento">15%</span> en paquete completo</p>
-                </div>
-                <button class="modificar" onclick="seleccionarPaquete('completa')">Modificar</button>
-                <button class="reservar" onclick="reservarPaquete('completa')">Reservar</button>
-            </div>
-        </div>
-
-        <div class="comparador-precios">
-            <h3>Comparador de precios</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Paquete</th>
-                        <th>Básico</th>
-                        <th>Premium</th>
-                        <th>Personalizado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Aventura Cafetera</td>
-                        <td>$250.000</td>
-                        <td>$350.000</td>
-                        <td>Variable</td>
-                    </tr>
-                    <tr>
-                        <td>Naturaleza y Tradición</td>
-                        <td>$280.000</td>
-                        <td>$380.000</td>
-                        <td>Variable</td>
-                    </tr>
-                    <tr>
-                        <td>Experiencia Completa</td>
-                        <td>$450.000</td>
-                        <td>$650.000</td>
-                        <td>Variable</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </section>
 
