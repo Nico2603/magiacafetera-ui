@@ -322,7 +322,7 @@ function calcularCostoTotalFlexible() {
 }
 
 
-// --- Generación de Itinerario (Simplificado - Muestra componentes) ---
+// --- Generación de Itinerario (Mejorado Visualmente) ---
 function generarItinerarioFlexible() {
     const container = document.getElementById('itinerario-flexible-contenido');
     const containerWrapper = document.getElementById('itinerario-flexible-container');
@@ -331,27 +331,58 @@ function generarItinerarioFlexible() {
     container.innerHTML = ''; // Limpiar
 
     if (planActual.componentes.length === 0) {
-        container.innerHTML = '<p class=\"text-muted\">No has seleccionado ningún componente para generar un itinerario.</p>';
+        container.innerHTML = '<p class=\"text-muted text-center\">No has seleccionado ningún componente para generar un itinerario.</p>';
         containerWrapper.style.display = 'block';
         return;
     }
 
-    // Generar un resumen básico en lugar de un itinerario diario complejo por ahora
-    let resumenHTML = '<h5>Resumen del Plan:</h5><ul>';
+    // Agrupar componentes por categoría
+    const planAgrupado = {};
     planActual.componentes.forEach(id => {
         const comp = encontrarComponente(id);
         if (comp) {
-            resumenHTML += `<li><strong>${comp.categoria}:</strong> ${comp.nombre} ${comp.descripcion ? `(${comp.descripcion})` : ''}</li>`;
+            if (!planAgrupado[comp.categoria]) {
+                planAgrupado[comp.categoria] = [];
+            }
+            planAgrupado[comp.categoria].push(comp);
         }
     });
-    resumenHTML += '</ul>';
-    resumenHTML += `<p><strong>Viajeros:</strong> ${planActual.numeroViajeros}</p>`;
-    resumenHTML += `<p><strong>Duración:</strong> ${planActual.duracionDias} día(s)</p>`;
-    if (planActual.fechaViaje) {
-        resumenHTML += `<p><strong>Fecha Inicio:</strong> ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}</p>`;
-    }
-    resumenHTML += `<p class=\"h5 text-primary mt-2\"><strong>Costo Total Estimado:</strong> $${formatearPrecio(costoTotalActual)} COP</p>`;
 
+    // Generar HTML con mejor estructura
+    let resumenHTML = '<div class=\"resumen-itinerario-mejorado\">';
+    
+    // Sección Detalles Generales
+    resumenHTML += '<div class=\"detalle-general-itinerario mb-4 p-3 bg-light border rounded\"><h5><i class=\"fas fa-info-circle mr-2\"></i>Detalles Generales</h5>';
+    resumenHTML += `<p><strong><i class=\"fas fa-users mr-1\"></i> Viajeros:</strong> ${planActual.numeroViajeros}</p>`;
+    resumenHTML += `<p><strong><i class=\"fas fa-calendar-alt mr-1\"></i> Duración:</strong> ${planActual.duracionDias} día(s)</p>`;
+    if (planActual.fechaViaje) {
+        const fechaFormateada = new Date(planActual.fechaViaje + 'T00:00:00').toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+        resumenHTML += `<p><strong><i class=\"fas fa-calendar-check mr-1\"></i> Fecha Inicio:</strong> ${fechaFormateada}</p>`;
+    }
+    resumenHTML += '</div>';
+
+    // Sección Componentes por Categoría
+    resumenHTML += '<h5><i class=\"fas fa-clipboard-list mr-2\"></i>Componentes Seleccionados</h5>';
+    for (const categoria in planAgrupado) {
+        resumenHTML += `<div class=\"categoria-itinerario card mb-3\"><div class=\"card-header bg-light\"><strong>${categoria}</strong></div><ul class=\"list-group list-group-flush\">`;
+        planAgrupado[categoria].forEach(comp => {
+            resumenHTML += `<li class=\"list-group-item\">`;
+            resumenHTML += `<span class=\"nombre-componente\">${comp.nombre}</span>`;
+            if (comp.descripcion) {
+                resumenHTML += `<small class=\"d-block text-muted\">${comp.descripcion}</small>`;
+            }
+            resumenHTML += `<span class=\"precio-componente float-right\">$${formatearPrecio(comp.precio)}</span>`;
+            resumenHTML += `</li>`;
+        });
+        resumenHTML += '</ul></div>';
+    }
+
+    // Sección Costo Total
+    resumenHTML += `<div class=\"costo-total-itinerario mt-4 pt-3 border-top text-right\">`;
+    resumenHTML += `<p class=\"h4 text-primary\"><strong>Costo Total Estimado:</strong> $${formatearPrecio(costoTotalActual)} COP</p>`;
+    resumenHTML += `</div>`;
+
+    resumenHTML += '</div>'; // Cierre de resumen-itinerario-mejorado
 
     container.innerHTML = resumenHTML;
     containerWrapper.style.display = 'block';
@@ -413,33 +444,47 @@ function simularPagoFlexible() {
      }
 }
 
+function cerrarModalPago() {
+    const modalPago = document.querySelector('.modal-pago');
+    if (modalPago) {
+        modalPago.remove();
+    }
+}
+
+function obtenerTextoMetodoPago(metodo) {
+    switch (metodo) {
+        case 'tarjeta': return 'Tarjeta';
+        case 'transferencia': return 'Transferencia';
+        case 'pse': return 'PSE';
+        default: return 'Desconocido';
+    }
+}
 
 function procesarPagoFlexible(metodo) {
     const modalContenido = document.querySelector('.modal-pago .modal-contenido');
     if (!modalContenido) return;
 
-    modalContenido.innerHTML = `<h3>Procesando pago...</h3><div class=\"loader\"></div>`;
+    modalContenido.innerHTML = `<h3>Procesando pago...</h3><div class="loader"></div>`;
 
     setTimeout(function() {
         const codigoReserva = `MCF-${Math.floor(Math.random() * 100000)}`;
-        const componentesNombres = planActual.componentes.map(id => encontrarComponente(id)?.nombre || '?').join(', ');
+        const componentesNombres = planActual.componentes.map(id => encontrarComponente(id)?.nombre || '?').join(', ') || 'Ninguno'; // Manejar caso vacío
 
         modalContenido.innerHTML = `
             <h3>¡Pago Exitoso!</h3>
-            <div class=\"confirmacion-pago\"><i class=\"fas fa-check-circle\"></i><p>Reserva confirmada</p></div>
-            <div class=\"detalles-reserva\">
+            <div class="confirmacion-pago"><i class="fas fa-check-circle"></i><p>Reserva confirmada</p></div>
+            <div class="detalles-reserva">
                  <p><strong>Componentes:</strong> ${componentesNombres}</p>
                  <p><strong>Viajeros:</strong> ${planActual.numeroViajeros} | <strong>Días:</strong> ${planActual.duracionDias}</p>
                  ${planActual.fechaViaje ? `<p><strong>Fecha:</strong> ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}</p>` : ''}
                  <p><strong>Monto:</strong> $${formatearPrecio(costoTotalActual)} COP | <strong>Método:</strong> ${obtenerTextoMetodoPago(metodo)}</p>
-                 <p><strong>Código Reserva:</strong> <span class=\"codigo-reserva\">${codigoReserva}</span></p>
+                 <p><strong>Código Reserva:</strong> <span class="codigo-reserva">${codigoReserva}</span></p>
              </div>
-            <p><small>Hemos enviado el resumen a tu correo electrónico.</small></p>
-            <div class=\"acciones-confirmacion\">
-                <button class=\"btn btn-sm btn-accion\" onclick=\"descargarItinerario()\"><i class=\"fas fa-download\"></i> Descargar Resumen</button>
-                <button class=\"btn btn-sm btn-accion\" onclick=\"window.location.reload()\"><i class=\"fas fa-plus-circle\"></i> Nuevo Plan</button>
+            <p><small>Hemos enviado el resumen a tu correo electrónico (simulado).</small></p>
+            <div class="acciones-confirmacion">
+                <button class="btn btn-sm btn-accion" onclick="descargarItinerario()"><i class="fas fa-download"></i> Descargar Resumen</button>
+                <button class="btn btn-sm btn-secondary" onclick="cerrarModalPago()"><i class="fas fa-times"></i> Cerrar</button>
             </div>
-            <button class=\"btn btn-sm btn-secondary mt-2\" onclick=\"cerrarModalPago()\">Cerrar</button>
         `;
     }, 2500); // Reducido tiempo de simulación
 }
@@ -447,135 +492,139 @@ function procesarPagoFlexible(metodo) {
 // --- Generación de PDF (Adaptada) ---
 function descargarItinerario() { // Ahora genera un Resumen del Plan
     if (planActual.componentes.length === 0) {
-        alert('No hay componentes seleccionados para generar un resumen.');
+        mostrarNotificacion('No hay componentes seleccionados para generar un resumen.', 'info'); // Cambiado a info
         return;
     }
 
     if (typeof window.jspdf === 'undefined') {
+        console.error('Error: La librería jsPDF no está cargada.');
         mostrarNotificacion('Error al generar PDF: La librería no está cargada.', 'error');
         return;
     }
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-    let y = 15; // Margen superior
-    const pageHeight = doc.internal.pageSize.height;
-    const margin = 15;
-    const lineHeight = 6; // Ajustar para más líneas
-    const sectionSpacing = 8;
-
-    function checkPageBreak(increment) {
-        if (y + increment > pageHeight - margin) { // Margen inferior
-            doc.addPage();
-            y = margin; // Resetear y al inicio de nueva página
+    try { // Envolver en try...catch
+        const { jsPDF } = window.jspdf;
+        // Verificar que jsPDF sea una función constructora
+        if (typeof jsPDF !== 'function') {
+            throw new Error('jsPDF no es una función constructora.');
         }
-    }
+        const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
 
-    // Título
-    doc.setFontSize(16);
-    doc.setFont(undefined, 'bold');
-    doc.text('Resumen de Plan - Magia Cafetera', margin, y);
-    y += sectionSpacing;
-    doc.setLineWidth(0.3);
-    doc.line(margin, y, doc.internal.pageSize.width - margin, y);
-    y += sectionSpacing;
+        let y = 15; // Margen superior
+        const pageHeight = doc.internal.pageSize.height;
+        const margin = 15;
+        const lineHeight = 6; 
+        const sectionSpacing = 8;
 
-    // Detalles Generales
-    checkPageBreak(lineHeight * 3);
-    doc.setFontSize(11);
-    doc.setFont(undefined, 'bold');
-    doc.text('Detalles Generales:', margin, y); y += lineHeight * 1.2;
-    doc.setFontSize(10);
-    doc.setFont(undefined, 'normal');
-    doc.text(`Número de Viajeros: ${planActual.numeroViajeros}`, margin, y); y += lineHeight;
-    doc.text(`Duración: ${planActual.duracionDias} día(s)`, margin, y); y += lineHeight;
-     if (planActual.fechaViaje) {
-         checkPageBreak(lineHeight);
-         doc.text(`Fecha de Viaje: ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}`, margin, y); y += lineHeight;
-     }
-     y += sectionSpacing * 0.5;
+        function checkPageBreak(increment) {
+            if (y + increment > pageHeight - margin) { 
+                doc.addPage();
+                y = margin; 
+            }
+        }
 
-    // Componentes Seleccionados
-    checkPageBreak(lineHeight * 2);
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text('COMPONENTES SELECCIONADOS:', margin, y);
-    y += lineHeight * 1.5;
-    doc.setFontSize(9); // Tamaño más pequeño para lista
-    doc.setFont(undefined, 'normal');
-
-    // Agrupar por categoría
-    const planAgrupadoPDF = {};
-     planActual.componentes.forEach(id => {
-         const comp = encontrarComponente(id);
-         if (comp) {
-             if (!planAgrupadoPDF[comp.categoria]) {
-                 planAgrupadoPDF[comp.categoria] = [];
-             }
-             planAgrupadoPDF[comp.categoria].push(comp);
-         }
-     });
-
-     for (const categoria in planAgrupadoPDF) {
-        checkPageBreak(lineHeight * 1.5);
+        // Título
+        doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
-        doc.text(categoria + ':', margin, y);
-        y += lineHeight * 0.8;
+        doc.text('Resumen de Plan - Magia Cafetera', margin, y);
+        y += sectionSpacing;
+        doc.setLineWidth(0.3);
+        doc.line(margin, y, doc.internal.pageSize.width - margin, y);
+        y += sectionSpacing;
+
+        // Detalles Generales
+        checkPageBreak(lineHeight * 3);
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'bold');
+        doc.text('Detalles Generales:', margin, y); y += lineHeight * 1.2;
+        doc.setFontSize(10);
+        doc.setFont(undefined, 'normal');
+        doc.text(`Número de Viajeros: ${planActual.numeroViajeros}`, margin, y); y += lineHeight;
+        doc.text(`Duración: ${planActual.duracionDias} día(s)`, margin, y); y += lineHeight;
+         if (planActual.fechaViaje) {
+             checkPageBreak(lineHeight);
+             // Formatear fecha de manera segura
+             const fechaFormateada = new Date(planActual.fechaViaje + 'T00:00:00').toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+             doc.text(`Fecha de Viaje: ${fechaFormateada}`, margin, y); y += lineHeight;
+         }
+         y += sectionSpacing * 0.5;
+
+        // Componentes Seleccionados
+        checkPageBreak(lineHeight * 2);
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        doc.text('COMPONENTES SELECCIONADOS:', margin, y);
+        y += lineHeight * 1.5;
+        doc.setFontSize(9); 
         doc.setFont(undefined, 'normal');
 
-        planAgrupadoPDF[categoria].forEach(comp => {
-            checkPageBreak(lineHeight);
-             // Formato: Nombre (Descripción si existe) - $Precio
-            let textoComp = `- ${comp.nombre}`;
-            if (comp.descripcion) textoComp += ` (${comp.descripcion})`;
-            textoComp += ` - $${formatearPrecio(comp.precio)}`;
-            // Añadir indicación de costo por día/noche donde aplique
-             if (['Transporte', 'Alimentación', 'Guía'].includes(comp.categoria)) {
-                 textoComp += ' / día';
-             } else if (comp.categoria === 'Hospedaje') {
-                 textoComp += ' / noche';
-             } else if (comp.categoria === 'Extra') {
-                 textoComp += ' (pago único)';
+        const planAgrupadoPDF = {};
+         planActual.componentes.forEach(id => {
+             const comp = encontrarComponente(id);
+             if (comp) {
+                 if (!planAgrupadoPDF[comp.categoria]) {
+                     planAgrupadoPDF[comp.categoria] = [];
+                 }
+                 planAgrupadoPDF[comp.categoria].push(comp);
              }
+         });
 
-            const splitText = doc.splitTextToSize(textoComp, doc.internal.pageSize.width - margin * 2 - 5); // -5 para indentación
-            doc.text(splitText, margin + 5, y);
-            y += splitText.length * (lineHeight * 0.8); // Ajustar espaciado para texto dividido
-        });
-        y += lineHeight * 0.5; // Espacio entre categorías
-     }
-     y += sectionSpacing;
+         for (const categoria in planAgrupadoPDF) {
+            checkPageBreak(lineHeight * 1.5);
+            doc.setFont(undefined, 'bold');
+            doc.text(categoria + ':', margin, y);
+            y += lineHeight * 0.8;
+            doc.setFont(undefined, 'normal');
 
+            planAgrupadoPDF[categoria].forEach(comp => {
+                checkPageBreak(lineHeight);
+                let textoComp = `- ${comp.nombre}`;
+                if (comp.descripcion) textoComp += ` (${comp.descripcion})`;
+                textoComp += ` - $${formatearPrecio(comp.precio)}`;
+                 if (['Transporte', 'Alimentación', 'Guía'].includes(comp.categoria)) {
+                     textoComp += ' / día';
+                 } else if (comp.categoria === 'Hospedaje') {
+                     textoComp += ' / noche';
+                 } else if (comp.categoria === 'Extra') {
+                     textoComp += ' (pago único)';
+                 }
 
-    // Costo Total
-    checkPageBreak(lineHeight * 2);
-    doc.setFontSize(11);
-    doc.setFont(undefined, 'bold');
-    doc.text(`COSTO TOTAL ESTIMADO: $${formatearPrecio(costoTotalActual)} COP`, margin, y);
-     doc.setFontSize(9);
-     doc.setFont(undefined, 'normal');
-     doc.text(`(para ${planActual.numeroViajeros} viajero(s) durante ${planActual.duracionDias} día(s))`, margin, y + lineHeight * 0.8);
-    y += sectionSpacing * 1.5;
+                const splitText = doc.splitTextToSize(textoComp, doc.internal.pageSize.width - margin * 2 - 5); 
+                doc.text(splitText, margin + 5, y);
+                y += splitText.length * (lineHeight * 0.8); 
+            });
+            y += lineHeight * 0.5; 
+         }
+         y += sectionSpacing;
 
+        // Costo Total
+        checkPageBreak(lineHeight * 2);
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'bold');
+        doc.text(`COSTO TOTAL ESTIMADO: $${formatearPrecio(costoTotalActual)} COP`, margin, y);
+         doc.setFontSize(9);
+         doc.setFont(undefined, 'normal');
+         doc.text(`(para ${planActual.numeroViajeros} viajero(s) durante ${planActual.duracionDias} día(s))`, margin, y + lineHeight * 0.8);
+        y += sectionSpacing * 1.5;
 
-    // Pie de página
-    checkPageBreak(lineHeight * 4); // Más espacio para el pie de página
-    doc.setLineWidth(0.3);
-    doc.line(margin, y, doc.internal.pageSize.width - margin, y);
-    y += lineHeight * 1.5;
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'italic');
-    doc.text('Este es un resumen del plan seleccionado. Los precios son estimados y pueden variar.', margin, y); y += lineHeight * 0.8;
-    doc.text('¡Gracias por elegir Magia Cafetera!', margin, y); y += lineHeight * 0.8;
-    doc.text('Contacto: magiacafetera17@gmail.com | WhatsApp: +57 310 694 7318', margin, y);
+        // Pie de página
+        checkPageBreak(lineHeight * 4);
+        doc.setLineWidth(0.3);
+        doc.line(margin, y, doc.internal.pageSize.width - margin, y);
+        y += lineHeight * 1.5;
+        doc.setFontSize(8);
+        doc.setFont(undefined, 'italic');
+        doc.text('Este es un resumen del plan seleccionado. Los precios son estimados y pueden variar.', margin, y); y += lineHeight * 0.8;
+        doc.text('¡Gracias por elegir Magia Cafetera!', margin, y); y += lineHeight * 0.8;
+        doc.text('Contacto: magiacafetera17@gmail.com | WhatsApp: +57 310 694 7318', margin, y);
 
-    // Guardar PDF
-    try {
+        // Guardar PDF
         doc.save('Resumen_Plan_Magia_Cafetera.pdf');
         mostrarNotificacion('Resumen PDF generado con éxito.', 'success');
+
     } catch (error) {
-        console.error("Error al generar PDF:", error);
-        mostrarNotificacion('Hubo un error al generar el PDF.', 'error');
+        console.error("Error detallado al generar PDF:", error);
+        mostrarNotificacion('Hubo un error al generar el PDF. Revisa la consola para detalles.', 'error');
     }
 }
 
@@ -596,6 +645,17 @@ document.addEventListener('DOMContentLoaded', function() {
          mostrarNotificacion(`${encontrarComponente(destinoPendiente)?.nombre} añadido al plan.`, 'success');
      }
 
+    // --- Manejo del formulario de contacto ---
+    const formContacto = document.getElementById('form-contacto');
+    if (formContacto) {
+        formContacto.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir envío real del formulario
+            // Simulación de envío exitoso
+            mostrarNotificacion('Mensaje enviado con éxito. ¡Gracias por contactarnos!', 'success');
+            // Opcional: Limpiar el formulario después del envío
+            formContacto.reset();
+        });
+    }
 
     // --- Configuración Filtros Destinos (SE MANTIENE) ---
     const filterControls = document.querySelectorAll('.sidebar .filtro select, .sidebar .filtro input[type=\"checkbox\"]');
@@ -639,6 +699,29 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Controles de filtro o sidebar no encontrados. Se omite configuración de filtros.");
     }
      // --- Fin Configuración Filtros Destinos ---
+
+    // --- Lógica para Animaciones Fade-in ---
+    const fadeElems = document.querySelectorAll('.fade-in');
+    const observerOptions = {
+        root: null, // Observa intersecciones relativas al viewport
+        rootMargin: '0px',
+        threshold: 0.1 // Se activa cuando al menos 10% del elemento es visible
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Deja de observar una vez que es visible
+            }
+        });
+    };
+
+    const fadeInObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+    fadeElems.forEach(elem => {
+        fadeInObserver.observe(elem);
+    });
 
 });
 

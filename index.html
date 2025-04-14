@@ -51,7 +51,7 @@
     </header>
 
     <!-- Sección de Inicio -->
-    <section id="inicio">
+    <section id="inicio" class="fade-in">
         <div class="banner-principal">
             <h2>Descubre la magia del Eje Cafetero</h2>
             <button onclick="window.location.hash='#planificador'">Personaliza tu viaje</button>
@@ -125,7 +125,7 @@
     </section>
 
     <!-- Sección de Destinos -->
-    <section id="destinos">
+    <section id="destinos" class="fade-in">
         <h2>Explora el Eje Cafetero</h2>
     
         <div class="container">
@@ -2049,7 +2049,7 @@
     </div>
 
     <!-- Sección de Planificador de Viaje -->
-    <section id="planificador">
+    <section id="planificador" class="fade-in">
         <div class="container">
             <h2><i class="fas fa-drafting-compass"></i> Diseña tu Viaje a Medida</h2>
             <p class="text-center mb-4">Selecciona los componentes que deseas incluir en tu viaje. El costo se actualizará automáticamente.</p>
@@ -2091,44 +2091,79 @@
     </section>
 
     <!-- Sección de Blog y Experiencias -->
-    <section id="blog">
-        <h2>Blog & Experiencias de Viajeros</h2>
+    <section id="blog" class="fade-in">
+        <div class="container">
+            <h2>Blog & Experiencias de Viajeros</h2>
 
-        <div class="articulos">
-            <article class="articulo">
-                <h3>5 secretos para aprovechar al máximo el Parque del Café</h3>
-                <p>Descubre cómo disfrutar al máximo de todas las atracciones sin hacer largas filas...</p>
-                <button>Leer más</button>
-            </article>
+            <!-- Carrusel para Artículos del Blog -->
+            <div id="carouselBlog" class="carousel slide" data-ride="carousel" data-interval="7000"> <!-- data-ride y data-interval -->
+                <div class="carousel-inner">
+                    <!-- Artículo 1 -->
+                    <div class="carousel-item active">
+                        <div class="articulo-blog-card">
+                            <div class="articulo-contenido">
+                                <h3>5 secretos para aprovechar al máximo el Parque del Café</h3>
+                                <p>Descubre cómo disfrutar al máximo de todas las atracciones sin hacer largas filas y optimiza tu tiempo...</p>
+                                <a href="#" class="btn btn-secundario btn-sm">Leer más</a> <!-- Enlace en lugar de botón si va a otra página -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Artículo 2 -->
+                    <div class="carousel-item">
+                        <div class="articulo-blog-card">
+                            <div class="articulo-contenido">
+                                <h3>Cómo hacer una cata de café como un experto</h3>
+                                <p>Aprende los secretos de los catadores profesionales y distingue las notas, aromas y sabores de un buen café colombiano...</p>
+                                <a href="#" class="btn btn-secundario btn-sm">Leer más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Artículo 3 -->
+                    <div class="carousel-item">
+                        <div class="articulo-blog-card">
+                            <div class="articulo-contenido">
+                                <h3>Guía completa para visitar Ukumarí con niños</h3>
+                                <p>Todo lo que necesitas saber para disfrutar de una visita perfecta al bioparque con los más pequeñitos de la casa...</p>
+                                <a href="#" class="btn btn-secundario btn-sm">Leer más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <article class="articulo">
-                <h3>Cómo hacer una cata de café como un experto</h3>
-                <p>Aprende los secretos de los catadores profesionales y distingue las notas y sabores de un buen café...</p>
-                <button>Leer más</button>
-            </article>
+                <!-- Controles del Carrusel -->
+                <a class="carousel-control-prev blog-control" href="#carouselBlog" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next blog-control" href="#carouselBlog" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
 
-            <article class="articulo">
-                <h3>Guía completa para visitar Ukumarí con niños</h3>
-                <p>Todo lo que necesitas saber para disfrutar de una visita perfecta al bioparque con los más pequeñitos...</p>
-                <button>Leer más</button>
-            </article>
-        </div>
-
-        <div class="galeria">
-            <h3>Galería de Fotos y Videos</h3>
-            <div class="contenedor-galeria">
-                <!-- Aquí irán las imágenes de la galería -->
-                <img src="img/galeria1.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
-                <img src="img/galeria2.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
-                <img src="img/galeria3.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
-                <img src="img/galeria5.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
-                <img src="img/galeria6.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
+                <!-- Indicadores (Opcional) -->
+                <ol class="carousel-indicators blog-indicators">
+                    <li data-target="#carouselBlog" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselBlog" data-slide-to="1"></li>
+                    <li data-target="#carouselBlog" data-slide-to="2"></li>
+                </ol>
             </div>
-        </div>
+
+            <!-- Galería de Fotos (Se mantiene igual) -->
+            <div class="galeria mt-5"> <!-- Añadido margen superior -->
+                <h3>Galería de Fotos y Videos</h3>
+                <div class="contenedor-galeria">
+                    <img src="img/galeria1.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
+                    <img src="img/galeria2.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
+                    <img src="img/galeria3.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
+                    <img src="img/galeria5.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
+                    <img src="img/galeria6.jpg" alt="Experiencia en el Eje Cafetero" loading="lazy">
+                </div>
+            </div>
+        </div> <!-- Cierre del container -->
     </section>
 
     <!-- Sección de Opiniones y Reseñas -->
-    <section id="opiniones">
+    <section id="opiniones" class="fade-in">
         <h2>Opiniones y Reseñas</h2>
 
         <div class="testimonios">
@@ -2175,71 +2210,72 @@
                     <textarea id="comentario-opinion" rows="4"></textarea>
                 </div>
 
-                <button type="submit">Enviar opinión</button>
+                <button type="submit" class="btn btn-primario">Enviar opinión</button> <!-- Aplicar estilo -->
             </form>
         </div>
     </section>
 
     <!-- Sección de Contacto y Atención al Cliente -->
-    <section id="contacto">
+    <section id="contacto" class="fade-in">
         <h2>Contacto & Atención al Cliente</h2>
 
-        <div class="info-contacto">
-            <div class="direccion">
+        <!-- Información de Contacto Reorganizada -->
+        <div class="info-contacto-mejorada">
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt fa-2x"></i>
                 <h3>Dirección</h3>
-                <p>Pereira, Risaralda</p>
+                <p>Pereira, Risaralda, Colombia</p>
             </div>
-
-            <div class="whatsapp">
-                <h3>WhatsApp</h3>
-                <p>+57 310 694 7318</p>
-            </div>
-
-            <div class="email">
+            <div class="info-item">
+                <i class="fas fa-envelope fa-2x"></i>
                 <h3>Email</h3>
-                <p>magiacafetera17@gmail.com</p>
+                <p><a href="mailto:magiacafetera17@gmail.com">magiacafetera17@gmail.com</a></p>
             </div>
-
-            <div class="redes-sociales text-center">
-                <h3>Síguenos en redes sociales</h3>
+            <div class="info-item">
+                <i class="fab fa-whatsapp fa-2x"></i>
+                <h3>WhatsApp</h3>
+                <p><a href="https://wa.me/573106947318" target="_blank">+57 310 694 7318</a></p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-hashtag fa-2x"></i>
+                <h3>Redes Sociales</h3>
                 <div class="iconos-redes">
-                    <a href="https://instagram.com/magia_cafetera" target="_blank" class="btn-social"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="https://youtube.com/" target="_blank" class="btn-social"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://instagram.com/magia_cafetera" target="_blank" aria-label="Instagram" class="red-social"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/" target="_blank" aria-label="YouTube" class="red-social"><i class="fab fa-youtube"></i></a>
+                    <!-- Añadir más si es necesario -->
                 </div>
             </div>
         </div>
 
-        <div class="formulario-contacto">
-            <h3>Envíanos un mensaje</h3>
-            <form>
-                <div class="campo">
-                    <label for="nombre-contacto">Nombre:</label>
-                    <input type="text" id="nombre-contacto" required>
+        <!-- Formulario de Contacto Mejorado -->
+        <div class="formulario-contacto-mejorado">
+            <h3>¿Tienes preguntas? Envíanos un mensaje</h3>
+            <form id="form-contacto">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nombre-contacto">Nombre:</label>
+                        <input type="text" id="nombre-contacto" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email-contacto">Email:</label>
+                        <input type="email" id="email-contacto" class="form-control" required>
+                    </div>
                 </div>
-
-                <div class="campo">
-                    <label for="email-contacto">Email:</label>
-                    <input type="email" id="email-contacto" required>
-                </div>
-
-                <div class="campo">
+                <div class="form-group">
                     <label for="asunto">Asunto:</label>
-                    <input type="text" id="asunto" required>
+                    <input type="text" id="asunto" class="form-control" required>
                 </div>
-
-                <div class="campo">
+                <div class="form-group">
                     <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" rows="4" required></textarea>
+                    <textarea id="mensaje" rows="5" class="form-control" required></textarea>
                 </div>
-
-                <button type="submit">Enviar mensaje</button>
+                <button type="submit" class="btn btn-primario btn-lg btn-block">Enviar mensaje</button> <!-- Estilo aplicado y btn-lg/btn-block -->
             </form>
         </div>
-
     </section>
 
     <!-- Sección de Políticas y Términos -->
-    <section id="politicas">
+    <section id="politicas" class="fade-in">
         <h2>Políticas y Términos</h2>
 
         <div class="politica-container">
@@ -2308,6 +2344,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- jsPDF para generación de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <!-- Tu script personalizado -->
     <script src="script.js"></script>

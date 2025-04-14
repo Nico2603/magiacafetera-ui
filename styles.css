@@ -1646,60 +1646,79 @@ footer button {
     background-color: var(--color-light);
 }
 
-.articulos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+/* Estilos para el carrusel del blog */
+#carouselBlog .carousel-item {
+    padding: 0 15%; /* Espacio a los lados para centrar la tarjeta */
+    min-height: 250px; /* Altura mínima para evitar colapso */
+    display: flex; /* Para centrar contenido si es necesario */
+    align-items: center;
+    justify-content: center;
 }
 
-.articulo {
+.articulo-blog-card {
     background-color: var(--color-white);
     border-radius: var(--radius);
-    overflow: hidden;
     box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
+    padding: 2rem; /* Padding interno */
+    margin: 1rem 0; /* Margen vertical */
+    text-align: center; /* Centrar texto */
+    width: 100%; /* Ocupar el espacio disponible dentro del padding del item */
+    border-left: 5px solid var(--color-accent);
 }
 
-.articulo:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.articulo h3 {
-    font-size: 1.3rem;
+.articulo-contenido h3 {
+    font-size: 1.4rem;
     color: var(--color-primary);
     margin-bottom: 0.8rem;
 }
 
-.articulo p {
-    font-size: 0.95rem;
+.articulo-contenido p {
+    font-size: 1rem;
     color: var(--color-text-light);
-    flex-grow: 1; /* Empuja el botón hacia abajo */
     margin-bottom: 1.5rem;
 }
 
-.articulo button {
-    margin-top: auto; /* Asegura que el botón esté al final */
-    background-color: transparent;
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+.articulo-contenido .btn {
+    /* Estilos heredados de .btn y .btn-secundario */
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
     padding: 0.6rem 1.2rem;
-    align-self: flex-start; /* Alinea el botón a la izquierda */
-    border-radius: var(--radius);
-    transition: var(--transition);
-    font-weight: 600;
-    cursor: pointer;
 }
 
-.articulo button:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+/* Estilos para los controles del carrusel del blog */
+.blog-control .carousel-control-prev-icon,
+.blog-control .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    border-radius: 50%;
+    padding: 15px; /* Más padding para hacerlos más grandes */
+    background-size: 60%, 60%; /* Icono más pequeño dentro */
 }
 
+/* Posicionar controles más adentro */
+#carouselBlog .carousel-control-prev {
+    left: 10%;
+}
+#carouselBlog .carousel-control-next {
+    right: 10%;
+}
+
+/* Indicadores del blog */
+.blog-indicators {
+    bottom: -10px; /* Posición debajo del carrusel */
+}
+
+.blog-indicators li {
+    background-color: var(--color-secondary); /* Color indicador */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.blog-indicators .active {
+    background-color: var(--color-primary); /* Color indicador activo */
+}
+
+/* Galería se mantiene igual */
 .galeria {
     margin-top: 3rem;
     text-align: center;
@@ -1832,114 +1851,142 @@ footer button {
     background-color: var(--color-white);
 }
 
-.info-contacto {
+/* Estilo para la información de contacto mejorada (Grid) */
+.info-contacto-mejorada {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adaptable */
+    gap: 2rem; /* Espacio entre ítems */
     margin-bottom: 3rem;
     text-align: center;
 }
 
-.info-contacto > div { /* Estilo para cada caja de info */
+.info-item {
     background-color: var(--color-light);
-    padding: 1.5rem;
+    padding: 2rem 1.5rem; /* Más padding vertical */
     border-radius: var(--radius);
     box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-top: 4px solid var(--color-primary); /* Borde superior destacado */
 }
 
-.info-contacto h3 {
+.info-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.info-item i.fas, /* Iconos FontAwesome sólidos */
+.info-item i.fab { /* Iconos FontAwesome de marcas */
     color: var(--color-primary);
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem; /* Espacio debajo del ícono */
+    /* fa-2x ya define el tamaño, no se necesita font-size aquí */
 }
 
-.info-contacto p {
+.info-item h3 {
+    color: var(--color-dark); /* Título más oscuro */
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.info-item p {
     color: var(--color-text-light);
     font-size: 1rem;
     margin-bottom: 0;
 }
 
-.info-contacto i { /* Íconos en info-contacto */
-    color: var(--color-accent);
-    margin-right: 0.5rem;
+.info-item a {
+    color: var(--color-primary); /* Enlaces en color primario */
+    text-decoration: underline; /* Subrayado sutil */
 }
 
-.iconos-redes {
+.info-item a:hover {
+    color: var(--color-accent);
+}
+
+.info-item .iconos-redes {
     margin-top: 1rem;
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
 
-.btn-social {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    padding: 0.6rem 1rem;
-    border-radius: var(--radius);
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+.info-item .iconos-redes .red-social {
+    color: var(--color-primary);
+    font-size: 1.5rem; /* Tamaño de iconos redes sociales */
     transition: var(--transition);
-    text-decoration: none; /* Asegurar que no haya subrayado */
 }
 
-.btn-social:hover {
-    background-color: var(--color-secondary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.info-item .iconos-redes .red-social:hover {
+    color: var(--color-accent);
+    transform: scale(1.1);
 }
 
-.btn-social i {
-    font-size: 1.1rem;
-    color: var(--color-white); /* Asegura que el ícono sea blanco */
-    margin: 0; /* Quitar margen si lo tiene por defecto */
-}
-
-.formulario-contacto {
+/* Estilo para el formulario de contacto mejorado */
+.formulario-contacto-mejorado {
     background-color: var(--color-light);
-    padding: 2.5rem;
+    padding: 2.5rem 3rem; /* Más padding horizontal */
     border-radius: var(--radius);
     max-width: 800px;
     margin: 0 auto;
     box-shadow: var(--shadow);
+    border-left: 5px solid var(--color-primary);
 }
 
-.formulario-contacto h3 {
+.formulario-contacto-mejorado h3 {
     text-align: center;
     color: var(--color-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem; /* Más espacio debajo del título */
+    font-size: 1.6rem;
 }
 
-.formulario-contacto .campo {
-    margin-bottom: 1rem;
+/* Usar clases de Bootstrap form-group para margen */
+.formulario-contacto-mejorado .form-group {
+    margin-bottom: 1.5rem; /* Espacio entre campos */
 }
 
-.formulario-contacto label {
+.formulario-contacto-mejorado label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--color-secondary);
+    color: var(--color-dark);
+    font-size: 0.95rem;
 }
 
-.formulario-contacto input[type="text"],
-.formulario-contacto input[type="email"],
-.formulario-contacto textarea {
+/* Estilos para inputs (heredados de bootstrap form-control, pero podemos ajustar) */
+.formulario-contacto-mejorado .form-control {
     background-color: var(--color-white);
-    border: 1px solid #ccc;
+    border: 1px solid #ced4da;
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
 }
 
-.formulario-contacto textarea {
+.formulario-contacto-mejorado .form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(93, 64, 55, 0.25); /* Sombra de foco Bootstrap adaptada */
+}
+
+.formulario-contacto-mejorado textarea.form-control {
     resize: vertical;
-    min-height: 100px; /* Altura mínima */
+    min-height: 120px;
 }
 
-.formulario-contacto button[type="submit"] {
-    display: block;
-    width: 100%;
-    margin-top: 1.5rem;
-    /* Hereda estilos de .btn-primario */
+/* Estilo para el botón de envío (ya tiene clases btn btn-primario) */
+.formulario-contacto-mejorado button[type="submit"] {
+    /* btn-lg y btn-block aplicados en HTML */
+    margin-top: 1rem; /* Espacio sobre el botón */
+    font-size: 1.1rem;
+    padding: 0.9rem 1.5rem;
 }
+
+/* Eliminar estilos anteriores si existen para #contacto */
+.info-contacto, .formulario-contacto { /* Clases antiguas */
+    /* Podrían eliminarse o dejarse vacías si no interfieren */
+}
+
+.info-contacto > div, .formulario-contacto .campo { /* Selectores antiguos */
+    /* Podrían eliminarse */
+}
+
 
 /* --- Estilos para la sección Políticas --- */
 #politicas {
@@ -2109,42 +2156,23 @@ footer h3 {
 
 /* Ajustes responsivos adicionales si son necesarios */
 @media (max-width: 768px) {
-    .lista-paquetes, .articulos, .testimonios, .info-contacto, .politica-container, .footer-contenido {
+    .lista-paquetes, .testimonios, .info-contacto-mejorada, .politica-container, .footer-contenido {
         grid-template-columns: 1fr; /* Una columna en móviles */
     }
-
-    .paquete button {
-        width: 100%; /* Botones ocupan todo el ancho */
-        margin: 0.5rem 0;
+    
+    /* ... (otros estilos responsivos existentes) ... */
+    
+    /* Ajustar padding del carrusel del blog en móvil */
+    #carouselBlog .carousel-item {
+        padding: 0 5%; 
     }
-
-    .comparador-precios {
-        overflow-x: auto; /* Permitir scroll horizontal en tabla */
+    
+    /* Ajustar controles del carrusel del blog en móvil */
+    #carouselBlog .carousel-control-prev {
+        left: -5%;
     }
-
-    .footer-contenido {
-        text-align: center;
-    }
-
-    .footer-contacto p {
-        justify-content: center;
-    }
-
-    .footer-redes {
-        justify-content: center;
-    }
-
-    .footer-newsletter form {
-        flex-direction: column; /* Apilar input y botón */
-        gap: 0.5rem;
-    }
-
-    .footer-newsletter input[type="email"] {
-        border-radius: var(--radius); /* Redondear todas las esquinas */
-    }
-
-    .footer-newsletter button {
-        border-radius: var(--radius); /* Redondear todas las esquinas */
+    #carouselBlog .carousel-control-next {
+        right: -5%;
     }
 }
 
@@ -2374,14 +2402,85 @@ footer h3 {
 
 #itinerario-flexible-container {
     background-color: var(--color-white);
-    padding: 1.5rem;
+    padding: 2rem; /* Más padding */
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    margin-top: 2rem;
+    margin-top: 2.5rem; /* Más margen superior */
+    border-left: 5px solid var(--color-primary);
 }
 
-#itinerario-flexible-container h3 {
+#itinerario-flexible-container > h3 { /* Título principal del contenedor */
     color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.resumen-itinerario-mejorado h5 {
+    color: var(--color-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.detalle-general-itinerario {
+    background-color: var(--color-light); /* Fondo claro */
+    border-radius: var(--radius);
+}
+
+.detalle-general-itinerario h5 {
+    margin-top: 0; /* Quitar margen superior al título dentro */
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+}
+
+.detalle-general-itinerario p {
+    margin-bottom: 0.5rem; /* Menos margen entre párrafos */
+    font-size: 1rem;
+}
+
+.detalle-general-itinerario p strong i {
+    color: var(--color-secondary); /* Color para iconos */
+    min-width: 20px; /* Ancho mínimo para alinear iconos */
+    display: inline-block; /* Para aplicar ancho */
+}
+
+.categoria-itinerario.card {
+    border: 1px solid #eee; /* Borde sutil */
+}
+
+.categoria-itinerario .card-header {
+    background-color: var(--color-light); /* Fondo claro para cabecera */
+    font-weight: 600;
+    color: var(--color-dark);
+    font-size: 1.1rem;
+}
+
+.categoria-itinerario .list-group-item {
+    padding: 0.8rem 1.25rem; /* Padding en items */
+    border-color: #eee; /* Borde sutil */
+    display: flex; /* Para alinear precio a la derecha */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.categoria-itinerario .nombre-componente {
+    font-weight: 500;
+}
+
+.categoria-itinerario .precio-componente {
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap; /* Evitar que el precio se rompa */
+    margin-left: 1rem; /* Espacio entre nombre y precio */
+}
+
+.costo-total-itinerario {
+    border-top: 2px solid var(--color-accent); /* Línea divisoria */
+}
+
+.costo-total-itinerario p {
+    margin-bottom: 0;
 }
 
 /* Ajustes responsivos para el nuevo planificador */
@@ -2408,4 +2507,16 @@ footer h3 {
 #contacto .container,
 #politicas .container {
     max-width: 900px; /* Match .pasos-planificador width */
+}
+
+/* --- Animaciones --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
