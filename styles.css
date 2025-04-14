@@ -1454,6 +1454,12 @@ nav ul li a:hover {
   font-family: var(--font-headings);
 }
 
+/* Asegurar scroll en modales con mucho contenido */
+.modal-body {
+    max-height: calc(100vh - 210px); /* Altura máxima antes de necesitar scroll (ajustable) */
+    overflow-y: auto; /* Habilitar scroll vertical si el contenido excede max-height */
+}
+
 /* Footer font consistency */
 footer p,
 footer li,
@@ -2520,3 +2526,102 @@ footer h3 {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ---- Correcciones Adicionales para Modales ---- */
+
+/* Z-index estándar de Bootstrap (sin !important) */
+.modal-backdrop {
+    z-index: 1040;
+}
+
+.modal {
+    z-index: 1050;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Asegurar posicionamiento fijo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: 0;
+}
+
+/* Asegurar que el modal sea visible cuando tiene la clase .show */
+.modal.show {
+    display: block !important; /* Forzar display block cuando está activo */
+}
+
+/* Dejar que Bootstrap maneje el overflow del body */
+/* 
+body.modal-open {
+    overflow: hidden; 
+    padding-right: 0 !important; 
+}
+*/
+
+/* Asegurar que el contenido del modal sea visible y tenga layout correcto */
+.modal-dialog {
+    margin: 1.75rem auto; /* Margen estándar de Bootstrap */
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius); /* Usar nuestra variable de radio */
+    outline: 0;
+}
+
+/* ---- Correcciones Adicionales para Modales (Enfoque: Sin Backdrop) ---- */
+
+/* Ocultar completamente el fondo oscuro */
+.modal-backdrop {
+    display: none !important; 
+}
+
+.modal {
+    /* Mantener z-index alto para estar sobre otro contenido */
+    z-index: 1050;
+    /* Permitir scroll dentro del modal si es necesario */
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    /* Asegurar que esté posicionado */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: 0;
+    /* Permitir clics fuera del modal */
+    pointer-events: none; /* El modal en sí no captura clics */
+}
+
+/* El modal debe ser visible cuando se activa */
+.modal.show {
+    display: block !important;
+}
+
+/* El contenido del modal (dialogo) sí debe capturar clics */
+.modal-dialog {
+    pointer-events: auto; 
+    margin: 5vh auto; /* Margen superior/inferior y centrado horizontal */
+    position: relative; /* Para que el z-index del modal lo posicione */
+    max-width: 800px; /* Opcional: limitar ancho máximo */
+}
+
+/* Asegurar que el body NUNCA pierda el scroll */
+body.modal-open {
+    overflow: auto !important; /* Forzar scroll visible */
+    padding-right: 0 !important; /* Evitar desplazamiento */
+}
+
+/* Resto de estilos para .modal-content, .modal-header, .modal-body, .modal-footer se mantienen */
+/* ... */
+
+/* Footer font consistency */

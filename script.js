@@ -335,7 +335,7 @@ function generarItinerarioFlexible() {
         containerWrapper.style.display = 'block';
         return;
     }
-
+    
     // Agrupar componentes por categoría
     const planAgrupado = {};
     planActual.componentes.forEach(id => {
@@ -407,7 +407,7 @@ function simularPagoFlexible() {
                  <button onclick=\"procesarPagoFlexible('tarjeta')\" class=\"btn-opcion-pago btn btn-primary\"><i class=\"fas fa-credit-card\"></i> Tarjeta</button>
                  <button onclick=\"procesarPagoFlexible('transferencia')\" class=\"btn-opcion-pago btn btn-primary\"><i class=\"fas fa-university\"></i> Transferencia</button>
                  <button onclick=\"procesarPagoFlexible('pse')\" class=\"btn-opcion-pago btn btn-primary\"><i class=\"fas fa-money-check\"></i> PSE</button>
-             </div>
+            </div>
             <div class=\"resumen-pago mt-3\">
                 <strong>Resumen:</strong>
                 <ul>${planActual.componentes.map(id => `<li><small>${encontrarComponente(id)?.nombre || '?'}</small></li>`).join('')}</ul>
@@ -417,12 +417,12 @@ function simularPagoFlexible() {
         </div>
     `;
     document.body.appendChild(modalPago);
-
+    
      // Añadir estilos si no existen (importante si se eliminó el CSS viejo)
      if (!document.getElementById('estilos-modal-pago')) {
-         const estiloModal = document.createElement('style');
+    const estiloModal = document.createElement('style');
          estiloModal.id = 'estilos-modal-pago';
-         estiloModal.textContent = `
+    estiloModal.textContent = `
             .modal-pago { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; }
             .modal-contenido { background-color: white; padding: 30px; border-radius: var(--radius); max-width: 500px; width: 90%; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
             .modal-contenido h3 { color: var(--color-primary); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--color-accent); }
@@ -469,7 +469,7 @@ function procesarPagoFlexible(metodo) {
     setTimeout(function() {
         const codigoReserva = `MCF-${Math.floor(Math.random() * 100000)}`;
         const componentesNombres = planActual.componentes.map(id => encontrarComponente(id)?.nombre || '?').join(', ') || 'Ninguno'; // Manejar caso vacío
-
+        
         modalContenido.innerHTML = `
             <h3>¡Pago Exitoso!</h3>
             <div class="confirmacion-pago"><i class="fas fa-check-circle"></i><p>Reserva confirmada</p></div>
@@ -479,7 +479,7 @@ function procesarPagoFlexible(metodo) {
                  ${planActual.fechaViaje ? `<p><strong>Fecha:</strong> ${new Date(planActual.fechaViaje).toLocaleDateString('es-ES')}</p>` : ''}
                  <p><strong>Monto:</strong> $${formatearPrecio(costoTotalActual)} COP | <strong>Método:</strong> ${obtenerTextoMetodoPago(metodo)}</p>
                  <p><strong>Código Reserva:</strong> <span class="codigo-reserva">${codigoReserva}</span></p>
-             </div>
+            </div>
             <p><small>Hemos enviado el resumen a tu correo electrónico (simulado).</small></p>
             <div class="acciones-confirmacion">
                 <button class="btn btn-sm btn-accion" onclick="descargarItinerario()"><i class="fas fa-download"></i> Descargar Resumen</button>
@@ -746,14 +746,14 @@ function filtrarDestinos() {
      const filterDuration = filterDurationEl ? filterDurationEl.value : '';
      const filterAccessibility = filterAccessibilityEl ? filterAccessibilityEl.checked : false;
 
-
+    
     const selectedActivities = [];
      // Asegurarse que el contenedor de filtros exista
      const sidebarFiltros = document.querySelector('.sidebar .filtros-destinos');
      if (sidebarFiltros) {
          sidebarFiltros.querySelectorAll('input[type=\"checkbox\"][id^=\"filter-activity-\"]:checked').forEach(checkbox => {
-             selectedActivities.push(checkbox.id.replace('filter-activity-', ''));
-         });
+        selectedActivities.push(checkbox.id.replace('filter-activity-', ''));
+    });
      }
 
 
