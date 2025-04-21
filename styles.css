@@ -2298,11 +2298,13 @@ footer h3 {
     flex: 2; /* Menos espacio para el resumen */
     background-color: var(--color-light);
     padding: 1.5rem;
+    padding-bottom: 2.5rem; /* Más espacio en la parte inferior */
     border-radius: var(--radius);
     border-left: 4px solid var(--color-primary);
     position: sticky; /* Para que se quede fijo al hacer scroll */
     top: 80px; /* Ajustar según altura del header */
     max-height: calc(100vh - 100px); /* Altura máxima */
+    overflow-y: auto; /* Permitir scroll interno si el contenido es muy alto */
 }
 
 .columna-componentes h4,
@@ -2398,22 +2400,30 @@ footer h3 {
 }
 
 .acciones-plan {
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
     display: flex;
-    flex-wrap: wrap; /* Para que los botones se ajusten */
-    gap: 0.5rem; /* Espacio entre botones */
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
 }
 
 .acciones-plan .btn {
-    flex-grow: 1; /* Permite que los botones crezcan */
+    flex-grow: 1;
+    min-width: 120px;
 }
 
 #itinerario-flexible-container {
     background-color: var(--color-white);
-    padding: 2rem; /* Más padding */
+    padding: 2rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    margin-top: 2.5rem; /* Más margen superior */
+    margin-top: 4rem;
+    position: relative;
+    z-index: 5;
     border-left: 5px solid var(--color-primary);
 }
 
@@ -2500,10 +2510,28 @@ footer h3 {
     .columna-plan {
         position: static; /* Quitar sticky en móvil */
         max-height: none;
+        padding-bottom: 2rem;
     }
 
     .columna-componentes {
          max-height: none; /* Quitar altura máxima */
+    }
+    
+    .acciones-plan {
+        margin-top: 2rem;
+        margin-bottom: 3.5rem;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .acciones-plan .btn {
+        width: 100%;
+        padding: 0.75rem 1.25rem;
+    }
+    
+    #itinerario-flexible-container {
+        margin-top: 3.5rem;
     }
 }
 

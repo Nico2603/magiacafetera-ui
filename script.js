@@ -6,8 +6,7 @@ const componentesDisponibles = {
         { id: 'destino-pdc', nombre: 'Parque del Café', descripcion: 'Entrada general', precio: 86000, categoria: 'Destino' },
         { id: 'destino-panaca', nombre: 'PANACA', descripcion: 'Pasaporte Terra', precio: 110000, categoria: 'Destino' },
         { id: 'destino-ukumari', nombre: 'Bioparque Ukumarí', descripcion: 'Pasaporte Adulto', precio: 49000, categoria: 'Destino' },
-        { id: 'destino-consota', nombre: 'Parque Consotá', descripcion: 'Entrada Particular', precio: 36800, categoria: 'Destino' },
-        { id: 'destino-salento', nombre: 'Salento y Valle de Cocora', descripcion: 'Transporte y guía básico', precio: 75000, categoria: 'Destino' }
+        { id: 'destino-consota', nombre: 'Parque Consotá', descripcion: 'Entrada Particular', precio: 36800, categoria: 'Destino' }
     ],
     transporte: [
         { id: 'trans-compartido', nombre: 'Transporte Compartido', descripcion: 'Van o bus grupal (precio por día)', precio: 50000, categoria: 'Transporte' },
@@ -413,7 +412,7 @@ function simularPagoFlexible() {
                 <ul>${planActual.componentes.map(id => `<li><small>${encontrarComponente(id)?.nombre || '?'}</small></li>`).join('')}</ul>
                 <small>Viajeros: ${planActual.numeroViajeros} | Días: ${planActual.duracionDias} ${planActual.fechaViaje ? '| Fecha: ' + new Date(planActual.fechaViaje).toLocaleDateString('es-ES') : ''}</small>
             </div>
-            <button class=\"btn btn-secondary mt-3\" onclick=\"cerrarModalPago()\">Cancelar</button>
+            <button class=\"btn-cancelar mt-4\" onclick=\"cerrarModalPago()\">Cancelar</button>
         </div>
     `;
     document.body.appendChild(modalPago);
@@ -424,11 +423,60 @@ function simularPagoFlexible() {
          estiloModal.id = 'estilos-modal-pago';
     estiloModal.textContent = `
             .modal-pago { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; }
-            .modal-contenido { background-color: white; padding: 30px; border-radius: var(--radius); max-width: 500px; width: 90%; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
-            .modal-contenido h3 { color: var(--color-primary); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--color-accent); }
-            .opciones-pago { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-            .btn-opcion-pago { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-basis: 100px; } /* Ajustar base */
-            .btn-opcion-pago i { font-size: 1.5rem; margin-bottom: 5px; }
+            .modal-contenido { 
+                background-color: white; 
+                padding: 35px; 
+                border-radius: var(--radius); 
+                max-width: 550px; 
+                width: 92%; 
+                text-align: center; 
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            }
+            .modal-contenido h3 { 
+                color: var(--color-primary); 
+                margin-bottom: 20px; 
+                padding-bottom: 12px; 
+                border-bottom: 2px solid var(--color-accent);
+                font-size: 1.6rem;
+            }
+            .opciones-pago { display: flex; justify-content: center; gap: 15px; margin: 25px 0; flex-wrap: wrap; }
+            .btn-opcion-pago { 
+                display: flex; 
+                flex-direction: column; 
+                align-items: center; 
+                justify-content: center;
+                gap: 10px; 
+                flex: 1; 
+                min-width: 120px; 
+                min-height: 100px;
+                padding: 15px 10px;
+                font-size: 1.1rem;
+                font-weight: 500;
+                border-radius: 8px;
+                transition: all 0.2s ease;
+            }
+            .btn-opcion-pago:hover { 
+                transform: translateY(-3px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+            .btn-opcion-pago i { font-size: 2rem; margin-bottom: 8px; }
+            .btn-cancelar {
+                padding: 12px 25px;
+                background-color: #6c757d;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 1.1rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                min-width: 160px;
+            }
+            .btn-cancelar:hover {
+                background-color: #5a6268;
+                transform: translateY(-2px);
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            }
             .resumen-pago { background-color: #f9f9f9; padding: 10px; border-radius: var(--radius); text-align: left; font-size: 0.9rem; border-left: 3px solid var(--color-primary); }
             .resumen-pago ul { padding-left: 15px; margin-bottom: 5px; }
             .loader { border: 5px solid #f3f3f3; border-top: 5px solid var(--color-primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1.5s linear infinite; margin: 20px auto; }
