@@ -212,7 +212,7 @@ function renderizarPlanSeleccionado() {
                  itemLi.className = 'd-flex justify-content-between align-items-center componente-seleccionado-item';
                  itemLi.innerHTML = `
                      <small>${comp.nombre} ($${formatearPrecio(comp.precio)})</small>
-                     <button class=\"btn-quitar btn btn-sm btn-outline-danger border-0\" data-id=\"${comp.id}\" title=\"Quitar\">&times;</button>
+                     <button class="btn-quitar btn btn-sm btn-outline-danger border-0" data-id="${comp.id}" title="Quitar">&times;</button>
                  `;
                  listaUl.appendChild(itemLi);
              });
@@ -221,11 +221,12 @@ function renderizarPlanSeleccionado() {
          }
 
 
-        // Añadir listeners a los botones \"Quitar\"
+        // Añadir listeners a los botones "Quitar"
         listaContainer.querySelectorAll('.btn-quitar').forEach(button => {
             button.addEventListener('click', () => {
                 quitarComponenteDelPlan(button.dataset.id);
-                 renderizarComponentesDisponibles(); // Actualizar botones de añadir/quitar
+                renderizarComponentesDisponibles(); // Actualizar botones de añadir/quitar
+                renderizarPlanSeleccionado(); // <<-- AÑADIR ESTA LÍNEA para actualizar la lista visual
             });
         });
     }
