@@ -819,7 +819,15 @@ function filtrarDestinos() {
 
         let mostrar = true;
 
-        if (filterType && tipo !== filterType) mostrar = false;
+        if (filterType) {
+            if (filterType === 'recreativo') {
+              // al escoger “Recreativo” mostramos también Parque del Café
+              const titulo = destino.querySelector('h3')?.textContent;
+              mostrar = (tipo === 'recreativo' || titulo === 'Parque del Café');
+            } else {
+              if (tipo !== filterType) mostrar = false;
+            }
+          }
         if (filterLocation && !ubicacion.includes(filterLocation)) mostrar = false;
         if (filterPrice && precio !== filterPrice) mostrar = false;
         if (filterDuration && duracion !== filterDuration) mostrar = false;
