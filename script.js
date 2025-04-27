@@ -293,7 +293,7 @@ function calcularCostoTotalFlexible() {
      // Asegurarse de que la duración sea al menos 1
      const duracionEfectiva = Math.max(1, planActual.duracionDias);
      // Para hospedaje, el costo es por noche, así que restamos 1 día si la duración es > 0
-     const nochesHospedaje = Math.max(0, duracionEfectiva - 1);
+     const nochesHospedaje = duracionEfectiva;
 
      let costoTotalHospedaje = 0;
      let costoTotalOtrosPorDia = 0;
